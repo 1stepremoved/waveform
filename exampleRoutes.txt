@@ -1,0 +1,71 @@
+Frontend Routes
+/sign_in
+/logout
+/stream
+/upload
+/settings
+/likes
+/user/:id
+/user/:id/tracks
+/user/:id/playlists
+/user/:id/reposts
+/track/:id
+/playlist/:id
+/
+/search?q=good%20music
+/search/tracks?q=good%20music
+/search/users?q=good%20music
+/search/playlists?q=good%20music
+
+Backend Routes
+users
+GET /api/users - returns users based on params passed in
+POST /api/users - signs up a user
+GET /api/users/:id - returns a user
+PATCH /api/users/:id - edits user information
+DELETE /api/users/:id - removes user account
+
+tracks
+GET /api/tracks	- returns tracks based on params passed in
+POST /api/track - uploads a song
+GET /api/track/:id - returns a track
+PATCH /api/track/:id - edits track information
+DELETE /api/track/:id - removes track
+
+playlists
+GET /api/playlist - returns playlists based on params passed in
+POST /api/playlist - registers a new playlist
+GET /api/playlist/:id - returns a playlist
+PATCH /api/playlist/:id - edits track information
+DELETE /api/playlist/:id - removes playlist 
+
+reposts 
+GET /api/users/:user_id/repost/ - returns the reposts of a particular user
+
+likes
+POST /api/tracks/:id/likes - likes a track
+DELETE /api/tracks/:id/likes - unlikes a track
+POST /api/playlist/:id/likes - likes a playlist
+DELETE /api/playlist/:id/likes - unlikes a playlist
+
+Follows
+POST /api/user/:id/follow - follows a user
+DELETE /api/user/:id/follow - unfollows a user
+
+As Found On Soundcloud
+
+Frontend Routes
+/sign_in
+/logout
+/stream  - - - - - - - - - — - - - - - - homepage, with tracks from followed artists
+/upload  - - - - - - - - - — - - - - - - form for uploading tracks
+/likes   - - - - - - - - - — - - - - - - list of liked tracks 
+/reposts - - - - - - - - - — - - - - - - displays reposts for the current_user
+/user/:id/tracks - - - - - — - - - - - - default user page displaying all tracks
+/user/:user_id/tracks/:track_id  - - - - display page for a track
+/user/:id/playlists  - - - — - - - - - - displays playlists of the currently viewed user
+/user/:user_id/playlists/:playlist_id  - displays a playlist of the currently viewed user
+/search?q=good%20music - - — - - - - - - search query for all types
+/search/tracks?q=good%20music  - - - - - search query for only tracks
+/search/users?q=good%20music - - - - - - search query for only users
+/search/playlists?q=good%20music       - search query for only playlists

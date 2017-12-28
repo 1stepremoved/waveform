@@ -1,0 +1,106 @@
+{
+  entities: {
+    songs: {
+      200: {
+        songId: 200,
+        title: "Beauty in sound",
+        userId: 1,
+        description: "An exploration of SOUND",
+        commentIds: [203,199,50],
+        liked: false
+      },
+      201: {
+        songId: 201,
+        title: "Blastoff",
+        userId: 3,
+        description: "Pop/Punk expressionism",
+        liked: true
+      },
+      304: {
+        songId: 304,
+        title: "Hit the Paneling",
+        userId: 2,
+        description: "Metallica office karaoke",
+        liked: true
+      },
+    }
+    comments: {
+      203: {
+        commentId: 203,
+        userId: 1,
+        songId: 404,
+        body: "Tge gretest",
+        postDate: Thu Dec 21 2017 13:41:23 GMT-0500 (EST),
+        trackTime: 200043
+      },
+      199: {
+        commentId: 199,
+        userId: 2,
+        songId: 404,
+        body: "too slow",
+        postDate: Thu Dec 21 2017 8:23:17 GMT-0500 (EST),
+        trackTime: 1532
+      },
+      50: {
+        commentId: 50,
+        userId: 3,
+        songId: 404,
+        body: "I couldn't hear anything",
+        postDate: Fri Mar 2016 20:01:02 GMT-0500 (EST),
+        trackTime: 180489
+      },
+    },
+    replies: {
+      1: {
+        replyId: 100,
+        commentId: 199,
+        userId: 1,
+        body: "you simply don't know what you are talking about",
+        postDate: Thu Dec 21 2017 14:01:57 GMT-0500 (EST)
+      }
+    },
+    users: {
+      1: {
+        id: 1,
+        username: "bnana",
+        img_url: "https://pbs.twimg.com/profile_images/3774080612/7d840b52d729e4621f958a0d1880fa02.jpeg"
+      },
+      2: {
+        id: 2,
+        username: "apill",
+        img_url: "https://pbs.twimg.com/profile_images/3026146368/768cb5d51f7759e5439ed9a858ce1ae4_400x400.jpeg"
+      },
+      3: {
+        id: 3,
+        username: "mayngo",
+        img_url: "http://phenomena.nationalgeographic.com/files/2014/01/Three-toed-sloth-660x364.jpg"
+      }
+    }
+  }
+  playlist: {
+    songIds: [200, 201, 304],
+    currentSong: 0,
+    audioData: BeautyInSound.mp4,
+    order: [1, 2, 0],
+    shuffle: true,
+    looping: false,
+    volume: 100
+  }
+  ui: {
+    loading: false,
+    paused: true
+  },
+  errors: {
+    login: ["Username or password is incorrect"],
+    uploadForm: ["File size is too big"],
+  },
+  session: {
+    id: 1,
+    username: "bnana",
+    img_url: "https://pbs.twimg.com/profile_images/3774080612/7d840b52d729e4621f958a0d1880fa02.jpeg",
+    followIds: [3, 10, 88],
+    playlistIds: [10,26],
+    repostIds: [10],
+    recentlyPlayedIds: []
+  }
+}
