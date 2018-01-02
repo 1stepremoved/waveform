@@ -1,11 +1,8 @@
 import {combineReducers} from 'redux';
+import sessionReducer from './session_reducer';
+import errorsReducer from './errors_reducer';
 
-
-const rootReducer = (state, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-
-export default rootReducer;
+export default combineReducers({
+  session: sessionReducer,
+  errors: errorsReducer
+});
