@@ -1,7 +1,11 @@
 import React from 'react';
+import MainNav from './main_nav';
 
 const App = () => (
-  <h1>Hello World</h1>
+  <main>
+    <MainNav></MainNav>
+    Hello World
+  </main>
 );
 
 export default App;
