@@ -10,7 +10,7 @@
   <% if logged_in? %>
     <%= current_user.username %>
   <% end %>
-  <body>
+  <body id="body-html">
     <%= yield %>
   </body>
 </html>
