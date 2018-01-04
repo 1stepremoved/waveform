@@ -9,6 +9,9 @@ $font-size: 14px;
 
 .user-nav-username {
   color: white;
+  display:flex;
+  line-height: $font-size;
+  padding-top: $font-size;
 }
 
 .user-nav-menu {
