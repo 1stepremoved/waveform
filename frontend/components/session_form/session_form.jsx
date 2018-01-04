@@ -4,37 +4,37 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 class SessionForm extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {username: "", email: "", password: "", password2: ""};
+    this.state = {username: "", email: "", password: "", password2: "", page: 1};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.displayErrors = this.displayErrors.bind(this);
-    this.errorMessages = {username: ["Username can't be blank", "Username has already been taken"],
-                          email: ["Email can't be blank", "Email has already been taken"],
-                          password: ["Password is too short (minimum is 8 characters)","Incorrect username or password", "Passwords don't match"],
-                          password2: ["Passwords don't match"]};
+    this.errorMessages = {
+      username: ["Username can't be blank", "Username has already been taken"],
+      email: ["Email can't be blank", "Email has already been taken"],
+      password: ["Password is too short (minimum is 8 characters)","Incorrect username or password", "Passwords don't match"],
+      password2: ["Passwords don't match"]};
     this.errorClassName = this.errorClassName.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // Username can't be blank
-    // Incorrect username or password
-    // Email can't be blank
-    // Password is too short (minimum is 8 characters)
-    // Passwords don't match
-    // Username has already been taken
-    // Email has already been taken
-    // if (this.props.errors =)
-    // if (nextProps.loggedIn) {
-    //   this.props.history.push('/');
-    // }
+    this.firstPage = this.firstPage.bind(this);
+    this.revertPage = this.revertPage.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.page === 1) {
+      const errors = [];
+      if (this.state.username === "") {errors.push("Username can't be blank");}
+      if (this.state.email === "" && this.props.formType == "signup") {errors.push("Email can't be blank");}
+      if (errors.length === 0) {
+        this.props.clearErrors();
+        return this.setState({page: 2});
+      } else {
+        return this.props.addError(errors);
+      }
+    }
     if (this.props.formType === "signup") {
       if (this.state.password !== this.state.password2) {
-        return this.props.nonmatchingPasswords(["Passwords don't match"]);
+        return this.props.addError(["Passwords don't match"]);
       }
     }
     let user = {
@@ -87,18 +87,14 @@ class SessionForm extends React.Component{
     return (relevantErrors.length === 0) ? "session-form-input" : `session-form-input bad-input`;
   }
 
-  render () {
+  firstPage() {
     let submitText, usernameText, passwordText;
+    submitText = "Continue";
     if (this.props.formType === "login") {
-      submitText = "Sign In";
       usernameText = "Enter your username or email address";
-      passwordText = "Enter your password";
     } else {
-      submitText = "Create Account";
       usernameText = "Choose a username";
-      passwordText = "Choose a password";
     }
-
     return (
       <main className="session-form-screen" onClick={this.closeForm}>
         <form key={1} onSubmit={this.handleSubmit} className="session-form" >
@@ -110,7 +106,7 @@ class SessionForm extends React.Component{
               {this.displayErrors(this.errorMessages.username)}
             </label>
 
-            { this.props.formType ==="signup"
+            { this.props.formType === "signup"
               ?
               <label className="session-form-input-box">
                 <input type="text" placeholder="Enter your email address"
@@ -119,6 +115,44 @@ class SessionForm extends React.Component{
                 {this.displayErrors(this.errorMessages.email)}
               </label>
               :
+              null
+            }
+            <input type="submit" value={submitText}></input>
+          </div>
+        </form>
+      </main>
+    );
+  }
+
+  revertPage() {
+    this.setState({page: 1});
+  }
+
+  secondPage() {
+    let submitText, usernameText, passwordText;
+    submitText = "Continue";
+    if (this.props.formType === "login") {
+      passwordText = "Enter your password";
+    } else {
+      passwordText = "Choose a password";
+    }
+    return (
+      <main className="session-form-screen" onClick={this.closeForm}>
+        <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+          <div className="session-form-inputs-container">
+
+            <label className="session-form-input-box">
+              <a onClick={this.revertPage} className="false-username">{`◀ ${this.state.username}`}</a>
+              {this.displayErrors(this.errorMessages.username)}
+            </label>
+
+            { this.props.formType === "signup" ?
+
+              <label className="session-form-input-box">
+                <a onClick={this.revertPage} className="false-email">{`◀ ${this.state.email}`}</a>
+                {this.displayErrors(this.errorMessages.email)}
+              </label>
+               :
               null
             }
 
@@ -140,13 +174,27 @@ class SessionForm extends React.Component{
               :
               null
             }
-
             <input type="submit" value={submitText}></input>
-
-        </div>
-        </form>
-
+            </div>
+          </form>
       </main>
+    );
+  }
+
+  render () {
+    let submitText, usernameText, passwordText;
+    if (this.props.formType === "login") {
+      submitText = "Sign In";
+      usernameText = "Enter your username or email address";
+      passwordText = "Enter your password";
+    } else {
+      submitText = "Create Account";
+      usernameText = "Choose a username";
+      passwordText = "Choose a password";
+    }
+
+    return (
+      this.state.page === 1 ? this.firstPage() : this.secondPage()
     );
   }
 }
