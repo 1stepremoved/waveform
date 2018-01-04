@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     submitAction: (user) => dispatch(submitAction(user)),
     nonmatchingPasswords: (errorMessage) => dispatch(receiveSessionErrors(errorMessage)),
+    clearErrors: () => dispatch(receiveSessionErrors([])),
     formType
   };
 };

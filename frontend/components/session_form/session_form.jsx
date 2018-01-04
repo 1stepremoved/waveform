@@ -9,10 +9,11 @@ class SessionForm extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.displayErrors = this.displayErrors.bind(this);
-    this.errorMessages = {username: ["Username can't be blank", "Username has already been taken","Incorrect username or password"],
+    this.errorMessages = {username: ["Username can't be blank", "Username has already been taken"],
                           email: ["Email can't be blank", "Email has already been taken"],
                           password: ["Password is too short (minimum is 8 characters)","Incorrect username or password", "Passwords don't match"],
                           password2: ["Passwords don't match"]};
+    this.errorClassName = this.errorClassName.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +57,7 @@ class SessionForm extends React.Component{
   closeForm(e) {
     if (e.target.className === "session-form-screen") {
       this.props.history.push("/");
+      this.props.clearErrors();
     }
   }
 
@@ -78,6 +80,13 @@ class SessionForm extends React.Component{
     );
   }
 
+  errorClassName(errorType) {
+    let relevantErrors = this.props.errors.filter(error => {
+      return this.errorMessages[errorType].includes(error);
+    });
+    return (relevantErrors.length === 0) ? "session-form-input" : `session-form-input bad-input`;
+  }
+
   render () {
     let submitText, usernameText, passwordText;
     if (this.props.formType === "login") {
@@ -92,50 +101,51 @@ class SessionForm extends React.Component{
 
     return (
       <main className="session-form-screen" onClick={this.closeForm}>
-        <ReactCSSTransitionGroup
-          transitionName="session-form-transform"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}>
-          {
-            <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+        <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+          <div className="session-form-inputs-container">
+            <label className="session-form-input-box">
+              <input type="text" placeholder={usernameText}
+                onChange={this.handleChange("username")} value={this.state.username}
+                className={this.errorClassName("username")}></input>
+              {this.displayErrors(this.errorMessages.username)}
+            </label>
+
+            { this.props.formType ==="signup"
+              ?
               <label className="session-form-input-box">
-                <input type="text" placeholder={usernameText}
-                  onChange={this.handleChange("username")} value={this.state.username}></input>
-                {this.displayErrors(this.errorMessages.username)}
+                <input type="text" placeholder="Enter your email address"
+                  onChange={this.handleChange("email")} value={this.state.email}
+                  className={this.errorClassName("email")}></input>
+                {this.displayErrors(this.errorMessages.email)}
               </label>
+              :
+              null
+            }
 
-              { this.props.formType ==="signup"
-                  ?
-                <label className="session-form-input-box">
-                  <input type="text" placeholder="Enter your email address"
-                    onChange={this.handleChange("email")} value={this.state.email}></input>
-                  {this.displayErrors(this.errorMessages.email)}
-                </label>
-                  :
-                null
-              }
+            <label className="session-form-input-box">
+              <input type="password" placeholder={passwordText}
+                onChange={this.handleChange("password")} value={this.state.password}
+                className={this.errorClassName("password")}></input>
+              {this.displayErrors(this.errorMessages.password)}
+            </label>
 
+            { this.props.formType === "signup"
+              ?
               <label className="session-form-input-box">
-                <input type="password" placeholder={passwordText}
-                  onChange={this.handleChange("password")} value={this.state.password}></input>
-                {this.displayErrors(this.errorMessages.password)}
+                <input type="password" placeholder="Retype your password"
+                  onChange={this.handleChange("password2")} value={this.state.password2}
+                  className={this.errorClassName("password2")}></input>
+                {this.displayErrors(this.errorMessages.password2)}
               </label>
+              :
+              null
+            }
 
-              { this.props.formType === "signup"
-                  ?
-                <label className="session-form-input-box">
-                  <input type="password" placeholder="Retype your password"
-                    onChange={this.handleChange("password2")} value={this.state.password2}></input>
-                  {this.displayErrors(this.errorMessages.password2)}
-                </label>
-                  :
-                null
-              }
+            <input type="submit" value={submitText}></input>
 
-              <input type="submit" value={submitText}></input>
-            </form>
-          }
-        </ReactCSSTransitionGroup>
+        </div>
+        </form>
+
       </main>
     );
   }

@@ -33,7 +33,7 @@ class GeneralNav extends React.Component {
     }
     return (
       <ul className="general-nav-menu">
-        <li onClick={() => this.props.logOut()}>Sign out</li>
+        <li className="general-nav-menu-item" onClick={() => this.props.logOut()}>Sign out</li>
       </ul>
     );
   }
