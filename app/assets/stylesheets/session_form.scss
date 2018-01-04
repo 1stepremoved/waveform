@@ -22,7 +22,7 @@
   }
 
   input[type="text"],  input[type="password"]{
-    padding: 5px;
+    padding: 5px 5px 0 5px;
     width: 97%;
     border-radius: 5px;
     font-size: 18px;
@@ -35,10 +35,20 @@
     font-size: 18px;
     color: white;
   }
+}
 
-  .session-errors {
-    color: red;
+.session-errors {
+  color: red;
+  list-style: none;
+  padding: 0;
+
+  .sesion-error {
+    padding-left: 5px;
+
   }
+}
+
+.session-form-input-box {
 }
 
 .session-form-transform-enter {

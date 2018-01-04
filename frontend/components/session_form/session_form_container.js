@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import SessionForm from './session_form';
-import {signUp, logIn} from '../../actions/session_actions';
+import {signUp, logIn, receiveSessionErrors} from '../../actions/session_actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const submitAction = (formType === "login") ? logIn : signUp;
   return {
     submitAction: (user) => dispatch(submitAction(user)),
+    nonmatchingPasswords: (errorMessage) => dispatch(receiveSessionErrors(errorMessage)),
     formType
   };
 };

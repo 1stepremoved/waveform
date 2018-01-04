@@ -29,4 +29,8 @@ $font-size: 14px;
   right: 0;
   text-decoration: none;
   color: #ccc;
+
+  &:hover {
+    color: white;
+  }
 }
