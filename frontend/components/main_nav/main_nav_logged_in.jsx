@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, NavLink, withRouter} from 'react-router-dom';
-import UserNavContainer from './user_nav_container'
+import UserNavContainer from './user_nav_container';
+import GeneralNavContainer from './general_nav_container';
 
  class MainNavLoggedIn extends React.Component{
    render() {
@@ -28,6 +29,9 @@ import UserNavContainer from './user_nav_container'
              </li>
              <li className="main-nav-right-link">
                <UserNavContainer />
+             </li>
+             <li className="main-nav-right-link">
+               <GeneralNavContainer />
              </li>
            </div>
 
