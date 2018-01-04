@@ -20,4 +20,41 @@
   label {
     padding: 10px 0;
   }
+
+  input[type="text"],  input[type="password"]{
+    padding: 5px;
+    width: 97%;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+
+  input[type="submit"] {
+    padding: 10px 0;
+    background-color: #2288ff;
+    border-radius: 5px;
+    font-size: 18px;
+    color: white;
+  }
+
+  .session-errors {
+    color: red;
+  }
+}
+
+.session-form-transform-enter {
+  transform: translateY(500%);
+}
+
+.session-form-transform-enter.session-form-transform-enter-active {
+  transform: translateY(0);
+  transition: transform 500ms;
+}
+
+.session-form-transform-leave {
+  transform: translateY(0);
+}
+
+.session-form-transform-leave.session-form-transform-leave-active {
+  transform: translateY(500%);
+  transition: transform 500ms;
 }

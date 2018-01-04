@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def self.find_by_creds(username,pw)
-    user = User.find_by(username: username)
+    user = User.find_by(username: username) || User.find_by(email: username)
     return user if user && user.is_password?(pw)
   end
 end

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class SessionForm extends React.Component{
   constructor(props) {
@@ -6,14 +7,20 @@ class SessionForm extends React.Component{
     this.state = {username: "", email: "", password: "", password2: ""};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.closeForm = this.closeForm.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.submitAction({
+    let user = {
       username: this.state.username,
       password: this.state.password
-    }).then(() => this.history.push("/stream"));
+    };
+    if (this.props.formType === "signup") {
+      user.email = this.state.email;
+    }
+    this.props.submitAction(user)
+      .then(() => this.history.push("/stream"));
   }
 
   handleChange(type) {
@@ -22,37 +29,72 @@ class SessionForm extends React.Component{
     };
   }
 
+  closeForm(e) {
+    if (e.target.className === "session-form-screen") {
+      this.props.history.push("/");
+    }
+  }
+
   render () {
-    const submitText = (this.props.formType === "login") ? "Sign In" : "Create Account";
+    let submitText, usernameText, passwordText;
+    if (this.props.formType === "login") {
+      submitText = "Sign In";
+      usernameText = "Enter your username or email address";
+      passwordText = "Enter your password";
+    } else {
+      submitText = "Create Account";
+      usernameText = "Choose a username";
+      passwordText = "Choose a password";
+    }
+
     return (
-      <main className="session-form-screen">
-        <form onSubmit={this.handleSubmit} className="session-form">
-          <label>
-            <input type="text" placeholder="Choose a username"
-              onChange={this.handleChange("username")} value={this.state.username}></input>
-          </label>
-          <label>
-            <input type="text" placeholder="Enter your email address"
-              onChange={this.handleChange("email")} value={this.state.email}></input>
-          </label>
-          <label>
-            <input type="password" placeholder="Choose a password"
-              onChange={this.handleChange("password")} value={this.state.password}></input>
-          </label>
+      <main className="session-form-screen" onClick={this.closeForm}>
+        <ReactCSSTransitionGroup
+          transitionName="session-form-transform"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}>
           {
-          this.props.formType === "signup" ?
-            <label>
-              <input type="password" placeholder="Retype your password"
-                onChange={this.handleChange("password2")} value={this.state.password2}></input>
-            </label> : null
+            <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+              <label>
+                <input type="text" placeholder={usernameText}
+                  onChange={this.handleChange("username")} value={this.state.username}></input>
+              </label>
+
+              { this.props.formType ==="signup"
+                  ?
+                <label>
+                  <input type="text" placeholder="Enter your email address"
+                    onChange={this.handleChange("email")} value={this.state.email}></input>
+                </label>
+                  :
+                null
+              }
+
+              <label>
+                <input type="password" placeholder={passwordText}
+                  onChange={this.handleChange("password")} value={this.state.password}></input>
+              </label>
+
+              { this.props.formType === "signup"
+                  ?
+                <label>
+                  <input type="password" placeholder="Retype your password"
+                    onChange={this.handleChange("password2")} value={this.state.password2}></input>
+                </label>
+                  :
+                null
+              }
+
+              <label className="session-errors">
+                  {this.props.errors.map((error) => {
+                    return error;
+                  })}
+              </label>
+
+              <input type="submit" value={submitText}></input>
+            </form>
           }
-          <label className="session-errors">
-            {this.props.errors.map((error) => {
-              error
-            })}
-          </label>
-          <input type="submit" value={submitText}></input>
-        </form>
+        </ReactCSSTransitionGroup>
       </main>
     );
   }

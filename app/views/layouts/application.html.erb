@@ -7,9 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-  <% if logged_in? %>
-    <%= current_user.username %>
-  <% end %>
   <body id="body-html">
     <%= yield %>
   </body>
