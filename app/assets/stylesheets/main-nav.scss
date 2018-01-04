@@ -10,6 +10,14 @@ $nav-height: 45px;
   font-size: 14px;
 }
 
+.main-nav-left {
+  display: flex;
+}
+
+.main-nav-right {
+  display: flex;
+}
+
 .main-nav-links {
   margin: auto;
   display: flex;
@@ -18,13 +26,16 @@ $nav-height: 45px;
   height: 100%;
 }
 
-.main-nav-link {
+.main-nav-left-link, .main-nav-right-link {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding: 0;
   height: 100%;
   list-style: none;
+}
+
+.main-nav-left-link {
   border-right: 1px solid black;
 
   &:first-of-type {
@@ -35,13 +46,27 @@ $nav-height: 45px;
   }
 }
 
+.main-nav-right-link {
+
+}
+
 .main-nav-logo-button {
+  display: flex;
+  line-height: $nav-height;
+  font-size: $nav-height - 15;
+  text-decoration: none;
+  box-sizing: border-box;
+  color: #aa2a48;
+  background: linear-gradient(to bottom, #3399ff 0%, #003399 100%);
+
+  div {
+    padding-right: 25px;
+  }
 }
 
 .main-logo {
-  height: $nav-height;
-  padding: 5px 20px;
-  box-sizing: border-box;
+  height: $nav-height - 10;
+  padding: 5px 15px;
   background: linear-gradient(to bottom, #3399ff 0%, #003399 100%);
 }
 
@@ -57,6 +82,7 @@ $nav-height: 45px;
   height: 100%;
   line-height: $nav-height;
   padding: 0 50px;
+  border-radius: 4px;
 
   &.active {
     background-color: black;
@@ -68,7 +94,7 @@ $nav-height: 45px;
   padding: 5px;
   margin: 0 50px;
   border: 1px solid #999;
-  border-radius: 3px;
+  border-radius: 4px;
   text-align: center;
   color: #ccc;
   width: 70px;

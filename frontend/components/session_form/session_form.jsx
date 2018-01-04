@@ -10,6 +10,12 @@ class SessionForm extends React.Component{
     this.closeForm = this.closeForm.bind(this);
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.loggedIn) {
+  //     this.props.history.push('/');
+  //   }
+  // }
+
   handleSubmit(e) {
     e.preventDefault();
     let user = {
@@ -20,7 +26,7 @@ class SessionForm extends React.Component{
       user.email = this.state.email;
     }
     this.props.submitAction(user)
-      .then(() => this.history.push("/stream"));
+      .then(() => this.props.history.push("/stream"));
   }
 
   handleChange(type) {
