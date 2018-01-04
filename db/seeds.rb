@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
+  User.destroy_all
   100.times do
     name = Faker::Name.name
     username = Faker::Internet.user_name(name)
