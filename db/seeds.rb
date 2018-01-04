@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+ActiveRecord::Base.transaction do
+  100.times do
+    name = Faker::Name.name
+    username = Faker::Internet.user_name(name)
+    email = Faker::Internet.email(name)
+    password = Faker::Internet.password(8,20)
+    User.create(username: username,
+                email: email,
+                password: password)
+  end
+end

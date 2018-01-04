@@ -8,7 +8,18 @@ class UserNav extends React.Component {
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentNav !== "userNav") {
+      this.setState({visible: false, color: "#333"});
+    }
+  }
+
   toggleVisibility(e) {
+    if (this.state.visible) {
+      this.props.changeNav("");
+    } else {
+      this.props.changeNav("userNav");
+    }
     this.setState({
       visible: !this.state.visible,
       color: (!this.state.visible ? "#000" : "#333")
@@ -22,21 +33,23 @@ class UserNav extends React.Component {
     return (
       <ul className="user-nav-menu">
         <Link to={`/users/${this.props.currentUser.id}`}
-          className="user-nav-menu-item">Profile</Link>
+          className="user-nav-menu-item"> <i className="fas fa-user"></i>Profile</Link>
         <Link to={`/users/${this.props.currentUser.id}/likes`}
-          className="user-nav-menu-item">Likes</Link>
+          className="user-nav-menu-item"> <i className="fas fa-heart"></i>Likes</Link>
         <Link to={`/users/${this.props.currentUser.id}/follows`}
-          className="user-nav-menu-item">Following</Link>
+          className="user-nav-menu-item"> <i className="fas fa-users"></i>Following</Link>
         <Link to={`/users/${this.props.currentUser.id}/tracks`}
-          className="user-nav-menu-item">Tracks</Link>
+          className="user-nav-menu-item"> <i className="fas fa-list-ul"></i>Tracks</Link>
       </ul>
     );
   }
 
   render() {
     return (
-      <div style={{backgroundColor: this.state.color}} onClick={this.toggleVisibility} className="main-nav-button user-nav-container">
+      <div style={{backgroundColor: this.state.color}} onClick={this.toggleVisibility}
+        className="main-nav-button" id="user-nav-container">
         <section className="user-nav-username">
+          <img src={this.props.currentUser.image_url} id="user-nav-profile-image"></img>
           {this.props.currentUser.username}
         </section>
         {this.userNav()}

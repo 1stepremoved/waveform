@@ -9,7 +9,18 @@ class GeneralNav extends React.Component {
     this.generalNav = this.generalNav.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentNav !== "generalNav") {
+      this.setState({visible: false, color: "#333"});
+    }
+  }
+
   toggleVisibility(e) {
+    if (this.state.visible) {
+      this.props.changeNav("");
+    } else {
+      this.props.changeNav("generalNav");
+    }
     this.setState({
       visible: !this.state.visible,
       color: (!this.state.visible ? "#000" : "#333")
@@ -22,7 +33,7 @@ class GeneralNav extends React.Component {
     }
     return (
       <ul className="general-nav-menu">
-        <li onClick={() => this.props.logOut()}>Log Out</li>
+        <li onClick={() => this.props.logOut()}>Sign out</li>
       </ul>
     );
   }
@@ -30,9 +41,9 @@ class GeneralNav extends React.Component {
   render() {
     return (
       <div style={{backgroundColor: this.state.color}} onClick={this.toggleVisibility}
-        className="main-nav-button general-nav-container">
+        className="main-nav-button" id="general-nav-container">
         <section className="general-nav-icon">
-          * * *
+          <i className="fas fa-ellipsis-h"></i>
         </section>
         {this.generalNav()}
       </div>

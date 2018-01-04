@@ -1,5 +1,10 @@
-.general-nav-container {
-  position: relative
+$font-size: 14px;
+
+#general-nav-container {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .general-nav-icon {
@@ -12,13 +17,16 @@
   display: flex;
   flex-direction: column;
   background-color: black;
-  width: 100%;
+  width: 130px;
   box-sizing: border-box;
   list-style: none;
+  padding: 10px 15px;
+  line-height: $font-size;
 }
 
 .general-nav-menu-item {
+  position: relative;
+  right: 0;
   text-decoration: none;
   color: #ccc;
-  padding-left: 0;
 }
