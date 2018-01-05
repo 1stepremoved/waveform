@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {Transition} from 'react-transition-group';
 
 class SessionForm extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {username: "", email: "", password: "", password2: "", page: 1};
+    this.state = {username: "", email: "", password: "", password2: "", page: 1, in: false};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.closeForm = this.closeForm.bind(this);
@@ -48,10 +48,16 @@ class SessionForm extends React.Component{
 
     if (this.props.formType === "signup") {
       this.props.signUp(user)
-        .then(() => this.props.history.push("/stream"));
+        .then(() => {
+          this.props.history.push("/stream");
+          this.props.changeForm(null);
+        });
     } else {
       this.props.logIn(user)
-        .then(() => this.props.history.push("/stream"));
+        .then(() => {
+          this.props.history.push("/stream");
+          this.props.changeForm(null);
+        });
     }
   }
 
@@ -64,6 +70,7 @@ class SessionForm extends React.Component{
   closeForm(e) {
     if (e.target.className === "session-form-screen") {
       this.props.changeForm(null);
+      this.setState({username: "", email: "", password: "", password2: "", page: 1, in: false});
       this.props.clearErrors();
     }
   }
@@ -103,8 +110,8 @@ class SessionForm extends React.Component{
       usernameText = "Choose a username";
     }
     return (
-      <main className="session-form-screen" onClick={this.closeForm}>
-        <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+      <main key='0'className="session-form-screen" onClick={this.closeForm}>
+        <form key={1} onSubmit={this.handleSubmit} className="session-form">
           <div className="session-form-inputs-container">
             <label className="session-form-input-box">
               <input type="text" placeholder={usernameText}
@@ -144,7 +151,7 @@ class SessionForm extends React.Component{
       passwordText = "Choose a password";
     }
     return (
-      <main className="session-form-screen" onClick={this.closeForm}>
+      <main key='0' className="session-form-screen" onClick={this.closeForm}>
         <form key={1} onSubmit={this.handleSubmit} className="session-form" >
           <div className="session-form-inputs-container">
 
@@ -190,12 +197,7 @@ class SessionForm extends React.Component{
 
   pages() {
     return (
-      <ReactCSSTransitionGroup
-              transitionName='session-form-car'
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}>
-              {this.state.page === 1 ? this.firstPage() : this.secondPage()}
-      </ReactCSSTransitionGroup>
+      this.state.page === 1 ? this.firstPage() : this.secondPage()
     );
   }
 

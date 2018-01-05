@@ -3,12 +3,15 @@ class User < ApplicationRecord
   validates :username, :email, :session_token, uniqueness: true
   validates :password, length: {minimum: 8, allow_nil: true}
 
-  after_initialize :ensure_session_token, :ensure_image_url
+  after_initialize :ensure_session_token #, :ensure_image_url
   attr_reader :password
 
-  def ensure_image_url
-    self.image_url = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-  end
+  has_attached_file :profile_image, default_url: "default_profile.png"
+  validates_attachment_content_type :profile_image, content_type: /\Aimage\/.*\Z/
+
+  # def ensure_image_url
+  #   self.image_url = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+  # end
 
   def ensure_session_token
     token = SecureRandom.urlsafe_base64
