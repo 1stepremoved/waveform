@@ -1,3 +1,7 @@
 a {
   cursor: pointer;
 }
+
+div, body, main, section, a {
+  font-family: 'Montserrat', sans-serif;
+}
