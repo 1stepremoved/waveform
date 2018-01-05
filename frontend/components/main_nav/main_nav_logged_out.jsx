@@ -2,6 +2,16 @@ import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 
  class MainNavLoggedOut extends React.Component{
+
+   constructor(props) {
+     super(props);
+     this.openForm = this.openForm.bind(this);
+   }
+
+   openForm(formName) {
+     this.props.changeForm(formName);
+   }
+
    render() {
      return (
        <section className="main-nav">
@@ -23,10 +33,10 @@ import {Link, NavLink} from 'react-router-dom';
 
            <div className="main-nav-right">
              <div className="main-nav-right-link">
-               <NavLink to="/login" className="main-nav-login-button">Sign In</NavLink>
+               <div onClick={() => this.openForm("login")} className="main-nav-login-button">Sign In</div>
              </div>
              <div className="main-nav-right-link">
-               <NavLink to="/signup" className="main-nav-signup-button">Create Account</NavLink>
+               <div onClick={() => this.openForm("signup")} className="main-nav-signup-button">Create Account</div>
              </div>
            </div>
 

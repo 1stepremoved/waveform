@@ -47,7 +47,9 @@ $nav-height: 45px;
 }
 
 .main-nav-right-link {
-
+  div {
+    cursor: pointer;
+  }
 }
 
 .main-nav-logo-button {

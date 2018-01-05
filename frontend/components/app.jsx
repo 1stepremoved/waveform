@@ -7,8 +7,8 @@ import SessionFormContainer from './session_form/session_form_container';
 const App = () => (
   <main>
     <MainNavContainer></MainNavContainer>
-    <AuthRoute path="/login" component={SessionFormContainer}></AuthRoute>
-    <AuthRoute path="/signup" component={SessionFormContainer}></AuthRoute>
+
+    <AuthRoute path="/" component={SessionFormContainer}></AuthRoute>
   </main>
 );
 

@@ -17,6 +17,7 @@ class SessionForm extends React.Component{
     this.errorClassName = this.errorClassName.bind(this);
     this.firstPage = this.firstPage.bind(this);
     this.revertPage = this.revertPage.bind(this);
+    this.pages = this.pages.bind(this);
   }
 
   handleSubmit(e) {
@@ -24,7 +25,7 @@ class SessionForm extends React.Component{
     if (this.state.page === 1) {
       const errors = [];
       if (this.state.username === "") {errors.push("Username can't be blank");}
-      if (this.state.email === "" && this.props.formType == "signup") {errors.push("Email can't be blank");}
+      if (this.state.email === "" && this.props.formType === "signup") {errors.push("Email can't be blank");}
       if (errors.length === 0) {
         this.props.clearErrors();
         return this.setState({page: 2});
@@ -44,8 +45,14 @@ class SessionForm extends React.Component{
     if (this.props.formType === "signup") {
       user.email = this.state.email;
     }
-    this.props.submitAction(user)
-      .then(() => this.props.history.push("/stream"));
+
+    if (this.props.formType === "signup") {
+      this.props.signUp(user)
+        .then(() => this.props.history.push("/stream"));
+    } else {
+      this.props.logIn(user)
+        .then(() => this.props.history.push("/stream"));
+    }
   }
 
   handleChange(type) {
@@ -56,7 +63,7 @@ class SessionForm extends React.Component{
 
   closeForm(e) {
     if (e.target.className === "session-form-screen") {
-      this.props.history.push("/");
+      this.props.changeForm(null);
       this.props.clearErrors();
     }
   }
@@ -181,20 +188,14 @@ class SessionForm extends React.Component{
     );
   }
 
+  pages() {
+    return this.state.page === 1 ? this.firstPage() : this.secondPage();
+  }
+
   render () {
-    let submitText, usernameText, passwordText;
-    if (this.props.formType === "login") {
-      submitText = "Sign In";
-      usernameText = "Enter your username or email address";
-      passwordText = "Enter your password";
-    } else {
-      submitText = "Create Account";
-      usernameText = "Choose a username";
-      passwordText = "Choose a password";
-    }
 
     return (
-      this.state.page === 1 ? this.firstPage() : this.secondPage()
+      this.props.formType ? this.pages() : null
     );
   }
 }
