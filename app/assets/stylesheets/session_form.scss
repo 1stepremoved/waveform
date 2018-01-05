@@ -92,20 +92,25 @@
   cursor: pointer;
 }
 
-// .session-form-transform-enter {
-//   transform: translateY(500%);
-// }
-//
-// .session-form-transform-enter.session-form-transform-enter-active {
-//   transform: translateY(0);
-//   transition: transform 500ms;
-// }
-//
-// .session-form-transform-leave {
-//   transform: translateY(0);
-// }
-//
-// .session-form-transform-leave.session-form-transform-leave-active {
-//   transform: translateY(500%);
-//   transition: transform 500ms;
-// }
+
+ .session-form-car-enter {
+   opacity: 0.01;
+   transform: translateY(500%);
+ }
+
+ .session-form-car-enter.session-form-car-enter-active {
+   opacity: 1;
+   transform: translateY(0);
+   transition: opacity 500ms, transform 500ms;
+ }
+
+ .session-form-car-leave {
+   opacity: 1;
+   transform: translateY(0);
+ }
+
+ .session-form-car-leave.session-form-car-leave-active {
+   opacity: 0.01;
+   transform: translateY(500%);
+   transition: opacity 500ms, transform 500ms;
+ }

@@ -191,7 +191,7 @@ class SessionForm extends React.Component{
   pages() {
     return (
       <ReactCSSTransitionGroup
-              transitionName='auto'
+              transitionName='session-form-car'
               transitionEnterTimeout={500}
               transitionLeaveTimeout={500}>
               {this.state.page === 1 ? this.firstPage() : this.secondPage()}
