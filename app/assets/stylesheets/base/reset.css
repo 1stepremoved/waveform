@@ -2,6 +2,7 @@ a {
   cursor: pointer;
 }
 
-div, body, main, section, a {
+div, body, main, section, a, li, ul, ol{
   font-family: 'Montserrat', sans-serif;
+  z-index: inherit;
 }

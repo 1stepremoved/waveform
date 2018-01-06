@@ -49,7 +49,7 @@ class UserNav extends React.Component {
       <div style={{backgroundColor: this.state.color}} onClick={this.toggleVisibility}
         className="main-nav-button" id="user-nav-container">
         <section className="user-nav-username">
-          <img src={this.props.currentUser.image_url} id="user-nav-profile-image"></img>
+          <img src={this.props.currentUser.profileImageUrl} id="user-nav-profile-image"></img>
           {this.props.currentUser.username}
         </section>
         {this.userNav()}

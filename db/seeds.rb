@@ -8,7 +8,7 @@
 
 ActiveRecord::Base.transaction do
   User.destroy_all
-  100.times do
+  50.times do
     name = Faker::Name.name
     username = Faker::Internet.user_name(name)
     email = Faker::Internet.email(name)

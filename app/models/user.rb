@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_attached_file :profile_image, default_url: "default_profile.png"
   validates_attachment_content_type :profile_image, content_type: /\Aimage\/.*\Z/
 
-  # def ensure_image_url
-  #   self.image_url = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-  # end
+  has_attached_file :background_image, default_url: "default_background_image.jpeg"
+  validates_attachment_content_type :background_image, content_type: /\Aimage\/.*\Z/
+
 
   def ensure_session_token
     token = SecureRandom.urlsafe_base64

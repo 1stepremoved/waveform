@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105221119) do
+ActiveRecord::Schema.define(version: 20180106201014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 20180105221119) do
     t.string "profile_image_content_type"
     t.integer "profile_image_file_size"
     t.datetime "profile_image_updated_at"
+    t.string "background_image_file_name"
+    t.string "background_image_content_type"
+    t.integer "background_image_file_size"
+    t.datetime "background_image_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
