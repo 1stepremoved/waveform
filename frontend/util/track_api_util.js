@@ -1,7 +1,7 @@
-export const requestTracks = (query = "") => {
+export const requestTracks = (query = "", offset= 0) => {
   return $.ajax({
     method: "get",
-    url: `api/tracks?query=${query}`
+    url: `api/tracks?query=${query}&&offset=${offset}`
   });
 };
 

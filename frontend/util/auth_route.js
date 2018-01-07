@@ -7,7 +7,7 @@ const Auth = ({ component: Component, path, loggedIn }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/" />
+      <Redirect to="/stream" />
     )
   )} />
 );
@@ -17,7 +17,27 @@ const Protected = ({ component: Component, path, loggedIn }) => (
      loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/login" />
+      <Redirect to="/" />
+    )
+  )} />
+);
+
+const AuthExact = ({ component: Component, path, loggedIn }) => (
+  <Route exact path={path} render={(props) => (
+    !loggedIn ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to="/stream" />
+    )
+  )} />
+);
+
+const ProtectedExact = ({ component: Component, path, loggedIn }) => (
+  <Route exact path={path} render={(props) => (
+     loggedIn ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to="/" />
     )
   )} />
 );
@@ -27,5 +47,6 @@ const mapStateToProps = state => (
 );
 
 export const AuthRoute = withRouter(connect(mapStateToProps, null)(Auth));
-
 export const ProtectedRoute = withRouter(connect(mapStateToProps, null)(Protected));
+export const AuthRouteExact = withRouter(connect(mapStateToProps, null)(AuthExact));
+export const ProtectedRouteExact = withRouter(connect(mapStateToProps, null)(ProtectedExact));

@@ -20,7 +20,6 @@ export const receiveTrack = track => {
 };
 
 export const removeTrack = track => {
-  debugger
   return {
     type: REMOVE_TRACK,
     trackId: track.id
