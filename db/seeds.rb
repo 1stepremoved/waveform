@@ -17,4 +17,17 @@ ActiveRecord::Base.transaction do
                 email: email,
                 password: password)
   end
+
+  User.create(username: "admin", email: "admin", password: "adminadmin")
+
+  tracks = Dir["/Users/c/desktop/waveform/app/assets/audio/Shilpa_Ray_-_Live_at_Monty_Hall_11102017/*"].map do |path|
+    path[/app.*/]
+  end
+
+  Track.destroy_all()
+  tracks.each do |track|
+    Track.create(title: track[/audio\/.*/][6..-1],
+                 user_id: User.find_by(username: "admin").id,
+                 audio: File.open(track) )
+  end
 end
