@@ -34,11 +34,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'faker'
 
-gem 'rails_12factor' 
+gem 'rails_12factor'
 
 gem 'aws-sdk', '< 3.0'
 gem "paperclip", '~> 5.0.0'
 gem 'figaro'
+
+gem 'paperclip-av-transcoder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
