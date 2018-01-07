@@ -1,11 +1,7 @@
 class Api::TracksController < ApplicationController
 
   def index
-    if params[:query]
-      @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").limit(10).offset(params[:offset])
-    else
-      @tracks = Track.all.limit(10).offset(params[:offset])
-    end
+    @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").limit(10).offset(params[:offset])
     render "api/tracks/index"
   end
 
@@ -25,17 +21,32 @@ class Api::TracksController < ApplicationController
 
   def update
     @track = Track.find(params[:id])
-    if @track.update(update_track_params)
-      render "api/tracks/show"
+    if @track.user_id == current_user.id
+      if @track.update(update_track_params)
+        render "api/tracks/show"
+      else
+        render json: @track.errors.full_messages, status: 422
+      end
     else
-      render json: @track.errors.full_messages, status: 422
+      render json: ["Users can only update their own tracks"], status: 401
     end
   end
 
   def destroy
-    @track = Track.find(params[:id])
-    @track.destroy
-    render "api/tracks/show"
+    @track = Track.find_by(id: params[:id])
+    if @track
+      if @track.user_id == current_user.id
+        if @track.destroy
+          render "api/tracks/show"
+        else
+          render json: ["There was a problem deleting your track"],status: 402
+        end
+      else
+        render json: ["Users can only delete their own tracks"],status: 401
+      end
+    else
+      render json: ["Could not find track"], status: 422
+    end
   end
 
   private

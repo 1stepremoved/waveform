@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
-import {signUp, logIn, logOut} from './actions/session_actions';
+import {requestTracks, requestTrack, deleteTrack} from './actions/track_actions';
 
 document.addEventListener("DOMContentLoaded", ()=> {
   const root = document.getElementById("root");
@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", ()=> {
   } else {
     store = configureStore();
   }
-  window.signUp = signUp;
-  window.logIn = logIn;
-  window.logOut = logOut;
+  window.requestTracks = requestTracks;
+  window.requestTrack = requestTrack;
+  window.deleteTrack = deleteTrack;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   ReactDOM.render(<Root store={store} />, root);
