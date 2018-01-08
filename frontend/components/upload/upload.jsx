@@ -62,7 +62,11 @@ class Upload extends React.Component {
         <section id="upload-page-2">
           <div id="upload-track-image"
               style={{backgroundImage: `url(${this.state.trackImageUrl})`}}>
-            <input onChange={this.updateFile("trackImage")} type="file"></input>
+            <label htmlFor="change-image-file" id="change-image-file-label">
+              <i className="fas fa-camera"></i> Update Image
+            </label>
+            <input onChange={this.updateFile("trackImage")} type="file"
+              id='change-image-file'></input>
           </div>
           <div id="upload-track-info">
             <label>Title<br></br>
@@ -71,8 +75,8 @@ class Upload extends React.Component {
                 onChange={this.update("title")}></input>
             </label>
             <label>Description<br></br>
-              <textarea placeholder="Description of your track"
-                value={this.state.description} rows="11"
+              <textarea placeholder="Describe your track"
+                value={this.state.description} rows="9"
                 onChange={this.update("description")}></textarea>
             </label>
           </div>
@@ -92,6 +96,9 @@ class Upload extends React.Component {
           <div id="upload-welcome">
             Upload to WaveForm
           </div>
+          <label htmlFor="track-upload-input" id="track-upload-input-label">
+            Choose a file to upload
+          </label>
           <input type="file" id="track-upload-input" type="file"
             onChange={this.updateFile("track")}></input>
           {this.state.page2 ? this.page2() : null}

@@ -13,6 +13,7 @@
   margin: auto;
   margin-top: 150px;
   margin-bottom: 150px;
+  padding-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,15 +24,26 @@
 
 #upload-welcome {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 24px;
 }
 
 #track-upload-input {
-  margin: auto;
+  visibility: hidden;
+  z-index: -1;
   font-size: 36px;
-  width: 90px;
-  padding: 0px 20px;
+  width: 0.1px;
+  height: 0.1px;
+}
+
+#track-upload-input-label {
+  display: block;
+  padding: 10px 20px;
+  margin: 25px auto;
+  background-color: #1177ff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #upload-page-2-form {
@@ -50,13 +62,36 @@
   width: 260px;
   background-size: cover;
   margin: 20px;
+  color: black;
+
+  #change-image-file-label {
+    position: absolute;
+    font-size: 12px;
+    bottom: 5px;
+    left: 50%;
+    width: 150px;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    margin: 10px auto;
+    background-color: #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #333;
+
+  }
 
   input {
     position: absolute;
     bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
+    visibility: hidden;
+    z-index: -1;
+    font-size: 36px;
+    width: 0.1px;
+    height:0.1px;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -64,9 +99,11 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 
   input, textarea {
     padding: 5px;
+    margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #999;
     font-size: 14px;
@@ -78,17 +115,22 @@
     outline: none;
   }
 
+  textarea{
+    resize: none;
+  }
 }
 
 #upload-submit-cancel {
   float: right;
-  margin-right: 15px;
+  margin-right: 20px; 
 
   #upload-cancel-button {
     float: right;
+    font-size: 16px;
     background-color: white;
     border: none;
     margin: 5px 5px;
+    padding: 5px 10px;
     cursor: pointer;
 
     &:focus {
@@ -98,6 +140,7 @@
 
   input[type="submit"] {
     float: right;
+    font-size: 16px;
     background-color: #1177ff;
     border: none;
     color: white;
