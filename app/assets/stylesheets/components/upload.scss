@@ -1,0 +1,112 @@
+#upload-page-container {
+  margin: auto;
+  display:flex;
+  flex-direction: column;
+  width: 1250px;
+  background-color: white;
+  padding-top: 45px;
+  justify-content: space-between;
+  min-height: 350px;
+}
+
+#upload-page1 {
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+  width: 800px;
+  border: 1px solid #ccc;
+}
+
+#upload-welcome {
+  margin: auto;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+#track-upload-input {
+  margin: auto;
+  font-size: 36px;
+  width: 90px;
+  padding: 0px 20px;
+}
+
+#upload-page-2-form {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+#upload-page-2{
+  display: flex;
+}
+
+#upload-track-image {
+  position: relative;
+  height: 260px;
+  width: 260px;
+  background-size: cover;
+  margin: 20px;
+
+  input {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+  }
+}
+
+#upload-track-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  input, textarea {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-size: 14px;
+    width: 95%;
+    box-sizing: border-box;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+  }
+
+}
+
+#upload-submit-cancel {
+  float: right;
+  margin-right: 15px;
+
+  #upload-cancel-button {
+    float: right;
+    background-color: white;
+    border: none;
+    margin: 5px 5px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type="submit"] {
+    float: right;
+    background-color: #1177ff;
+    border: none;
+    color: white;
+    margin: 5px 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

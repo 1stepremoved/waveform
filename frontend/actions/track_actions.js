@@ -1,6 +1,7 @@
 import * as TrackAPIUtil from '../util/track_api_util';
 
 export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
+export const RECEIVE_TRACKS_AND_RESET = "RECEIVE_TRACKS_AND_RESET";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
@@ -8,6 +9,13 @@ export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
 export const receiveTracks = tracks => {
   return {
     type: RECEIVE_TRACKS,
+    tracks
+  };
+};
+
+export const receiveTracksAndReset = tracks => {
+  return {
+    type: RECEIVE_TRACKS_AND_RESET,
     tracks
   };
 };
@@ -39,8 +47,26 @@ export const requestTracks = (query, offset) => dispatch => {
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };
 
+export const requestTracksAndReset = (query, offset) => dispatch => {
+  return TrackAPIUtil.requestTracks(query, offset)
+    .then((res) => dispatch(receiveTracksAndReset(res)),
+      (err) => dispatch(receiveTrackErrors(err.responseJSON)));
+};
+
 export const requestTrack = id => dispatch => {
   return TrackAPIUtil.requestTrack(id)
+    .then((res) => dispatch(receiveTrack(res)),
+      (err) => dispatch(receiveTrackErrors(err.responseJSON)));
+};
+
+export const createTrack = formData => dispatch => {
+  return TrackAPIUtil.createTrack(formData)
+    .then((res) => dispatch(receiveTrack(res)),
+      (err) => dispatch(receiveTrackErrors(err.responseJSON)));
+};
+
+export const updateTrack = (formData, id) => dispatch => {
+  return TrackAPIUtil.updateTrack(formData, id)
     .then((res) => dispatch(receiveTrack(res)),
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };

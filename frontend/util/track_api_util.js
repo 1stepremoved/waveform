@@ -12,6 +12,28 @@ export const requestTrack = (id) => {
   });
 };
 
+export const createTrack = (formData) => {
+  return $.ajax({
+    method: 'post',
+    url: `api/tracks`,
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData
+  });
+};
+
+export const updateTrack = (formData, id) => {
+  return $.ajax({
+    method: 'put',
+    url: `api/tracks/${id}`,
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData
+  });
+};
+
 export const deleteTrack = (id) => {
   return $.ajax({
     method: "delete",

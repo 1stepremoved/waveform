@@ -47,6 +47,8 @@
 
 #user-show-header-by-info {
   padding-left: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 #user-show-header-username {
