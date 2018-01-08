@@ -33,8 +33,8 @@ export const receiveTrackErrors = (trackErrors) => {
   };
 };
 
-export const requestTracks = query => dispatch => {
-  return TrackAPIUtil.requestTracks(query)
+export const requestTracks = (query, offset) => dispatch => {
+  return TrackAPIUtil.requestTracks(query, offset)
     .then((res) => dispatch(receiveTracks(res)),
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };

@@ -6,7 +6,7 @@ const trackReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_TRACKS:
-      return action.tracks;
+      return merge({},state, action.tracks);
     case RECEIVE_TRACK:
       newState = merge({}, state, {[action.track.id]: action.track});
       return newState;

@@ -1,0 +1,78 @@
+#splash-index-box {
+  display: flex;
+  flex-direction: column;
+}
+
+#splash-index-title {
+  margin: auto;
+  font-size: 24px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#splash-index {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+
+.splash-index-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  width: 250px;
+}
+
+.splash-index-item-image {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  height: 180px;
+  width: 180px;
+  background: cover;
+  background-size: contain;
+}
+
+.splash-index-item-play-button {
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  padding-left: 15px;
+  border-radius: 50%;
+  font-size: 25px;
+  background-color: #2577f9;
+  border: none;
+  outline: 0;
+
+  &:hover {
+    background-color: #104399;
+  }
+
+  &:active {
+    outline: 0;
+  }
+}
+
+.splash-index-item-title {
+  margin: auto;
+  margin-top: 5px;
+  width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 17px;
+  font-size: 16px;
+}
+
+.splash-index-item-username {
+  margin: auto;
+  margin-bottom: 5px;
+  width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 17px;
+  font-size: 14px;
+  color: gray;
+}
