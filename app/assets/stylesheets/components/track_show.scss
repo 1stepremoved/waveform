@@ -105,6 +105,10 @@
 
 #user-show-info-user-username {
   padding: 10px;
+  a {
+    text-decoration: none;
+    color: gray;
+  }
 }
 
 #user-show-info-description {

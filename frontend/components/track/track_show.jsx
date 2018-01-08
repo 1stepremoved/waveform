@@ -9,7 +9,8 @@ class TrackShow extends React.Component {
       title: (this.props.track) ? this.props.track.title : null,
       imageUrl: (this.props.track) ? this.props.track.imageUrl : null,
       userImageUrl: (this.props.track) ? this.props.track.userImageUrl : null,
-      description: (this.props.track) ? this.props.track.description : null
+      description: (this.props.track) ? this.props.track.description : null,
+      userId: (this.props.track) ? this.props.track.userId : null
     };
   }
 
@@ -22,7 +23,8 @@ class TrackShow extends React.Component {
           title: this.props.track.title,
           imageUrl: this.props.track.imageUrl,
           userImageUrl: this.props.track.userImageUrl,
-          description: this.props.track.description
+          description: this.props.track.description,
+          userId: this.props.track.userId
         });
       });
   }
@@ -58,7 +60,7 @@ class TrackShow extends React.Component {
               style={{backgroundImage: `url(${this.state.userImageUrl})`}}>
             </div>
             <span id="user-show-info-user-username">
-              {this.state.username}
+              <Link to={`/users/${this.state.userId}`}> {this.state.username} </Link>
             </span>
           </div>
           <div id="user-show-info-description">
