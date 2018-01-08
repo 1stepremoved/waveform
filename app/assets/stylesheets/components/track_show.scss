@@ -1,0 +1,116 @@
+#user-show-container {
+  margin: auto;
+  display:flex;
+  flex-direction: column;
+  width: 1250px;
+  background-color: white;
+}
+
+#user-show-header {
+  height: 380px;
+  background: linear-gradient(90deg,#002f84,#3b9efe);
+  display: flex;
+  align-items: center;
+}
+
+#user-show-header-left {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 70%;
+}
+
+#user-show-header-play-button {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  font-size: 25px;
+  background-color: #2577f9;
+  border: none;
+  outline: 0;
+
+  &:hover {
+    background-color: #104399;
+  }
+
+  &:active {
+    outline: 0;
+  }
+}
+
+#user-show-header-info {
+  display: flex;
+  align-items: flex-start;
+  height: 70px;
+  margin: 30px;
+}
+
+#user-show-header-by-info {
+  padding-left: 8px;
+}
+
+#user-show-header-username {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 15px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#user-show-header-title{
+  display: inline-block;
+  font-size: 25px;
+  height: 35px;
+  padding: 3px 10px;
+  margin: 5px 0;
+  background-color: black;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+
+#user-show-header-image {
+  width: 340px;
+  height: 340px;
+  background-size: cover;
+  float: right;
+}
+
+#user-show-info {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 20px 0;
+  margin: 15px 30px;
+}
+
+#user-show-info-user {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+}
+
+#user-show-info-user-image {
+  margin: auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+#user-show-info-user-username {
+  padding: 10px;
+}
+
+#user-show-info-description {
+  margin: 0 30px;
+
+  span {
+    text-decoration: bold;
+  }
+}

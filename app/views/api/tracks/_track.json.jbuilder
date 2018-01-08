@@ -5,4 +5,4 @@ json.playlistOrd  track.playlist_ord
 json.audioUrl   track.audio.url
 json.imageUrl   asset_url(track.image.url)
 json.username   track.user.username
-json.userImage   asset_url(track.user.profile_image.url)
+json.userImageUrl   asset_url(track.user.profile_image.url)

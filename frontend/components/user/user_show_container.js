@@ -6,7 +6,8 @@ const mapStateToProps = (state, ownProps) => {
     users: [], //to be replace by state.session.users in array form
     currentUser: state.session.currentUser,
     pageUserId: parseInt(ownProps.match.params.userId),
-    isCurrentUserPage: state.session.currentUser.id === parseInt(ownProps.match.params.userId)
+    isCurrentUserPage: (state.session.currentUser &&
+                      state.session.currentUser.id === parseInt(ownProps.match.params.userId))
   };
 };
 

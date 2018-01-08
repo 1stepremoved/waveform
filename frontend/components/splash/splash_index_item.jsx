@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class SplashIndexItem extends React.Component {
   constructor(props) {
@@ -29,10 +30,10 @@ class SplashIndexItem extends React.Component {
           }
         </div>
         <span className="splash-index-item-title">
-          {this.props.track.title}
+          <Link to={`/tracks/${this.props.track.id}`}>{this.props.track.title}</Link>
         </span>
         <span className="splash-index-item-username">
-          {this.props.track.username}
+          <Link to={`/users/${this.props.track.userId}`}>{this.props.track.username}</Link>
         </span>
       </section>
     );
