@@ -4,7 +4,9 @@ import Sound from 'react-sound';
 class Player extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { position: this.props.position, newPositon: 0, duration: 1, mousePos: 0, startTrack: this.props.startTrackValue};
+    this.state = { position: 0, newPositon: 0, duration: 1, mousePos: 0,
+                  startTrack: this.props.startTrackValue,
+                  handleVisible: false};
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -12,14 +14,21 @@ class Player extends React.Component {
     this.handleLastSong = this.handleLastSong.bind(this);
     this.handleNextSong = this.handleNextSong.bind(this);
     this.moveHandle = this.moveHandle.bind(this);
+    this.hideHandle = this.hideHandle.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
+    this.setAudioTime = this.setAudioTime.bind(this);
   }
 
   togglePause(e) {
     if (this.props.paused) {
       this.audio.play();
+      const that = this;
+      this.currentTimeCheck = setInterval(() => {
+        this.setState({position: that.audio.currentTime});
+      },500);
     } else {
       this.audio.pause();
+      clearInterval(this.currentTimeCheck);
     }
     this.props.pause();
   }
@@ -33,8 +42,15 @@ class Player extends React.Component {
 
   componentDidUpdate() {
     if (this.audio && this.props.startTrackValue)  {
-      this.audio.play();
       this.props.startTrack(false);
+      const that = this;
+      this.audio.addEventListener('loadedmetadata', () => {
+        that.audio.play();
+        that.setState({duration: that.audio.duration});
+      }, false);
+      this.currentTimeCheck = setInterval(() => {
+        this.setState({position: that.audio.currentTime});
+      },500);
     }
   }
 
@@ -62,7 +78,6 @@ class Player extends React.Component {
   handleLastSong(){
     this.props.lastSong();
     this.setState({position: 0});
-
   }
 
   handleNextSong(){
@@ -76,12 +91,32 @@ class Player extends React.Component {
   }
 
   moveHandle(e) {
-    let timelineWidth = this.timeline.offsetWidth - this.handle.offsetWidth;
+    // let timelineWidth = this.timeline.offsetWidth - this.handle.offsetWidth;
     let mousePos = e.pageX - this.timeline.offsetLeft;
-    this.setState({mousePos});
+    if (mousePos > this.timeline.offsetWidth) {
+      mousePos = this.timeline.offsetWidth;
+    } else if (mousePos < 0) {
+      mousePos = 0;
+    }
+    this.setState({mousePos, handleVisible: true});
+  }
+
+  hideHandle(e) {
+    this.setState({handleVisible: false});
+  }
+
+  setAudioTime() {
+    debugger
+    if (this.audio) {
+      this.audio.currentTime = (this.state.mousePos / this.timeline.offsetWidth * this.state.duration);
+    }
   }
 
   render() {
+    const pauseButton = this.props.paused ?
+      (<i className="fa fa-play"></i>)
+      :
+      (<i className="fa fa-pause"></i>);
     return (
       <main id="player-container">
         <section id="player-controls">
@@ -89,7 +124,7 @@ class Player extends React.Component {
             <i className="fas fa-step-backward"></i>
           </div>
           <div onClick={this.togglePause} id="player-play-button">
-            <i className={this.state.paused ? "fas fa-play" : "fas fa-pause"}></i>
+            {pauseButton}
           </div>
           <div onClick={this.handleNextSong} id="player-next-song">
             <i className="fas fa-step-forward"></i>
@@ -109,10 +144,26 @@ class Player extends React.Component {
           </audio>
         }
 
-        <div onMouseMove={this.moveHandle} id="player-timeline" ref={(timeline) => {this.timeline = timeline;}}>
-          <div id="player-handle" ref={(handle) => {this.handle = handle;}}
-            style={{marginLeft: (this.state.position / this.state.duration)}}>
+        <div id="player-timeline-container"
+          onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
+          onClick={this.setAudioTime}>
+          <div
+            id="player-timeline"
+            ref={(timeline) => {this.timeline = timeline;}}
+            style={{background: `linear-gradient(90deg, #1177ff, #1177ff ${(this.state.position / this.state.duration * 100)}%,
+            gray 0%, gray)`}}>
+
+            {!this.state.handleVisible ? null :
+              <div id="player-handle" ref={(handle) => {this.handle = handle;}}
+                style={{marginLeft: this.state.mousePos}}>
+              </div>
+            }
           </div>
+        </div>
+
+
+        <div id="volume-container">
+          <i class="fas fa-volume-up"></i>
         </div>
 
       </main>

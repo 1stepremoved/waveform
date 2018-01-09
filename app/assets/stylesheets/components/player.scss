@@ -7,6 +7,7 @@
   height: 50px;
   width: 100%;
   align-items: center;
+  border-top: 1px solid #ccc;
 }
 
 #player-controls {
@@ -20,6 +21,10 @@
   }
 }
 
+#player-timeline-container {
+  padding: 20px 0;
+}
+
 #player-timeline{
   position: relative;
   width: 500px;
@@ -28,9 +33,12 @@
   background: rgba(0,0,0,.3);
 }
 
+
+
 #player-handle{
   position: absolute;
   bottom: -5px;
+  left: -5px;
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
