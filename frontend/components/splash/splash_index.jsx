@@ -1,5 +1,5 @@
 import React from 'react';
-import SplashIndexItemContainer from './splash_index_item';
+import SplashIndexItemContainer from './splash_index_item_container';
 
 class SplashIndex extends React.Component {
   constructor(props) {

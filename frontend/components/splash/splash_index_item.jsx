@@ -7,6 +7,7 @@ class SplashIndexItem extends React.Component {
     this.state = {buttonVisible: false};
     this.showButton = this.showButton.bind(this);
     this.hideButton = this.hideButton.bind(this);
+    this.togglePause = this.togglePause.bind(this);
   }
 
   showButton(e) {
@@ -17,6 +18,10 @@ class SplashIndexItem extends React.Component {
     this.setState({buttonVisible: false});
   }
 
+  togglePause() {
+    this.props.addToQueueNow(this.props.track.id);
+  }
+
   render () {
     return (
       <section className="splash-index-item">
@@ -24,7 +29,7 @@ class SplashIndexItem extends React.Component {
           onMouseEnter={this.showButton} onMouseLeave={this.hideButton}
           style={{backgroundImage: `url(${this.props.track.imageUrl})`}}>
           {!this.state.buttonVisible ? null :
-            <button className="splash-index-item-play-button">
+            <button onClick={this.togglePause} className="splash-index-item-play-button">
               <i className="fas fa-play"></i>
             </button>
           }
