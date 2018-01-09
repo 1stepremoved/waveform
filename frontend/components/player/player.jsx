@@ -4,7 +4,7 @@ import Sound from 'react-sound';
 class Player extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { position: this.props.position, newPositon: 0, duration: 1, mousePos: 0};
+    this.state = { position: this.props.position, newPositon: 0, duration: 1, mousePos: 0, startTrack: this.props.startTrackValue};
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -16,6 +16,11 @@ class Player extends React.Component {
   }
 
   togglePause(e) {
+    if (this.props.paused) {
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
     this.props.pause();
   }
 
@@ -26,10 +31,23 @@ class Player extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    if (this.audio && this.props.startTrackValue)  {
+      this.audio.play();
+      this.props.startTrack(false);
+    }
+  }
+
+
   componentWillReceiveProps(newProps) {
-    // if (this.props.currentId !== newProps.currentId && newProps.currentId) {
-    //   this.props.requestTrack(newProps.currentId);
-    // }
+
+    if (this.audio && this.props.paused !== newProps.paused) {
+      if (newProps.paused) {
+        this.audio.pause();
+      } else {
+        this.audio.play();
+      }
+    }
   }
 
   handlePause(audio) {
@@ -64,7 +82,6 @@ class Player extends React.Component {
   }
 
   render() {
-    // debugger
     return (
       <main id="player-container">
         <section id="player-controls">
@@ -77,15 +94,19 @@ class Player extends React.Component {
           <div onClick={this.handleNextSong} id="player-next-song">
             <i className="fas fa-step-forward"></i>
           </div>
-          <div onClick={this.toggleState("shuffle")} id="player-shuffle">
+          <div onClick={this.toggleState("shuffle")} id="player-shuffle"
+            className={this.props.shuffleValue ? "blue" : ""}>
             <i className="fas fa-random"></i>
           </div>
-          <div onClick={this.toggleState("repeat")} id="player-repeat">
+          <div onClick={this.toggleState("repeat")} id="player-repeat"
+            className={this.props.repeatValue ? "blue" : ""}>
             <i className="fas fa-redo-alt"></i>
           </div>
         </section>
         {!this.props.track ? null :
-          <audio src={this.props.track.audioUrl}></audio>
+          <audio src={this.props.track.audioUrl}
+            ref={(audio) => { this.audio = audio ;} }>
+          </audio>
         }
 
         <div onMouseMove={this.moveHandle} id="player-timeline" ref={(timeline) => {this.timeline = timeline;}}>

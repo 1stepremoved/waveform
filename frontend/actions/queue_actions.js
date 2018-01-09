@@ -10,6 +10,7 @@ export const SHUFFLE = "SHUFFLE";
 export const REPEAT = "REPEAT";
 export const PAUSE = "PAUSE";
 export const SET_POSITION = "SET_POSITION";
+export const START_TRACK = "START_TRACK";
 
 export const addToQueueEnd = (trackId) => {
   return {
@@ -79,5 +80,12 @@ export const setPosition = (position) => {
   return {
     type: SET_POSITION,
     position
+  };
+};
+
+export const startTrack = (value) => {
+  return {
+    type: START_TRACK,
+    value
   };
 };

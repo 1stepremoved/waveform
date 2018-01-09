@@ -1,6 +1,6 @@
 import { ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
          REMOVE_FROM_QUEUE, CLEAR_QUEUE, NEXT_SONG, LAST_SONG,
-         SHUFFLE, REPEAT, PAUSE, SET_POSITION} from '../actions/queue_actions';
+         SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK} from '../actions/queue_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -8,6 +8,7 @@ let initialState = {
   paused: true,
   currentId: null,
   currentTrack: -1,
+  startTrack: false,
   position: 0,
   order: [],
   shuffle: false,
@@ -28,6 +29,7 @@ const queueReducer = (state=initialState, action) => {
       newState.currentTrack += 1;
       newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
       newState.paused = false;
+      newState.startTrack = true;
       return newState;
     case ADD_TO_QUEUE_NEXT:
       newState.trackIds = newState.trackIds.slice(0,state.currentTrack + 1)
@@ -38,12 +40,14 @@ const queueReducer = (state=initialState, action) => {
       return newState;
     case NEXT_SONG:
       newState.position = 0;
+      newState.startTrack = true;
       if (state.currentTrack === state.trackIds.length - 1) {
         if (state.repeat) {
           newState.currentTrack = 0;
           newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
         } else {
           newState.paused = true;
+          newState.startTrack = false;
         }
       } else {
         newState.currentTrack += 1;
@@ -52,12 +56,14 @@ const queueReducer = (state=initialState, action) => {
       return newState;
     case LAST_SONG:
       newState.position = 0;
+      newState.startTrack = true;
       if (state.currentTrack === 0) {
         if (state.repeat) {
           newState.currentTrack = state.trackIds.length - 1;
           newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
         } else {
           newState.paused = true;
+          newState.startTrack = false;
         }
       } else {
         newState.currentTrack -= 1;
@@ -72,6 +78,9 @@ const queueReducer = (state=initialState, action) => {
       return newState;
     case SET_POSITION:
       newState.position = action.position;
+      return newState;
+    case START_TRACK:
+      newState.startTrack = action.value;
       return newState;
     default:
       return state;
