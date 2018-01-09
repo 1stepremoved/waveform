@@ -30,7 +30,6 @@
   width: 500px;
   height: 1px;
   border-radius: 1px;
-  background: rgba(0,0,0,.3);
 }
 
 
@@ -39,6 +38,41 @@
   position: absolute;
   bottom: -5px;
   left: -5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #1177ff;
+}
+
+#player-volume-container {
+  position: relative;
+  margin: 20px;
+}
+
+#player-volume-track-box {
+  position: absolute;
+  bottom: 25px;
+  left: -10px;
+  transform: translateX(0%);
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  height: 120px;
+  width: 35px;
+}
+
+#player-volume-track {
+  position: relative;
+  margin: auto;
+  margin-top: 15px;
+  height: 90px;
+  background-color: gray;
+  width: 1px;
+}
+
+#player-volume-handler {
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;

@@ -1,12 +1,14 @@
 import React from 'react';
-import Sound from 'react-sound';
 
 class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = { position: 0, newPositon: 0, duration: 1, mousePos: 0,
                   startTrack: this.props.startTrackValue,
-                  handleVisible: false};
+                  handleVisible: false,
+                  volumeVisible: false,
+                  volumePos: 0,
+                  mouseDown: false};
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -17,9 +19,15 @@ class Player extends React.Component {
     this.hideHandle = this.hideHandle.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
     this.setAudioTime = this.setAudioTime.bind(this);
+    this.toggleVolumeVisible = this.toggleVolumeVisible.bind(this);
+    this.toggleMouseDown = this.toggleMouseDown.bind(this);
+    this.moveVolumeHandler = this.moveVolumeHandler.bind(this);
   }
 
   togglePause(e) {
+    if (!this.audio) {
+      return;
+    }
     if (this.props.paused) {
       this.audio.play();
       const that = this;
@@ -107,13 +115,37 @@ class Player extends React.Component {
   }
 
   setAudioTime() {
-    debugger
     if (this.audio) {
       this.audio.currentTime = (this.state.mousePos / this.timeline.offsetWidth * this.state.duration);
+      this.setState({position: this.audio.currentTime});
     }
   }
 
+  toggleVolumeVisible() {
+    this.setState({volumeVisible: !this.state.volumeVisible});
+  }
+
+  moveVolumeHandler(e) {
+    if (!this.state.mouseDown) {
+      return;
+    }
+    let volumePos = e.pageY - this.volumeTrack.offsetBottom;
+    if (volumePos > this.volumeTrack.offsetBottom) {
+      volumePos = this.volumeTrack.offsetBottom;
+    } else if (volumePos < 0) {
+      volumePos = 0;
+    }
+    this.setState({volumePos});
+  }
+
+  toggleMouseDown(value) {
+    return ()=> {
+      this.setState({mouseDown: value});
+    };
+  }
+
   render() {
+
     const pauseButton = this.props.paused ?
       (<i className="fa fa-play"></i>)
       :
@@ -151,7 +183,8 @@ class Player extends React.Component {
           <div
             id="player-timeline"
             ref={(timeline) => {this.timeline = timeline;}}
-            style={{background: `linear-gradient(90deg, #1177ff, #1177ff ${(this.state.position / this.state.duration * 100)}%,
+            style={{background: `linear-gradient(90deg, #1177ff,
+            #1177ff ${(this.state.position / this.state.duration * 100)}%,
             gray 0%, gray)`}}>
 
             {!this.state.handleVisible ? null :
@@ -163,8 +196,22 @@ class Player extends React.Component {
         </div>
 
 
-        <div id="volume-container">
-          <i className="fas fa-volume-up"></i>
+        <div id="player-volume-container">
+          {!this.state.volumeVisible ? null :
+            <div onMouseOver={this.moveVolumeHandler}
+              onMouseDown={this.toggleMouseDown(true)} onMouseUp={this.toggleMouseDown(false)}
+              id="player-volume-track-box">
+              <div id="player-volume-track"
+                ref={(volumeTrack) => {this.volumeTrack = volumeTrack;}}>
+                <div id="player-volume-handler"
+                  style={{marginBottom: this.state.volumePos}}>
+                </div>
+              </div>
+            </div>
+          }
+          <div onClick={this.toggleVolumeVisible}id="player-volume-icon">
+            <i className="fas fa-volume-up"></i>
+          </div>
         </div>
 
       </main>
@@ -172,12 +219,5 @@ class Player extends React.Component {
   }
 }
 
-// <Sound url={this.props.track.audioUrl}
-//   onPause={this.handlePause}
-//   playFromPosition={this.state.position}
-//   onPlaying={this.handlePlaying}
-//   onFinishedPlaying={this.handleNextSong}
-//   playStatus={!this.props.paused ? Sound.status.PLAYING : Sound.status.PAUSED}
-//   />
 
 export default Player;
