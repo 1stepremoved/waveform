@@ -24,10 +24,10 @@ ActiveRecord::Base.transaction do
     path[/app.*/]
   end
 
-  Track.destroy_all()
-  tracks.each do |track|
-    Track.create(title: track[/audio\/.*/][6..-1],
-                 user_id: User.find_by(username: "admin").id,
-                 audio: File.open(track) )
+  # Track.destroy_all()
+  # tracks.each do |track|
+  #   Track.create(title: track[/audio\/.*/][6..-1],
+  #                user_id: User.find_by(username: "admin").id,
+  #                audio: File.open(track) )
   end
 end
