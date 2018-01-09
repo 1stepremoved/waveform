@@ -47,6 +47,7 @@ class Player extends React.Component {
       this.audio.addEventListener('loadedmetadata', () => {
         that.audio.play();
         that.setState({duration: that.audio.duration});
+        that.audio.onended = this.props.nextSong;
       }, false);
       this.currentTimeCheck = setInterval(() => {
         this.setState({position: that.audio.currentTime});
@@ -163,7 +164,7 @@ class Player extends React.Component {
 
 
         <div id="volume-container">
-          <i class="fas fa-volume-up"></i>
+          <i className="fas fa-volume-up"></i>
         </div>
 
       </main>
