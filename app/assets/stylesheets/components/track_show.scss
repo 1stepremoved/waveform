@@ -21,8 +21,9 @@
 }
 
 .user-show-header-play-button {
-  width: 85px;
+  min-width: 65px;
   height: 65px;
+  padding-left: 10px;
   border-radius: 50%;
   font-size: 25px;
   background-color: #2577f9;
@@ -40,8 +41,8 @@
 
 #user-show-header-info {
   display: flex;
-  align-items: flex-start;
-  height: 70px;
+  // align-items: flex-start;
+  // height: 70px;
   margin: 30px;
 }
 
@@ -49,6 +50,9 @@
   padding-left: 8px;
   display: flex;
   flex-direction: column;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #user-show-header-username {
@@ -58,22 +62,15 @@
   height: 25px;
   background-color: black;
   color: white;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  box-sizing: border-box;
 }
 
 #user-show-header-title{
   display: inline-table;
   font-size: 25px;
-  height: 35px;
   padding: 3px 10px;
   margin: 5px 0;
   background-color: black;
   color: white;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  box-sizing: border-box;
 }
 
 

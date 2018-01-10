@@ -3,8 +3,7 @@ $font-size: 14px;
 #user-nav-container {
   position: relative;
   box-sizing: border-box;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 30px;
 }
 
 .user-nav-username {
@@ -18,11 +17,12 @@ $font-size: 14px;
 .user-nav-menu {
   position: absolute;
   left: 0;
+  top: 30px;
   padding: 15px 15px 15px 15px;
   display: flex;
   flex-direction: column;
   background-color: black;
-  width: 130px;
+  width: 120%;
   line-height: $font-size;
   box-sizing: border-box;
 }

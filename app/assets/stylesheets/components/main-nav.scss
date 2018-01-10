@@ -1,10 +1,20 @@
 $nav-height: 45px;
 
+#main-nav-container {
+  display: flex;
+  justify-content: center;
+  height: $nav-height;
+  background-color: #333;
+}
+
+
+
 .main-nav {
   display: flex;
+  justify-content: space-between;
   position: fixed;
   height: $nav-height;
-  width: 100%;
+  width: 1250px;
   background-color: #333;
   font-family: sans-serif;
   font-size: 14px;
@@ -13,6 +23,7 @@ $nav-height: 45px;
 
 .main-nav-left {
   display: flex;
+  margin-left: 0;
 }
 
 .main-nav-right {
@@ -22,16 +33,17 @@ $nav-height: 45px;
 .main-nav-links {
   margin: auto;
   display: flex;
-  padding: 0 50px;
+  padding: 0 0px;
+  list-style: none;
   justify-content: space-between;
   height: 100%;
 }
 
 .main-nav-left-link, .main-nav-right-link {
-  display: flex;
+  // display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0;
+  padding-left: 0;
   height: 100%;
   list-style: none;
 }
@@ -49,6 +61,7 @@ $nav-height: 45px;
 
 .main-nav-right-link {
   div {
+    padding: 0 20px;
     cursor: pointer;
   }
 }
@@ -71,6 +84,26 @@ $nav-height: 45px;
   height: $nav-height - 10;
   padding: 5px 15px;
   background: linear-gradient(to bottom, #003399 0%, #3399ff 100%);
+}
+
+#main-nav-search-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#main-nav-search-input{
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #e5e5e5;
+  margin: 0 10px;
+  width: 500px;
+  font-size: 14px;
+
+  &:focus {
+    background-color: white;
+    outline: none;
+  }
 }
 
 .main-nav-button, .main-nav-login-button, .main-nav-signup-button {
@@ -116,4 +149,9 @@ $nav-height: 45px;
   border: 1px solid #003399;
   border-radius: 4px;
   background-color: #1177ff;
+}
+
+.main-nav-upload-button {
+  padding: 0 40px;
+  // margin: 0 20px;
 }

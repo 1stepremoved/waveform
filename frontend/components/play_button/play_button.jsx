@@ -18,9 +18,10 @@ class PlayButton extends React.Component {
   render() {
     return (
       !this.props.visible && !(this.props.currentId === this.props.track.id) ? null :
-      (<button onClick={this.togglePause} className={this.props.classname}>
+      (<button onClick={this.togglePause} className={this.props.classname}
+        style={{display: 'flex', justifyContent: 'center'}}>
         {this.props.paused && this.props.currentlyPlaying ?
-          <i style={{paddingRight: '25%'}} className="fas fa-pause"></i>
+          <i className="fas fa-pause"></i>
           :
           <i className="fas fa-play"></i>
         }
