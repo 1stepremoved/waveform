@@ -34,6 +34,9 @@ class UserShow extends React.Component {
             style={{backgroundImage: `url(${this.props.currentUser.profileImageUrl})`}}>
             {this.props.isCurrentUserPage ?
               <div id="change-profile-image-box">
+                <label id="change-profile-image-label" htmlFor="change-profile-image">
+                  <i className="fas fa-camera"></i> Update image
+                </label>
                 <input type="file" onClick={this.updateFile("profileImage")}
                    id="change-profile-image" ></input>
               </div>
@@ -45,6 +48,9 @@ class UserShow extends React.Component {
           </section>
           {this.props.isCurrentUserPage ?
           <div id="change-background-image-box">
+            <label id="change-background-image-label" htmlFor="change-background-image">
+              <i className="fas fa-camera"></i> Upload header image
+            </label>
             <input type="file" onClick={this.updateFile("backgroundImage")}
                id="change-background-image" ></input>
           </div>
