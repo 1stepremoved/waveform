@@ -1,4 +1,5 @@
 import React from 'react';
+import QueueContainer from './queue_container';
 
 class Player extends React.Component {
   constructor(props) {
@@ -8,8 +9,7 @@ class Player extends React.Component {
                   handleVisible: false,
                   volumeVisible: false,
                   volumePos: 0,
-                  mouseDown: false,
-                  queueVisible: false};
+                  mouseDown: false};
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -23,6 +23,7 @@ class Player extends React.Component {
     this.toggleVolumeVisible = this.toggleVolumeVisible.bind(this);
     this.toggleMouseDown = this.toggleMouseDown.bind(this);
     this.moveVolumeHandler = this.moveVolumeHandler.bind(this);
+    this.toggleQueue = this.toggleQueue.bind(this);
   }
 
   togglePause(e) {
@@ -152,6 +153,13 @@ class Player extends React.Component {
     return `${minutes}:${secsS}`;
   }
 
+  toggleQueue(e) {
+    if (e.target.parentElement.parentElement.id === "player-queue-toggle" ||
+        e.target.parentElement.id === "player-queue-toggle"){
+      this.props.toggleQueue();
+    }
+  }
+
   render() {
 
     const pauseButton = this.props.paused ?
@@ -239,12 +247,14 @@ class Player extends React.Component {
                 {this.props.track.title}
               </div>
             </div>
-
           </section>
 
-          <section id={`player-queue-toggle`} className={this.state.queueVisible ? "blue" : ""}
-            onClick={()=>{this.setState({queueVisible: !this.state.queueVisible});}}>
+          <section id={`player-queue-toggle`} className={this.props.queueVisible ? "blue" : ""}
+            onClick={this.toggleQueue}>
             <i className="fas fa-list-ul"></i>
+              {!this.props.queueVisible ? null :
+                <QueueContainer />
+              }
           </section>
 
         </main>

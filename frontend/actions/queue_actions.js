@@ -11,6 +11,7 @@ export const REPEAT = "REPEAT";
 export const PAUSE = "PAUSE";
 export const SET_POSITION = "SET_POSITION";
 export const START_TRACK = "START_TRACK";
+export const MOVE_CURRENT_TRACK = "MOVE_CURRENT_TRACK";
 
 export const addToQueueEnd = (trackId) => {
   return {
@@ -87,5 +88,12 @@ export const startTrack = (value) => {
   return {
     type: START_TRACK,
     value
+  };
+};
+
+export const moveCurrentTrack = (dir) => {
+  return {
+    type: MOVE_CURRENT_TRACK,
+    dir
   };
 };

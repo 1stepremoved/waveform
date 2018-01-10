@@ -32,7 +32,6 @@ class TrackShow extends React.Component {
 
 
   render() {
-    debugger
     return (
       <main id="user-show-container">
         <section id="user-show-header">
