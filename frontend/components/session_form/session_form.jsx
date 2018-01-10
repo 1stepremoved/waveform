@@ -18,6 +18,7 @@ class SessionForm extends React.Component{
     this.firstPage = this.firstPage.bind(this);
     this.revertPage = this.revertPage.bind(this);
     this.pages = this.pages.bind(this);
+    this.guestLogin = this.guestLogin.bind(this);
   }
 
   handleSubmit(e) {
@@ -59,6 +60,17 @@ class SessionForm extends React.Component{
           this.props.changeForm(null);
         });
     }
+  }
+
+  guestLogin() {
+    let user = {
+      username: "guest",
+      password: "guestguest"
+    };
+    this.props.logIn(user).then(() => {
+      this.props.history.push("/stream");
+      this.props.changeForm(null);
+    });
   }
 
   handleChange(type) {
@@ -133,6 +145,9 @@ class SessionForm extends React.Component{
             }
             <input type="submit" value={submitText}></input>
           </div>
+          <form onSubmit={this.guestLogin}>
+            <input id="guest-login-input" type="submit" value="Log in as guest"></input>
+          </form>
         </form>
       </main>
     );

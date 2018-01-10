@@ -41,9 +41,9 @@ class TrackShow extends React.Component {
                 <PlayButtonContainer visible={true} classname="user-show-header-play-button" track={this.props.track}/>
               }
               <div id="user-show-header-by-info">
-                <span id="user-show-header-username">
+                <Link to={`/users/${this.state.userId}`} id="user-show-header-username">
                   {this.state.username}
-                </span>
+                </Link>
                 <span id="user-show-header-title">
                   {this.state.title}
                 </span>

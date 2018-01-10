@@ -3,7 +3,11 @@ class Api::TracksController < ApplicationController
   def index
     offset = params[:offset] ? params[:offset].to_i : 0
     num = params[:num] ? params[:num].to_i : 12
-    @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
+    if (params[:user_id])
+      @tracks = Track.find(params[:user_id]).where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
+    else
+      @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
+    end
     render "api/tracks/index"
   end
 
