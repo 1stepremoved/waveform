@@ -10,7 +10,7 @@ class Track < ApplicationRecord
 
 
 
-  has_attached_file :image, default_url: "default_track_image.jpeg"
+  has_attached_file :image, default_url: "default_track_image.jpg"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
 end

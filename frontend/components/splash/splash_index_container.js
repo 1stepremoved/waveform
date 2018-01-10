@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestTracks: (query,offset) => dispatch(requestTracks(query,offset))
+    requestTracks: (offset,query) => dispatch(requestTracks(offset,query))
   };
 };
 

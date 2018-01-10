@@ -20,8 +20,8 @@
   width: 70%;
 }
 
-#user-show-header-play-button {
-  width: 65px;
+.user-show-header-play-button {
+  width: 85px;
   height: 65px;
   border-radius: 50%;
   font-size: 25px;
@@ -52,7 +52,7 @@
 }
 
 #user-show-header-username {
-  display: inline-block;
+  display: inline-table;
   padding: 3px 10px;
   font-size: 15px;
   height: 25px;
@@ -64,7 +64,7 @@
 }
 
 #user-show-header-title{
-  display: inline-block;
+  display: inline-table;
   font-size: 25px;
   height: 35px;
   padding: 3px 10px;

@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import SplashIndexItem from './splash_index_item';
+import { addToQueueNow } from '../../actions/queue_actions';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -7,9 +9,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-
+    addToQueueNow: (id) => dispatch(addToQueueNow(id))
   };
 };
 
