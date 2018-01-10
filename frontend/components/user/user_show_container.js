@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import UserShow from './user_show';
+import { updateUser } from '../../actions/session_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,9 +12,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (Dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-
+    updateUser: (formData, id) => dispatch(updateUser(formData, id))
   };
 };
 

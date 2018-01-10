@@ -34,3 +34,9 @@ export const logOut = () => (dispatch) => {
     .then(() => dispatch(receiveCurrentUser(null)),
       (err) => dispatch(receiveSessionErrors(err.responseJSON)));
 };
+
+export const updateUser = (formData, id) => (dispatch) => {
+  return SessionAPIUtil.updateUser(formData, id)
+    .then((res) => dispatch(receiveCurrentUser(res)),
+      (err) => dispatch(receiveSessionErrors(err.responseJSON)));
+};

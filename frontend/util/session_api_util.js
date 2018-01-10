@@ -21,3 +21,14 @@ export const logOut = () => {
     url: "/api/session"
   });
 };
+
+export const updateUser = (formData, id) => {
+  return $.ajax({
+    method: 'put',
+    url: `api/users/${id}`,
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData
+  });
+};
