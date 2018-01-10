@@ -144,6 +144,13 @@ class Player extends React.Component {
     };
   }
 
+  parseTime(secs) {
+    const seconds = parseInt(secs % 60);
+    const minutes = parseInt(secs / 60);
+    const secsS = `${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes}:${secsS}`;
+  }
+
   render() {
 
     const pauseButton = this.props.paused ?
@@ -177,26 +184,29 @@ class Player extends React.Component {
           </audio>
         }
 
-        <div id="player-timeline-container"
-          onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
-          onClick={this.setAudioTime}>
-          <div
-            id="player-timeline"
-            ref={(timeline) => {this.timeline = timeline;}}
-            style={{background: `linear-gradient(90deg, #1177ff,
-            #1177ff ${(this.state.position / this.state.duration * 100)}%,
-            gray 0%, gray)`}}>
+        <section id="player-timeline-container-box">
+          <div id="player-current-time">{this.parseTime(this.state.position)}</div>
+          <div id="player-timeline-container"
+            onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
+            onClick={this.setAudioTime}>
+            <div id="player-timeline"
+              ref={(timeline) => {this.timeline = timeline;}}
+              style={{background: `linear-gradient(90deg, #1177ff,
+                #1177ff ${(this.state.position / this.state.duration * 100)}%,
+                gray 0%, gray)`}}>
 
-            {!this.state.handleVisible ? null :
-              <div id="player-handle" ref={(handle) => {this.handle = handle;}}
-                style={{marginLeft: this.state.mousePos}}>
-              </div>
-            }
+                {!this.state.handleVisible ? null :
+                  <div id="player-handle" ref={(handle) => {this.handle = handle;}}
+                    style={{marginLeft: this.state.mousePos}}>
+                  </div>
+                }
+            </div>
           </div>
-        </div>
+          <div id="player-duration-time">{this.parseTime(this.state.duration)}</div>
+        </section>
 
 
-        <div id="player-volume-container">
+        <section id="player-volume-container">
           {!this.state.volumeVisible ? null :
             <div onMouseOver={this.moveVolumeHandler}
               onMouseDown={this.toggleMouseDown(true)} onMouseUp={this.toggleMouseDown(false)}
@@ -212,7 +222,7 @@ class Player extends React.Component {
           <div onClick={this.toggleVolumeVisible}id="player-volume-icon">
             <i className="fas fa-volume-up"></i>
           </div>
-        </div>
+        </section>
 
       </main>
     );

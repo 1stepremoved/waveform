@@ -41,14 +41,14 @@ export const receiveTrackErrors = (trackErrors) => {
   };
 };
 
-export const requestTracks = (query, offset) => dispatch => {
-  return TrackAPIUtil.requestTracks(query, offset)
+export const requestTracks = (num, query, offset) => dispatch => {
+  return TrackAPIUtil.requestTracks(num, query, offset)
     .then((res) => dispatch(receiveTracks(res)),
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };
 
-export const requestTracksAndReset = (query, offset) => dispatch => {
-  return TrackAPIUtil.requestTracks(query, offset)
+export const requestTracksAndReset = (num, query, offset) => dispatch => {
+  return TrackAPIUtil.requestTracks(num, query, offset)
     .then((res) => dispatch(receiveTracksAndReset(res)),
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };
