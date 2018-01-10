@@ -105,3 +105,36 @@
 .fa-camera {
   padding-right: 5px;;
 }
+
+#user-show-panel {
+  margin: 0px 30px;
+  margin-top: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+
+  #user-show-panel-selectors {
+
+
+    a {
+      margin: 0 12px;
+      padding-bottom: 8px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+
+      &.selected {
+        color: #1177ff;
+        border-bottom: 1px solid #1177ff;
+      }
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}

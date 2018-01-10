@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -62,6 +63,20 @@ class UserShow extends React.Component {
           </div>
             : null
           }
+        </section>
+        <section id="user-show-panel">
+          <div id="user-show-panel-selectors">
+            <NavLink exact to={`/users/${this.props.pageUserId}`}
+              activeClassName="selected">All</NavLink>
+            <NavLink exact to={`/users/${this.props.pageUserId}/tracks`}
+              activeClassName="selected">Tracks</NavLink>
+          </div>
+          <div id="user-show-panel-buttons">
+          </div>
+        </section>
+        <section id="user-tracks-and-info">
+          <div id="user-tracks">
+          </div>
         </section>
       </main>
     );
