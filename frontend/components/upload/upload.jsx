@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 class Upload extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {page2: false, title: "", discription: "", userId: this.props.currentUser.id,
+    this.state = {page2: false, title: "", description: "", userId: this.props.currentUser.id,
                   track: null, trackUrl: "",
                   trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg",
                   titleMissingError: false
@@ -38,7 +38,7 @@ class Upload extends React.Component {
   }
 
   resetState() {
-    this.setState({page2: false, title: "", discription: "",
+    this.setState({page2: false, title: "", description: "",
                   track: null, trackUrl: "",
                   trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg"}
                 );
@@ -51,7 +51,7 @@ class Upload extends React.Component {
     }
     let formData = new FormData();
     formData.append("track[title]", this.state.title);
-    formData.append("track[description]", this.state.description);
+    formData.append("track[description]", this.state.description );
     formData.append("track[audio]", this.state.track);
     if (this.state.trackImage) {
       formData.append("track[image]", this.state.trackImage);
