@@ -36,7 +36,9 @@ const queueReducer = (state=initialState, action) => {
         .concat([action.trackId]).concat(newState.trackIds.slice(state.currentTrack + 1));
       return newState;
     case CLEAR_QUEUE:
-      newState = merge({}, state, {trackIds: [], currentId: null, currentTrack: 0,order: []});
+      newState = merge({}, state, {trackIds: [], currentTrack: 0,order: []});
+      newState.currentId = state.currentId;
+      newState.trackIds.push(state.currentId);
       return newState;
     case NEXT_SONG:
       newState.position = 0;

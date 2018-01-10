@@ -1,3 +1,5 @@
+
+
 #player-container {
   position: fixed;
   bottom: 0;
@@ -98,6 +100,47 @@
 	height: 10px;
 	border-radius: 50%;
 	background-color: #1177ff;
+}
+
+#player-volume-icon {
+  cursor: pointer;
+}
+
+#player-queue-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#player-queue-image {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+#player-queue-by-info {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  font-size: 10px;
+}
+
+#player-queue-track-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#player-queue-track-artist {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: gray;
+}
+
+#player-queue-toggle {
+  float: right;
 }
 
 .blue {

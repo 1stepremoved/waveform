@@ -8,7 +8,8 @@ class Player extends React.Component {
                   handleVisible: false,
                   volumeVisible: false,
                   volumePos: 0,
-                  mouseDown: false};
+                  mouseDown: false,
+                  queueVisible: false};
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -158,73 +159,97 @@ class Player extends React.Component {
       :
       (<i className="fa fa-pause"></i>);
     return (
-      <main id="player-container">
-        <section id="player-controls">
-          <div onClick={this.handleLastSong} id="player-last-song">
-            <i className="fas fa-step-backward"></i>
-          </div>
-          <div onClick={this.togglePause} id="player-play-button">
-            {pauseButton}
-          </div>
-          <div onClick={this.handleNextSong} id="player-next-song">
-            <i className="fas fa-step-forward"></i>
-          </div>
-          <div onClick={this.toggleState("shuffle")} id="player-shuffle"
-            className={this.props.shuffleValue ? "blue" : ""}>
-            <i className="fas fa-random"></i>
-          </div>
-          <div onClick={this.toggleState("repeat")} id="player-repeat"
-            className={this.props.repeatValue ? "blue" : ""}>
-            <i className="fas fa-redo-alt"></i>
-          </div>
-        </section>
-        {!this.props.track ? null :
-          <audio src={this.props.track.audioUrl}
-            ref={(audio) => { this.audio = audio ;} }>
-          </audio>
-        }
-
-        <section id="player-timeline-container-box">
-          <div id="player-current-time">{this.parseTime(this.state.position)}</div>
-          <div id="player-timeline-container"
-            onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
-            onClick={this.setAudioTime}>
-            <div id="player-timeline"
-              ref={(timeline) => {this.timeline = timeline;}}
-              style={{background: `linear-gradient(90deg, #1177ff,
-                #1177ff ${(this.state.position / this.state.duration * 100)}%,
-                gray 0%, gray)`}}>
-
-                {!this.state.handleVisible ? null :
-                  <div id="player-handle" ref={(handle) => {this.handle = handle;}}
-                    style={{marginLeft: this.state.mousePos}}>
-                  </div>
-                }
+      (!this.props.currentId ? null :
+      <main id="player-container-box">
+        <main id="player-container">
+          <section id="player-controls">
+            <div onClick={this.handleLastSong} id="player-last-song">
+              <i className="fas fa-step-backward"></i>
             </div>
-          </div>
-          <div id="player-duration-time">{this.parseTime(this.state.duration)}</div>
-        </section>
+            <div onClick={this.togglePause} id="player-play-button">
+              {pauseButton}
+            </div>
+            <div onClick={this.handleNextSong} id="player-next-song">
+              <i className="fas fa-step-forward"></i>
+            </div>
+            <div onClick={this.toggleState("shuffle")} id="player-shuffle"
+              className={this.props.shuffleValue ? "blue" : ""}>
+              <i className="fas fa-random"></i>
+            </div>
+            <div onClick={this.toggleState("repeat")} id="player-repeat"
+              className={this.props.repeatValue ? "blue" : ""}>
+              <i className="fas fa-redo-alt"></i>
+            </div>
+          </section>
+          {!this.props.track ? null :
+            <audio src={this.props.track.audioUrl}
+              ref={(audio) => { this.audio = audio ;} }>
+            </audio>
+          }
 
+          <section id="player-timeline-container-box">
+            <div id="player-current-time">{this.parseTime(this.state.position)}</div>
+            <div id="player-timeline-container"
+              onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
+              onClick={this.setAudioTime}>
+              <div id="player-timeline"
+                ref={(timeline) => {this.timeline = timeline;}}
+                style={{background: `linear-gradient(90deg, #1177ff,
+                  #1177ff ${(this.state.position / this.state.duration * 100)}%,
+                  gray 0%, gray)`}}>
 
-        <section id="player-volume-container">
-          {!this.state.volumeVisible ? null :
-            <div onMouseOver={this.moveVolumeHandler}
-              onMouseDown={this.toggleMouseDown(true)} onMouseUp={this.toggleMouseDown(false)}
-              id="player-volume-track-box">
-              <div id="player-volume-track"
-                ref={(volumeTrack) => {this.volumeTrack = volumeTrack;}}>
-                <div id="player-volume-handler"
-                  style={{marginBottom: this.state.volumePos}}>
-                </div>
+                  {!this.state.handleVisible ? null :
+                    <div id="player-handle" ref={(handle) => {this.handle = handle;}}
+                      style={{marginLeft: this.state.mousePos}}>
+                    </div>
+                  }
               </div>
             </div>
-          }
-          <div onClick={this.toggleVolumeVisible}id="player-volume-icon">
-            <i className="fas fa-volume-up"></i>
-          </div>
-        </section>
+            <div id="player-duration-time">{this.parseTime(this.state.duration)}</div>
+          </section>
 
+
+          <section id="player-volume-container">
+            {!this.state.volumeVisible ? null :
+              <div onMouseOver={this.moveVolumeHandler}
+                onMouseDown={this.toggleMouseDown(true)} onMouseUp={this.toggleMouseDown(false)}
+                id="player-volume-track-box">
+                <div id="player-volume-track"
+                  ref={(volumeTrack) => {this.volumeTrack = volumeTrack;}}>
+                  <div id="player-volume-handler"
+                    style={{marginBottom: this.state.volumePos}}>
+                  </div>
+                </div>
+              </div>
+            }
+            <div onClick={this.toggleVolumeVisible} id="player-volume-icon">
+              <i className="fas fa-volume-up"></i>
+            </div>
+          </section>
+
+          <section id="player-queue-container">
+            <div id="player-queue-image"
+              style={{backgroundImage: `url(${this.props.track.imageUrl})`}}>
+            </div>
+            <div id="player-queue-by-info">
+              <div id="player-queue-track-artist">
+                {this.props.track.username}
+              </div>
+              <div id="player-queue-track-name">
+                {this.props.track.title}
+              </div>
+            </div>
+
+          </section>
+
+          <section id={`player-queue-toggle`} className={this.state.queueVisible ? "blue" : ""}
+            onClick={()=>{this.setState({queueVisible: !this.state.queueVisible});}}>
+            <i className="fas fa-list-ul"></i>
+          </section>
+
+        </main>
       </main>
+      )
     );
   }
 }

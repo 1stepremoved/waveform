@@ -66,7 +66,7 @@ class TrackShow extends React.Component {
             </span>
           </div>
           <div id="user-show-info-description">
-            <span>Description:</span>
+            <span>Description:</span><br></br>
             {this.state.description}
           </div>
         </section>
