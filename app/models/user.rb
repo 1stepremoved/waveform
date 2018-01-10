@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_attached_file :profile_image, default_url: "default_profile.png"
   validates_attachment_content_type :profile_image, content_type: /\Aimage\/.*\Z/
 
-  has_attached_file :background_image, default_url: "default_background_image.jpeg"
+  has_attached_file :background_image, default_url: "default_background_image.jpg"
   validates_attachment_content_type :background_image, content_type: /\Aimage\/.*\Z/
 
 

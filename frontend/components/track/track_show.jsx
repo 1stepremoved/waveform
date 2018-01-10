@@ -1,4 +1,5 @@
 import React from 'react';
+import PlayButtonContainer from '../play_button/play_button_container';
 import { Link } from 'react-router-dom';
 
 class TrackShow extends React.Component {
@@ -31,14 +32,15 @@ class TrackShow extends React.Component {
 
 
   render() {
+    debugger
     return (
       <main id="user-show-container">
         <section id="user-show-header">
           <div id="user-show-header-left">
             <div id="user-show-header-info">
-              <button id="user-show-header-play-button">
-                <i className="fas fa-play"></i>
-              </button>
+              {!this.props.track ? null :
+                <PlayButtonContainer visible={true} classname="user-show-header-play-button" track={this.props.track}/>
+              }
               <div id="user-show-header-by-info">
                 <span id="user-show-header-username">
                   {this.state.username}
