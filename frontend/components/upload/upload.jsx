@@ -6,7 +6,9 @@ class Upload extends React.Component {
     super(props);
     this.state = {page2: false, title: "", discription: "", userId: this.props.currentUser.id,
                   track: null, trackUrl: "",
-                  trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg"};
+                  trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg",
+                  titleMissingError: false
+                };
     this.update = this.update.bind(this);
     this.page2 = this.page2.bind(this);
     this.updateFile = this.updateFile.bind(this);
@@ -44,6 +46,9 @@ class Upload extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.title === "") {
+      return this.setState({titleMissingError: true});
+    }
     let formData = new FormData();
     formData.append("track[title]", this.state.title);
     formData.append("track[description]", this.state.description);
@@ -69,7 +74,9 @@ class Upload extends React.Component {
               id='change-image-file'></input>
           </div>
           <div id="upload-track-info">
-            <label>Title<br></br>
+            <label>Title <span id="upload-title-missing-error">{
+                this.state.titleMissingError ? "*You must title your track" : null
+              }</span><br></br>
               <input type="text" value={this.state.title}
                 placeholder="Name your track"
                 onChange={this.update("title")}></input>

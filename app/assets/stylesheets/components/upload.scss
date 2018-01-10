@@ -122,7 +122,7 @@
 
 #upload-submit-cancel {
   float: right;
-  margin-right: 20px; 
+  margin-right: 20px;
 
   #upload-cancel-button {
     float: right;
@@ -152,4 +152,9 @@
       outline: none;
     }
   }
+}
+
+#upload-title-missing-error {
+  color: #1177ff;
+  font-size: 14px;
 }
