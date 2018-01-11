@@ -188,8 +188,9 @@ class Player extends React.Component {
             <div onClick={this.handleLastSong} id="player-last-song">
               <i className="fas fa-step-backward"></i>
             </div>
-            <div onClick={this.togglePause} id="player-play-button">
-              {pauseButton}
+            <div onClick={this.togglePause} id="player-play-button"
+              style={{backgroundImage: `url(${this.props.paused ? window.staticImages.play : window.staticImages.pause})`}}>
+
             </div>
             <div onClick={this.handleNextSong} id="player-next-song">
               <i className="fas fa-step-forward"></i>
@@ -218,12 +219,12 @@ class Player extends React.Component {
               <div id="player-timeline"
                 ref={(timeline) => {this.timeline = timeline;}}
                 style={{background: `linear-gradient(90deg, #1177ff,
-                  #1177ff ${(this.state.position / this.state.duration * 100)}%,
+                  #1177ff ${(this.state.mouseDown ? (this.state.mousePos / this.timeline.offsetWidth * 100) : (this.state.position / this.state.duration * 100))}%,
                   gray 0%, gray)`}}>
 
                   {!this.state.handleVisible ? null :
                     <div id="player-handle" ref={(handle) => {this.handle = handle;}}
-                      style={{marginLeft: this.state.mousePos}}>
+                      style={{marginLeft: this.state.mouseDown ? this.state.mousePos : (this.state.position / this.state.duration * this.timeline.offsetWidth)}}>
                     </div>
                   }
               </div>

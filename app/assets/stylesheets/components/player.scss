@@ -26,6 +26,16 @@
   padding-right: 0 35px;
   font-size: 14px;
 
+  #player-play-button {
+    // height: 25px;
+    width: 25px;
+    padding: 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+
   svg {
     margin: 0 15px;
     cursor: pointer;

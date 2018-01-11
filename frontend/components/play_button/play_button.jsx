@@ -19,12 +19,11 @@ class PlayButton extends React.Component {
     return (
       !this.props.visible && !(this.props.currentId === this.props.track.id) ? null :
       (<button onClick={this.togglePause} className={this.props.classname}
-        style={{display: 'flex', justifyContent: 'center'}}>
-        {this.props.paused && this.props.currentlyPlaying ?
-          <i className="fas fa-pause"></i>
-          :
-          <i className="fas fa-play"></i>
-        }
+        style={{display: 'flex', justifyContent: 'center',
+          backgroundImage: `url(${this.props.currentlyPlaying && !this.props.paused ? window.staticImages.pause : window.staticImages.play})`,
+          backgroundPosition: "center",
+          backgroundSize: "60%",
+          backgroundRepeat: "no-repeat"}}>
       </button>)
     );
   }
