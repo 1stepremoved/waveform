@@ -10,6 +10,7 @@ const commentReducer = (state = {}, action) => {
       delete action.comments["totalComments"];
       return  merge({}, state, action.comments);
     case RECEIVE_COMMENT:
+    debugger
       return  merge({}, state, {[action.comment.id]: action.comment});
     default:
       return state;

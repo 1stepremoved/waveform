@@ -6,5 +6,5 @@ import commentReducer from './comment_reducer';
 export default combineReducers({
   tracks: trackReducer,
   users: userReducer,
-  comment: commentReducer
+  comments: commentReducer
 });

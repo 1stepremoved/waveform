@@ -6,10 +6,10 @@ export const requestComments = (userId, offset=0, limit=10) => {
 };
 
 
-export const createComment = (comment, userId) => {
+export const createComment = (comment, trackId) => {
   return $.ajax({
     method: "post",
-    url: `api/tracks/${userId}/comments`,
+    url: `api/tracks/${trackId}/comments`,
     dataType: 'json',
     data: {comment}
   });

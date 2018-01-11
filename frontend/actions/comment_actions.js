@@ -38,8 +38,8 @@ export const requestComments = (userId, offset, limit) => dispatch => {
           (err) => dispatch(receiveCommentErrors(err.responseJSON)));
 };
 
-export const createComment = (comment, userId) => dispatch => {
-  return CommentAPIUtil.createComment(comment, userId)
-    .then((comments) => dispatch(receiveComments(comments)),
+export const createComment = (comment, trackId) => dispatch => {
+  return CommentAPIUtil.createComment(comment, trackId)
+    .then((comments) => dispatch(receiveComment(comment)),
           (err) => dispatch(receiveCommentErrors(err.responseJSON)));
 };

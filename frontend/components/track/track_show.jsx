@@ -2,6 +2,7 @@ import React from 'react';
 import PlayButtonContainer from '../play_button/play_button_container';
 import { Link } from 'react-router-dom';
 import CommentFormContainer from '../comment/comment_form_container';
+import CommentIndexItemContainer from '../comment/comment_index_item_container';
 
 class TrackShow extends React.Component {
   constructor(props) {
@@ -30,6 +31,8 @@ class TrackShow extends React.Component {
           description: this.props.track.description,
           userId: this.props.track.userId
         });
+        this.props.clearComments();
+        this.props.requestComments(this.state.id, 0, 50);
       });
   }
 
@@ -58,23 +61,36 @@ class TrackShow extends React.Component {
           </div>
         </section>
 
-        {!this.props.currentUser ? null :
-          <CommentFormContainer commentableId={this.state.id} commentableType="Track"
-            trackShow={true}/>
-        }
 
-        <section id="user-show-info">
-          <div id="user-show-info-user">
-            <div id="user-show-info-user-image"
-              style={{backgroundImage: `url(${this.state.userImageUrl})`}}>
+
+        <section id="user-show-info-container">
+          {!this.props.currentUser ? null :
+            <CommentFormContainer commentableId={this.state.id} commentableType="Track"
+              trackShow={true}/>
+          }
+          <div id="user-show-info">
+            <div id="user-show-info-user">
+              <div id="user-show-info-user-image"
+                style={{backgroundImage: `url(${this.state.userImageUrl})`}}>
+              </div>
+              <span id="user-show-info-user-username">
+                <Link to={`/users/${this.state.userId}`}> {this.state.username} </Link>
+              </span>
             </div>
-            <span id="user-show-info-user-username">
-              <Link to={`/users/${this.state.userId}`}> {this.state.username} </Link>
-            </span>
-          </div>
-          <div id="user-show-info-description">
-            <span>Description:</span><br></br>
-            {this.state.description}
+            <div id="user-show-info-comments-description">
+              <div id="user-show-info-description">
+                <span>Description:</span><br></br>
+                {this.state.description}
+              </div>
+              <section id="user-show-info-comments">
+                <div>
+                  <i className="fas fa-comment"></i> {this.props.totalComments} comments
+                </div>
+                {this.props.comments.map(comment => {
+                  return <CommentIndexItemContainer comment={comment} />;
+                })}
+              </section>
+            </div>
           </div>
         </section>
       </main>
