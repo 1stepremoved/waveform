@@ -11,16 +11,13 @@ import MainNavLoggedOut from './main_nav_logged_out';
 
    decideNav() {
      return (this.props.currentUser) ?
-      <MainNavLoggedIn currentUser={this.props.currentUser} />
+      <MainNavLoggedIn isRoot={this.props.isRoot} currentUser={this.props.currentUser} />
         :
-      <MainNavLoggedOut currentUser={this.props.currentUser} changeForm={this.props.changeForm}/>;
+      <MainNavLoggedOut isRoot={this.props.isRoot} currentUser={this.props.currentUser} changeForm={this.props.changeForm}/>;
    }
 
    render() {
-     return (this.props.isRoot) ?
-      null
-        :
-      this.decideNav();
+     return this.decideNav();
    }
  }
 

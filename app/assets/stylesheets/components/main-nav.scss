@@ -8,15 +8,26 @@ $nav-height: 45px;
   position: fixed;
   width: 100%;
   z-index: 10;
+  transition: height 500ms;
 }
 
+.collapsable {
+  transition: transform 500ms ease-out;
+}
+
+.collapsed {
+  transform: scaleY(0);
+}
+
+.uncollapsed {
+  transform: scaleY(1);
+}
 
 
 .main-nav {
   display: flex;
   justify-content: space-between;
   // position: fixed;
-  height: $nav-height;
   width: 1250px;
   background-color: #333;
   font-family: sans-serif;

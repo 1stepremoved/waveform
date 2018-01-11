@@ -6,17 +6,22 @@ import TrackIndexItemContainer from '../track/track_index_item_container';
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {profile_image: null,
-                  profile_image_url: null,
-                  background_image: null,
-                  background_image_url: null};
-    this.updateFile = this.updateFile.bind(this);
+
     this.loadedUser = this.loadedUser.bind(this);
+    this.state = {profile_image: null,
+                  profile_image_url: this.loadedUser("profileImageUrl"),
+                  background_image: null,
+                  background_image_url: this.loadedUser("backgroundImageUrl")};
+    this.updateFile = this.updateFile.bind(this);
   }
 
   componentDidMount() {
     if (!this.pageUser){
-      this.props.requestUser(this.props.pageUserId);
+      this.props.requestUser(this.props.pageUserId).
+        then(() => {
+          this.setState({profile_image_url: this.props.pageUser["profileImageUrl"],
+                         background_image_url: this.props.pageUser["backgroundImageUrl"]});
+        });
     }
     this.props.requestUsersTracks(this.props.pageUserId);
   }
@@ -55,10 +60,10 @@ class UserShow extends React.Component {
     return (
       <main id="user-show-container">
         <section id="user-show-background-image"
-          style={{backgroundImage: `url(${this.loadedUser("backgroundImageUrl")})`,
+          style={{backgroundImage: `url(${this.state.background_image_url})`,
                   backgroundPosition: 'center'}}>
           <section id="user-show-profile-image"
-            style={{backgroundImage: `url(${this.loadedUser("profileImageUrl")})`,
+            style={{backgroundImage: `url(${this.state.profile_image_url})`,
                     backgroundPosition: 'center'}}>
             {this.props.isCurrentUserPage ?
               <div id="change-profile-image-box">
