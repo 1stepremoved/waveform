@@ -5,6 +5,9 @@ $nav-height: 45px;
   justify-content: center;
   height: $nav-height;
   background-color: #333;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 }
 
 
@@ -12,7 +15,7 @@ $nav-height: 45px;
 .main-nav {
   display: flex;
   justify-content: space-between;
-  position: fixed;
+  // position: fixed;
   height: $nav-height;
   width: 1250px;
   background-color: #333;
