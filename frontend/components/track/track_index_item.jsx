@@ -43,18 +43,18 @@ class TrackIndexItem extends React.Component {
           <div className="track-index-item-panel">
             <div className="track-index-item-panel-left">
               <div className="track-index-item-panel-button-left">
-                <i class="fas fa-heart"></i>
+                <i className="fas fa-heart"></i>
               </div>
               <div className="track-index-item-panel-button-left">
-                <i class="fas fa-retweet"></i>
+                <i className="fas fa-retweet"></i>
               </div>
               <div className="track-index-item-panel-button-left">
-                <i class="fas fa-ellipsis-h"></i>
+                <i className="fas fa-ellipsis-h"></i>
               </div>
             </div>
             <div className="track-index-item-panel-right">
               <Link to={`/tracks/${this.trackLoaded("id")}`} className="track-index-item-panel-button-right">
-                <i class="fas fa-comment"></i>
+                <i className="fas fa-comment"></i>
               </Link>
             </div>
           </div>

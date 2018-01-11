@@ -102,8 +102,8 @@ class UserShow extends React.Component {
         </section>
         <section id="user-tracks-and-info">
           <div id="user-tracks">
-            {this.props.visibleTrackIds.map(trackId => {
-              return <TrackIndexItemContainer trackId={trackId} />;
+            {this.props.visibleTrackIds.map((trackId, idx) => {
+              return <TrackIndexItemContainer  key={idx} trackId={trackId} />;
             })}
           </div>
         </section>
