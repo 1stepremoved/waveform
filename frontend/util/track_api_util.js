@@ -5,6 +5,13 @@ export const requestTracks = (num=12, offset=0, query="") => {
   });
 };
 
+export const requestUsersTracks = (id, num=12, offset=0, query="") => {
+  return $.ajax({
+    method: "get",
+    url: `api/users/${id}/tracks?query=${query}&&offset=${offset}&&num=${num}`
+  });
+};
+
 export const requestTrack = (id) => {
   return $.ajax({
     method: "get",

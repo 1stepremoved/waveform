@@ -196,7 +196,8 @@ class Player extends React.Component {
           }
 
           <section id="player-timeline-container-box">
-            <div id="player-current-time">{this.parseTime(this.state.position)}</div>
+            <div id="player-current-time">{this.parseTime(this.state.handleVisible ?
+                this.state.mousePos / this.timeline.offsetWidth * this.state.duration : this.state.position)}</div>
             <div id="player-timeline-container"
               onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
               onClick={this.setAudioTime}>

@@ -6,7 +6,7 @@ class Upload extends React.Component {
     super(props);
     this.state = {page2: false, title: "", description: "", userId: this.props.currentUser.id,
                   track: null, trackUrl: "",
-                  trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg",
+                  trackImage: null, trackImageUrl: window.staticImages.defaultTrackImage,
                   titleMissingError: false
                 };
     this.update = this.update.bind(this);
@@ -40,7 +40,7 @@ class Upload extends React.Component {
   resetState() {
     this.setState({page2: false, title: "", description: "",
                   track: null, trackUrl: "",
-                  trackImage: null, trackImageUrl: "http://localhost:3000/assets/default_track_image-92d29c99c964858a01301d70bf0aa56293ab8aaf9344fb064075a4324ded0ffe.jpg"}
+                  trackImage: null, trackImageUrl: window.staticImages.defaulTrackImage}
                 );
   }
 

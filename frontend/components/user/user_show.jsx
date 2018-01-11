@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import TrackIndexItemContainer from '../track/track_index_item_container';
+
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -9,6 +11,10 @@ class UserShow extends React.Component {
                   background_image: null,
                   background_image_url: null};
     this.updateFile = this.updateFile.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.requestUsersTracks(this.props.pageUserId);
   }
 
   updateFile(image) {
@@ -76,6 +82,9 @@ class UserShow extends React.Component {
         </section>
         <section id="user-tracks-and-info">
           <div id="user-tracks">
+            {this.props.visibleTrackIds.map(trackId => {
+              return <TrackIndexItemContainer trackId={trackId} />;
+            })}
           </div>
         </section>
       </main>

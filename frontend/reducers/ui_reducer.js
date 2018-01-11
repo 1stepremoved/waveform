@@ -1,7 +1,15 @@
 import { CHANGE_NAV, CHANGE_FORM, TOGGLE_QUEUE } from '../actions/ui_actions';
+import { RECEIVE_TRACKS_AND_SHOW } from '../actions/track_actions';
 import merge from 'lodash/merge';
 
-const uiReducer = (state= {currentNav: "", currentForm: null, queueVisible: false}, action) => {
+let initialState = {
+  currentNav: "",
+  currentForm: null,
+  queueVisible: false,
+  visibleTrackIds: []
+};
+
+const uiReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState;
   switch (action.type) {
@@ -15,6 +23,9 @@ const uiReducer = (state= {currentNav: "", currentForm: null, queueVisible: fals
       return newState;
     case TOGGLE_QUEUE:
       newState = merge({},state, {queueVisible: !state.queueVisible});
+      return newState;
+    case RECEIVE_TRACKS_AND_SHOW:
+      newState = merge({}, state, {visibleTrackIds: Object.keys(action.tracks)});
       return newState;
     default:
       return state;

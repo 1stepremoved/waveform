@@ -1,0 +1,92 @@
+.track-index-item-container {
+  display: flex;
+  margin: 30px 22.5px;
+}
+
+.track-index-item-image {
+  min-width: 160px;
+  height: 160px;
+  background-size: cover;
+}
+
+.track-index-item-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 15px;
+  width: 100%;
+}
+
+.track-index-item-info {
+  display: flex;
+}
+
+.track-index-item-play-button {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: #2577f9;
+  border: none;
+  outline: 0;
+
+  &:hover {
+    background-color: #104399;
+  }
+
+  &:active {
+    outline: 0;
+  }
+}
+
+.track-index-item-by-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 5px;
+}
+
+.track-index-item-username {
+  color: #999;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.track-index-item-title {
+  color: black;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.track-index-item-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.track-index-item-panel-left, .track-index-item-panel-left {
+  display: flex;
+}
+
+.track-index-item-panel-button-left {
+  font-size: 12px;
+  padding: 3px 6px;
+  margin: 5px 3.5px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.track-index-item-panel-button-right {
+  font-size: 10px;
+  padding: 3px 6px;
+  margin: 5px 3.5px;
+  text-decoration: none;
+  color: #999;
+}
