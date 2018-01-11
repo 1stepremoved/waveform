@@ -31,6 +31,7 @@ class Player extends React.Component {
     this.toggleMouseDown = this.toggleMouseDown.bind(this);
     this.moveVolumeHandler = this.moveVolumeHandler.bind(this);
     this.toggleQueue = this.toggleQueue.bind(this);
+    this.trackLoaded = this.trackLoaded.bind(this);
   }
 
   togglePause(e) {
@@ -174,6 +175,10 @@ class Player extends React.Component {
     }
   }
 
+  trackLoaded(key) {
+    return this.props.track ? this.props.track[key] : null;
+  }
+
   render() {
 
     const pauseButton = this.props.paused ?
@@ -181,8 +186,9 @@ class Player extends React.Component {
       :
       (<i className="fa fa-pause"></i>);
     return (
-      (!this.props.currentId ? null :
-      <main id="player-container-box">
+
+      <main id="player-container-box" className={`collapsable ${this.props.currentId ? "uncollapsed" : "collapsed"}`}
+        style={{transformOrigin: 'bottom'}}>
         <main id="player-container">
           <section id="player-controls">
             <div onClick={this.handleLastSong} id="player-last-song">
@@ -253,14 +259,14 @@ class Player extends React.Component {
 
           <section id="player-queue-container">
             <div id="player-queue-image"
-              style={{backgroundImage: `url(${this.props.track.imageUrl})`}}>
+              style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`}}>
             </div>
             <div id="player-queue-by-info">
               <div id="player-queue-track-artist">
-                {this.props.track.username}
+                {this.trackLoaded("username")}
               </div>
               <div id="player-queue-track-name">
-                {this.props.track.title}
+                {this.trackLoaded("title")}
               </div>
             </div>
           </section>
@@ -275,7 +281,7 @@ class Player extends React.Component {
 
         </main>
       </main>
-      )
+
     );
   }
 }

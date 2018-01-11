@@ -14,7 +14,8 @@ import {Link, NavLink} from 'react-router-dom';
 
    render() {
      return (
-       <main id="main-nav-container" className={`collapsable ${this.props.isRoot ? "collapsed" : "uncollapsed"}`}>
+       <main id="main-nav-container" className={`collapsable ${this.props.isRoot ? "collapsed" : "uncollapsed"}`}
+         style={{transformOrigin: 'top'}}>
          <section className="main-nav">
 
              <div className="main-nav-left">
