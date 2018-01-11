@@ -25,7 +25,8 @@ const uiReducer = (state = initialState, action) => {
       newState = merge({},state, {queueVisible: !state.queueVisible});
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
-      newState = merge({}, state, {visibleTrackIds: Object.keys(action.tracks)});
+      newState = merge({}, state);
+      newState.visibleTrackIds = Object.keys(action.tracks);
       return newState;
     default:
       return state;

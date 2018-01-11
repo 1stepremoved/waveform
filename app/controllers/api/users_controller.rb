@@ -9,6 +9,15 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find_by(id: params[:id])
+    if @user
+      render "api/users/showOther"
+    else
+      render json: ["Unable to find requested user"], status: 404
+    end
+  end
+
   def update
     @user = User.find_by(id: params[:id]);
     if @user && @user == current_user

@@ -11,10 +11,21 @@ class UserShow extends React.Component {
                   background_image: null,
                   background_image_url: null};
     this.updateFile = this.updateFile.bind(this);
+    this.loadedUser = this.loadedUser.bind(this);
   }
 
   componentDidMount() {
+    if (!this.pageUser){
+      this.props.requestUser(this.props.pageUserId);
+    }
     this.props.requestUsersTracks(this.props.pageUserId);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.pageUserId !== newProps.pageUserId) {
+      this.props.requestUser(newProps.pageUserId);
+      this.props.requestUsersTracks(newProps.pageUserId);
+    }
   }
 
   updateFile(image) {
@@ -35,15 +46,19 @@ class UserShow extends React.Component {
     };
   }
 
+  loadedUser(key) {
+    return this.props.pageUser ? this.props.pageUser[key] : null;
+  }
+
   render () {
     //<i className="fas fa-camera"></i>
     return (
       <main id="user-show-container">
         <section id="user-show-background-image"
-          style={{backgroundImage: `url(${this.props.currentUser.backgroundImageUrl})`,
+          style={{backgroundImage: `url(${this.loadedUser("backgroundImageUrl")})`,
                   backgroundPosition: 'center'}}>
           <section id="user-show-profile-image"
-            style={{backgroundImage: `url(${this.props.currentUser.profileImageUrl})`,
+            style={{backgroundImage: `url(${this.loadedUser("profileImageUrl")})`,
                     backgroundPosition: 'center'}}>
             {this.props.isCurrentUserPage ?
               <div id="change-profile-image-box">
@@ -57,7 +72,7 @@ class UserShow extends React.Component {
             }
           </section>
           <section id="user-show-username">
-            {this.props.currentUser.username}
+            {this.loadedUser("username")}
           </section>
           {this.props.isCurrentUserPage ?
           <div id="change-background-image-box">

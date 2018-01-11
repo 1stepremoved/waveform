@@ -10,6 +10,12 @@ class Player extends React.Component {
                   volumeVisible: false,
                   volumePos: 0,
                   mouseDown: false};
+
+    document.body.onkeyup = (e) => {
+      if(e.keyCode === "32" && this.props.currentId){
+        this.props.pause();
+      }
+    };
     this.toggleState = this.toggleState.bind(this);
     this.togglePause = this.togglePause.bind(this);
     this.handlePause = this.handlePause.bind(this);
