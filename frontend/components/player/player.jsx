@@ -24,6 +24,7 @@ class Player extends React.Component {
     this.handleNextSong = this.handleNextSong.bind(this);
     this.moveHandle = this.moveHandle.bind(this);
     this.hideHandle = this.hideHandle.bind(this);
+    this.showHandle = this.showHandle.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
     this.setAudioTime = this.setAudioTime.bind(this);
     this.toggleVolumeVisible = this.toggleVolumeVisible.bind(this);
@@ -109,6 +110,9 @@ class Player extends React.Component {
 
   moveHandle(e) {
     // let timelineWidth = this.timeline.offsetWidth - this.handle.offsetWidth;
+    if (!this.state.mouseDown){
+      return;
+    }
     let mousePos = e.pageX - this.timeline.offsetLeft;
     if (mousePos > this.timeline.offsetWidth) {
       mousePos = this.timeline.offsetWidth;
@@ -118,14 +122,18 @@ class Player extends React.Component {
     this.setState({mousePos, handleVisible: true});
   }
 
+  showHandle(e) {
+    this.setState({handleVisible: true});
+  }
+
   hideHandle(e) {
     this.setState({handleVisible: false});
   }
 
   setAudioTime() {
-    if (this.audio) {
+    if (this.audio && this.state.handleVisible === true) {
       this.audio.currentTime = (this.state.mousePos / this.timeline.offsetWidth * this.state.duration);
-      this.setState({position: this.audio.currentTime});
+      this.setState({position: this.audio.currentTime, mouseDown: false});
     }
   }
 
@@ -202,11 +210,11 @@ class Player extends React.Component {
           }
 
           <section id="player-timeline-container-box">
-            <div id="player-current-time">{this.parseTime(this.state.handleVisible ?
+            <div id="player-current-time">{this.parseTime(this.state.handleVisible && this.state.mouseDown ?
                 this.state.mousePos / this.timeline.offsetWidth * this.state.duration : this.state.position)}</div>
             <div id="player-timeline-container"
-              onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle}
-              onClick={this.setAudioTime}>
+              onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle} onMouseEnter={this.showHandle}
+              onMouseDown={()=>this.setState({mouseDown: true})} onMouseUp={this.setAudioTime}>
               <div id="player-timeline"
                 ref={(timeline) => {this.timeline = timeline;}}
                 style={{background: `linear-gradient(90deg, #1177ff,
