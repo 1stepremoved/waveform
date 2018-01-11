@@ -1,0 +1,30 @@
+.comment-form-container {
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.comment-form-user-image {
+  height: 50px;
+  width: 50px;
+  background-position: center;
+  background-size: cover;
+}
+
+.comment-form-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comment-form-container-input {
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 14px;
+  padding: 5px;
+
+  &:focus {
+    outline: none;
+  }
+}

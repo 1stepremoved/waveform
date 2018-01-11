@@ -4,7 +4,8 @@ import { requestTrack } from '../../actions/track_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    track: state.entities.tracks[ownProps.match.params.trackId]
+    track: state.entities.tracks[ownProps.match.params.trackId],
+    currentUser: state.session.currentUser
   };
 };
 

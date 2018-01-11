@@ -1,11 +1,13 @@
 import React from 'react';
 import PlayButtonContainer from '../play_button/play_button_container';
 import { Link } from 'react-router-dom';
+import CommentFormContainer from '../comment/comment_form_container';
 
 class TrackShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: (this.props.id) ? this.props.track.id : null,
       username: (this.props.track) ? this.props.track.username : null,
       title: (this.props.track) ? this.props.track.title : null,
       imageUrl: (this.props.track) ? this.props.track.imageUrl : null,
@@ -20,6 +22,7 @@ class TrackShow extends React.Component {
     this.props.requestTrack(this.props.match.params.trackId)
       .then(()=>{
         that.setState({
+          id: this.props.track.id,
           username: this.props.track.username,
           title: this.props.track.title,
           imageUrl: this.props.track.imageUrl,
@@ -54,6 +57,11 @@ class TrackShow extends React.Component {
             style={{backgroundImage: `url(${this.state.imageUrl})`}}>
           </div>
         </section>
+
+        {!this.props.currentUser ? null :
+          <CommentFormContainer commentableId={this.state.id} commentableType="Track"
+            trackShow={true}/>
+        }
 
         <section id="user-show-info">
           <div id="user-show-info-user">
