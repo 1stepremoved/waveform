@@ -3,6 +3,8 @@ class Track < ApplicationRecord
 
   belongs_to :user
 
+  has_many :comments, as: :commentable
+
   has_attached_file :audio
   validates_attachment_content_type :audio, :content_type => [ 'audio/mpeg', 'audio/x-mpeg',
       'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3',

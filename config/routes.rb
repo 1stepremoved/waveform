@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :update, :destroy] do
       resources :tracks, only: [:index]
     end
-    resources :tracks, only: [:create, :show, :index, :update, :destroy]
+    resources :tracks, only: [:create, :show, :index, :update, :destroy] do
+      resources :comments, only: [:create, :index, :show, :destroy]
+    end
     resource :session, only: [:create, :show, :destroy]
   end
 
