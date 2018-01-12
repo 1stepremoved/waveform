@@ -64,7 +64,8 @@ class QueueItem extends React.Component {
           style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`,
                   opacity: `${this.state.active ? '1' : '0.5'}`}}>
           <PlayButtonContainer visible={this.state.active} classname="queue-item-play-button"
-            track={this.props.track ? this.props.track : this.fauxTrack } />
+            track={this.props.track ? this.props.track : this.fauxTrack }
+            inQueue={true} />
         </div>
         <div className="queue-item-by-info">
           <div className="queue-item-track-artist" >

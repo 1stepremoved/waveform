@@ -1,6 +1,7 @@
 import { ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
          REMOVE_FROM_QUEUE, CLEAR_QUEUE, NEXT_SONG, LAST_SONG,
-         SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK, MOVE_CURRENT_TRACK} from '../actions/queue_actions';
+         SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK, MOVE_CURRENT_TRACK,
+         MOVE_TO_TRACK} from '../actions/queue_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -28,6 +29,12 @@ const queueReducer = (state=initialState, action) => {
       newState.order = newState.order.slice(0,state.currentTrack + 1).concat(newState.trackIds.length - 1).concat(newState.order.slice(state.currentTrack + 1));
       newState.currentTrack += 1;
       newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+      newState.paused = false;
+      newState.startTrack = true;
+      return newState;
+    case MOVE_TO_TRACK:
+      newState.currentId = action.trackId;
+      newState.currentTrack = newState.trackIds.indexOf(action.trackId);
       newState.paused = false;
       newState.startTrack = true;
       return newState;

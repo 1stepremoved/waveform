@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PlayButton from './play_button';
-import { addToQueueNow, pause } from '../../actions/queue_actions';
+import { addToQueueNow, pause, moveToTrack } from '../../actions/queue_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToQueueNow: (id) => dispatch(addToQueueNow(id)),
-    pause: () => dispatch(pause())
+    pause: () => dispatch(pause()),
+    moveToTrack: (id) => dispatch(moveToTrack(id))
   };
 };
 
