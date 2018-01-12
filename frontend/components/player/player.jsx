@@ -42,8 +42,8 @@ class Player extends React.Component {
       this.audio.play();
       const that = this;
       this.currentTimeCheck = setInterval(() => {
-        this.setState({position: that.audio.currentTime});
-        this.props.setPosition(that.audio.currentTime);
+        this.setState({position: that.audio ? that.audio.currentTime : 0});
+        this.props.setPosition(that.audio ? that.audio.currentTime : 0);
       },500);
     } else {
       this.audio.pause();
@@ -69,8 +69,8 @@ class Player extends React.Component {
         that.audio.onended = this.props.nextSong;
       }, false);
       this.currentTimeCheck = setInterval(() => {
-        this.setState({position: that.audio.currentTime});
-        this.props.setPosition(that.audio.currentTime);
+        this.setState({position: that.audio ? that.audio.currentTime : 0});
+        this.props.setPosition(that.audio ? that.audio.currentTime : 0);
       },500);
     }
   }

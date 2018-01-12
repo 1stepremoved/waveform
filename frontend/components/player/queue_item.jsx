@@ -21,6 +21,12 @@ class QueueItem extends React.Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentTrackId !== newProps.trackId){
+      this.setState({active: false});
+    }
+  }
+
   trackLoaded(key) {
     if (this.props.track) {
       return this.props.track[key];
@@ -55,7 +61,8 @@ class QueueItem extends React.Component {
       <section className="queue-item-container"
         onMouseEnter={this.setActive}  onMouseLeave={this.setInactive} >
         <div className="queue-item-image"
-          style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`}}>
+          style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`,
+                  opacity: `${this.state.active ? '1' : '0.5'}`}}>
           <PlayButtonContainer visible={this.state.active} classname="queue-item-play-button"
             track={this.props.track ? this.props.track : this.fauxTrack } />
         </div>
@@ -63,7 +70,8 @@ class QueueItem extends React.Component {
           <div className="queue-item-track-artist" >
             {this.trackLoaded("username")}
           </div>
-          <div className="queue-item-track-name">
+          <div className="queue-item-track-name"
+            style={{color: `${this.state.active ? '#000' : '#999'}`}}>
             {this.trackLoaded("title")}
           </div>
         </div>
