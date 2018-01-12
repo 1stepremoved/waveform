@@ -1,5 +1,5 @@
 import {RECEIVE_TRACKS, RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_AND_RESET,
-        RECEIVE_TRACK, REMOVE_TRACK} from '../actions/track_actions';
+        RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_TRACKS_FOR_SEARCH} from '../actions/track_actions';
 import merge from 'lodash/merge';
 
 const trackReducer = (state = {}, action) => {
@@ -9,6 +9,8 @@ const trackReducer = (state = {}, action) => {
     case RECEIVE_TRACKS:
       return merge({},state, action.tracks);
     case RECEIVE_TRACKS_AND_SHOW:
+      return merge({},state, action.tracks);
+    case RECEIVE_TRACKS_FOR_SEARCH:
       return merge({},state, action.tracks);
     case RECEIVE_TRACKS_AND_RESET:
       return action.tracks;

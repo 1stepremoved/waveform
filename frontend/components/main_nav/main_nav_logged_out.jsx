@@ -1,15 +1,26 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import SearchIndexItemContainer from './search_index_item_container';
 
  class MainNavLoggedOut extends React.Component{
-
    constructor(props) {
      super(props);
+     this.state = {input: ""};
      this.openForm = this.openForm.bind(this);
+     this.getSearchResults = this.getSearchResults.bind(this);
    }
 
    openForm(formName) {
      this.props.changeForm(formName);
+   }
+
+   getSearchResults(e) {
+     this.setState({input: e.target.value});
+     if (e.target.value === "") {
+       this.props.clearSearchTracks();
+     } else {
+       this.props.requestTracksForSearch(10, 0, e.target.value);
+     }
    }
 
    render() {
@@ -35,8 +46,19 @@ import {Link, NavLink} from 'react-router-dom';
              <div id="main-nav-search-form-container">
                <form onSubmit={(e)=>{e.preventDefault();}} id="search-form">
                  <input id="main-nav-search-input"
-                   type="text" placeholder="Search for artists, tracks, playlists"></input>
+                   type="text" placeholder="Search for artists, tracks, playlists"
+                   value={this.state.input} onChange={this.getSearchResults}></input>
                </form>
+               {this.state.input === "" ? null :
+                 <section id="main-nav-search-index-container">
+                   <div id="main-nav-search-index-query"> Search results for <span>{this.state.input}</span></div>
+                   <div id="main-nav-search-index">
+                     {this.props.searchTrackIds.map(trackId =>{
+                       return <SearchIndexItemContainer trackId={trackId} />;
+                     })}
+                   </div>
+                 </section>
+               }
              </div>
 
              <div className="main-nav-right">

@@ -36,6 +36,26 @@ class TrackShow extends React.Component {
       });
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.track && this.props.track.id !== parseInt(newProps.match.params.trackId)) {
+      const that = this;
+      this.props.requestTrack(this.props.match.params.trackId)
+        .then(()=>{
+          that.setState({
+            id: this.props.track.id,
+            username: this.props.track.username,
+            title: this.props.track.title,
+            imageUrl: this.props.track.imageUrl,
+            userImageUrl: this.props.track.userImageUrl,
+            description: this.props.track.description,
+            userId: this.props.track.userId
+          });
+          this.props.clearComments();
+          this.props.requestComments(this.state.id, 0, 50);
+        });
+    }
+  }
+
 
   render() {
     return (

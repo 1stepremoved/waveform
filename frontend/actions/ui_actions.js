@@ -1,6 +1,7 @@
 export const CHANGE_NAV = "CHANGE_NAV";
 export const CHANGE_FORM = "CHANGE_FORM";
 export const TOGGLE_QUEUE = "TOGGLE_QUEUE";
+export const CLEAR_SEARCH_TRACKS = "CLEAR_SEARCH_TRACKS";
 
 export const changeNav = (navName) => {
   return {
@@ -19,5 +20,11 @@ export const changeForm = (formName) => {
 export const toggleQueue = () => {
   return {
     type: TOGGLE_QUEUE
+  };
+};
+
+export const clearSearchTracks = () => {
+  return {
+    type: CLEAR_SEARCH_TRACKS
   };
 };
