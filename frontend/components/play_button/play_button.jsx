@@ -5,6 +5,7 @@ class PlayButton extends React.Component {
     super(props);
     this.state = {buttonVisible: false};
     this.togglePause = this.togglePause.bind(this);
+    this.isPauseButton = this.isPauseButton.bind(this);
   }
 
   togglePause() {
@@ -15,13 +16,17 @@ class PlayButton extends React.Component {
     }
   }
 
+  isPauseButton() {
+    return (this.props.currentlyPlaying && !this.props.paused);
+  }
+
   render() {
     return (
       !this.props.visible && !(this.props.currentId === this.props.track.id) ? null :
       (<button onClick={this.togglePause} className={this.props.classname}
         style={{display: 'flex', justifyContent: 'center',
-          backgroundImage: `url(${this.props.currentlyPlaying && !this.props.paused ? window.staticImages.pause : window.staticImages.play})`,
-          backgroundPosition: "center",
+          backgroundImage: `url(${this.isPauseButton() ? window.staticImages.pause : window.staticImages.play})`,
+          backgroundPosition: `${this.isPauseButton() ? 'center' : '60% 50%'}`,
           backgroundSize: "60%",
           backgroundRepeat: "no-repeat"}}>
       </button>)

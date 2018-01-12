@@ -40,6 +40,6 @@ export const requestComments = (userId, offset, limit) => dispatch => {
 
 export const createComment = (comment, trackId) => dispatch => {
   return CommentAPIUtil.createComment(comment, trackId)
-    .then((comments) => dispatch(receiveComment(comment)),
+    .then((res) => dispatch(receiveComment(res)),
           (err) => dispatch(receiveCommentErrors(err.responseJSON)));
 };

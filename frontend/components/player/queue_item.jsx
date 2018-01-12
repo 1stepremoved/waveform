@@ -67,12 +67,6 @@ class QueueItem extends React.Component {
             {this.trackLoaded("title")}
           </div>
         </div>
-        {!this.state.active ? null :
-          <div onClick={()=>{this.setState({navOpen: !this.state.navOpen});}} className="queue-item-nav-toggle">
-
-            <i className="fas fa-ellipsis-h"></i>
-          </div>
-        }
       </section>
     );
   }
