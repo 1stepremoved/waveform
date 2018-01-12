@@ -1,6 +1,7 @@
 .comment-index-item-container {
   width: 100%;
   display: flex;
+  align-items: center;
 }
 
 .comment-index-item-image {
@@ -8,13 +9,27 @@
   height: 40px;
   border-radius: 50%;
   background-size: cover;
+  margin: 10px;
 }
 
 .comment-index-item-info {
   display: flex;
+  width: 80%;
   flex-direction: column;
 }
 
-.comment-index-item-info {
-  width: 80%;
+.comment-index-item-username {
+  font-size: 11px;
+  width: 100%;
+  color: #999;
+}
+
+.comment-index-item-username{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comment-index-item-date {
+  min-width: 100px;
 }

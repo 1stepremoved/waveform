@@ -39,55 +39,55 @@ class TrackShow extends React.Component {
 
   render() {
     return (
-      <main id="user-show-container">
-        <section id="user-show-header">
-          <div id="user-show-header-left">
-            <div id="user-show-header-info">
+      <main id="track-show-container">
+        <section id="track-show-header">
+          <div id="track-show-header-left">
+            <div id="track-show-header-info">
               {!this.props.track ? null :
-                <PlayButtonContainer visible={true} classname="user-show-header-play-button" track={this.props.track}/>
+                <PlayButtonContainer visible={true} classname="track-show-header-play-button" track={this.props.track}/>
               }
-              <div id="user-show-header-by-info">
-                <Link to={`/users/${this.state.userId}`} id="user-show-header-username">
+              <div id="track-show-header-by-info">
+                <Link to={`/users/${this.state.userId}`} id="track-show-header-username">
                   {this.state.username}
                 </Link>
-                <span id="user-show-header-title">
+                <span id="track-show-header-title">
                   {this.state.title}
                 </span>
               </div>
             </div>
           </div>
-          <div id="user-show-header-image"
+          <div id="track-show-header-image"
             style={{backgroundImage: `url(${this.state.imageUrl})`}}>
           </div>
         </section>
 
 
 
-        <section id="user-show-info-container">
+        <section id="track-show-info-container">
           {!this.props.currentUser ? null :
             <CommentFormContainer commentableId={this.state.id} commentableType="Track"
               trackShow={true}/>
           }
-          <div id="user-show-info">
-            <div id="user-show-info-user">
-              <div id="user-show-info-user-image"
+          <div id="track-show-info">
+            <div id="track-show-info-user">
+              <div id="track-show-info-user-image"
                 style={{backgroundImage: `url(${this.state.userImageUrl})`}}>
               </div>
-              <span id="user-show-info-user-username">
+              <span id="track-show-info-user-username">
                 <Link to={`/users/${this.state.userId}`}> {this.state.username} </Link>
               </span>
             </div>
-            <div id="user-show-info-comments-description">
-              <div id="user-show-info-description">
+            <div id="track-show-info-comments-description">
+              <div id="track-show-info-description">
                 <span>Description:</span><br></br>
                 {this.state.description}
               </div>
-              <section id="user-show-info-comments">
+              <section id="track-show-info-comments">
                 <div>
                   <i className="fas fa-comment"></i> {this.props.totalComments} comments
                 </div>
                 {this.props.comments.map(comment => {
-                  return <CommentIndexItemContainer comment={comment} />;
+                    return <CommentIndexItemContainer comment={comment} />;
                 })}
               </section>
             </div>

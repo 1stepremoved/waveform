@@ -1,4 +1,4 @@
-#user-show-container {
+#track-show-container {
   margin: auto;
   display:flex;
   flex-direction: column;
@@ -6,21 +6,21 @@
   background-color: white;
 }
 
-#user-show-header {
+#track-show-header {
   height: 380px;
   background: linear-gradient(90deg,#002f84,#3b9efe);
   display: flex;
   align-items: center;
 }
 
-#user-show-header-left {
+#track-show-header-left {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 70%;
 }
 
-.user-show-header-play-button {
+.track-show-header-play-button {
   min-width: 65px;
   height: 65px;
   padding-left: 10px;
@@ -39,14 +39,14 @@
   }
 }
 
-#user-show-header-info {
+#track-show-header-info {
   display: flex;
   // align-items: flex-start;
   // height: 70px;
   margin: 30px;
 }
 
-#user-show-header-by-info {
+#track-show-header-by-info {
   padding-left: 8px;
   display: flex;
   flex-direction: column;
@@ -55,7 +55,7 @@
   white-space: nowrap;
 }
 
-#user-show-header-username {
+#track-show-header-username {
   display: inline-table;
   padding: 3px 10px;
   font-size: 15px;
@@ -65,7 +65,7 @@
   text-decoration: none;
 }
 
-#user-show-header-title{
+#track-show-header-title{
   display: inline-table;
   font-size: 25px;
   padding: 3px 10px;
@@ -75,31 +75,32 @@
 }
 
 
-#user-show-header-image {
+#track-show-header-image {
   width: 340px;
   height: 340px;
   background-size: cover;
   float: right;
 }
 
-#user-show-info-container {
+#track-show-info-container {
   display: flex;
   flex-direction: column;
   margin: 15px 30px;
 }
 
-#user-show-info {
+#track-show-info {
   display: flex;
   padding-top: 20px;
+  width: 100%;
 }
 
-#user-show-info-user {
-  display: flex;
-  flex-direction: column;
+#track-show-info-user {
+  // display: flex;
+  // flex-direction: column;
   width: 130px;
 }
 
-#user-show-info-user-image {
+#track-show-info-user-image {
   margin: auto;
   width: 120px;
   height: 120px;
@@ -107,21 +108,23 @@
   background-size: cover;
 }
 
-#user-show-info-user-username {
+#track-show-info-user-username {
   padding: 10px;
   a {
+    display: block;
     text-decoration: none;
     color: gray;
   }
 }
 
-#user-show-info-comments-description{
+#track-show-info-comments-description{
   display: flex;
   flex-direction: column;
   margin: 0 30px;
+  width: 100%;
 }
 
-#user-show-info-description {
+#track-show-info-description {
   text-decoration: none;
   font-size: 14px;
   min-height: 150px;

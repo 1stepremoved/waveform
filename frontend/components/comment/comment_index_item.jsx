@@ -16,6 +16,10 @@ class CommentIndexItem extends React.Component {
     return this.props.user ? this.props.user[key] : null;
   }
 
+  parseTime(time) {
+    return `${parseInt(time/60)}:${parseInt(time % 60) < 10 ? "0" : "" }${parseInt(time % 60)}`;
+  }
+
   render() {
     return (
       <section className="comment-index-item-container">
@@ -24,7 +28,7 @@ class CommentIndexItem extends React.Component {
         </div>
         <div className="comment-index-item-info">
           <div className="comment-index-item-username">
-            <span>{this.loadedUser("username")}</span> at <span>{this.props.comment.timestamp}</span>
+            <span>{this.loadedUser("username")}</span> at <span>{this.parseTime(this.props.comment.timestamp)}</span>
           </div>
           <div className="comment-index-item-body">
             {this.props.comment.body}

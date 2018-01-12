@@ -17,7 +17,9 @@ class CommentForm extends React.Component {
       user_id: this.props.currentUser.id,
       commentable_id: this.props.commentableId,
       commentable_type: this.props.commentableType,
-      timestamp: this.props.position
+      timestamp: (this.props.currentlyPlayingId === this.props.commentableId
+                  && this.props.commentableType === "Track")
+                  ? this.props.position : 0
     };
 
     this.props.createComment(comment, this.props.currentUser.id)

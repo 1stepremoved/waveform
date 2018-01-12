@@ -4,7 +4,7 @@ class Api::TracksController < ApplicationController
     offset = params[:offset] ? params[:offset].to_i : 0
     num = params[:num] ? params[:num].to_i : 12
     if (params[:user_id])
-      @tracks = User.find(params[:user_id]).tracks.where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
+      @tracks = User.find(params[:user_id].to_i).tracks.where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
     else
       @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").limit(num).offset(offset)
     end

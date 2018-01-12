@@ -16,13 +16,14 @@ const mapStateToProps = (state, ownProps) => {
     //   return state.entities.tracks[trackId];
     // })
     visibleTrackIds: state.ui.visibleTrackIds
+      .sort((trackId1, trackId2) => {return state.entities.tracks[trackId1].createdAtInt < state.entities.tracks[trackId2].createdAtInt;})
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (formData, id) => dispatch(updateUser(formData, id)),
-    requestUsersTracks: (id, num=10, query="", offset=0) => dispatch(requestUsersTracks(id, num, query, offset)),
+    requestUsersTracks: (id, num=10, offset=0, query="") => dispatch(requestUsersTracks(id, num, offset, query)),
     requestUser: (id) => dispatch(requestUser(id))
   };
 };
