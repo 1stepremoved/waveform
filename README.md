@@ -10,8 +10,7 @@ Listen at https://waveformwave.herokuapp.com/
 ## User show page:
 ![alt text](https://raw.githubusercontent.com/1stepremoved/waveform/master/wiki-docs/images/user_show_page.jpg)
 
-
-Features:
+## Features:
   * User authentication via session tokens, and password protection via BCrypt
   * Track creation and deletion, with the option to edit track information after submission
   * Continuous play of music throughout navigation of nearly the entire application
