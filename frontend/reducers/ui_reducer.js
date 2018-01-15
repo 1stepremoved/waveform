@@ -1,6 +1,6 @@
 import { CHANGE_NAV, CHANGE_FORM, TOGGLE_QUEUE, CLEAR_SEARCH_TRACKS } from '../actions/ui_actions';
 import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
-import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH} from '../actions/track_actions';
+import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH} from '../actions/track_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -9,6 +9,7 @@ let initialState = {
   queueVisible: false,
   visibleTrackIds: [],
   searchTrackIds: [],
+  splashTrackIds: [],
   totalComments: 0
 };
 
@@ -34,6 +35,10 @@ const uiReducer = (state = initialState, action) => {
     case RECEIVE_TRACKS_FOR_SEARCH:
       newState = merge({}, state);
       newState.searchTrackIds = Object.keys(action.tracks);
+      return newState;
+    case RECEIVE_TRACKS_FOR_SPLASH:
+      newState = merge({}, state);
+      newState.splashTrackIds = Object.keys(action.tracks);
       return newState;
     case CLEAR_SEARCH_TRACKS:
       newState = merge({}, state);

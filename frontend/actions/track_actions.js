@@ -3,6 +3,7 @@ import * as TrackAPIUtil from '../util/track_api_util';
 export const RECEIVE_TRACKS = "RECEIVE_TRACKS";
 export const RECEIVE_TRACKS_AND_SHOW = "RECEIVE_TRACKS_AND_SHOW";
 export const RECEIVE_TRACKS_FOR_SEARCH = "RECEIVE_TRACKS_FOR_SEARCH";
+export const RECEIVE_TRACKS_FOR_SPLASH = "RECEIVE_TRACKS_FOR_SPLASH";
 export const RECEIVE_TRACKS_AND_RESET = "RECEIVE_TRACKS_AND_RESET";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
@@ -25,6 +26,13 @@ export const receiveTracksAndShow = tracks => {
 export const receiveTracksForSearch = tracks => {
   return {
     type: RECEIVE_TRACKS_FOR_SEARCH,
+    tracks
+  };
+};
+
+export const receiveTracksForSplash = tracks => {
+  return {
+    type: RECEIVE_TRACKS_FOR_SPLASH,
     tracks
   };
 };
@@ -66,6 +74,12 @@ export const requestTracks = (num, query, offset) => dispatch => {
 export const requestTracksForSearch = (num, offset, query) => dispatch => {
   return TrackAPIUtil.requestTracks(num, offset, query)
     .then((res) => dispatch(receiveTracksForSearch(res)),
+      (err) => dispatch(receiveTrackErrors(err.responseJSON)));
+};
+
+export const requestTracksForSplash = (num, offset, query) => dispatch => {
+  return TrackAPIUtil.requestTracks(num, offset, query)
+    .then((res) => dispatch(receiveTracksForSplash(res)),
       (err) => dispatch(receiveTrackErrors(err.responseJSON)));
 };
 

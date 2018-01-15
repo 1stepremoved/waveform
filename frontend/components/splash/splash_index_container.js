@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import SplashIndex from './splash_index';
-import { requestTracks } from '../../actions/track_actions';
+import { requestTracksForSplash } from '../../actions/track_actions';
 
 const mapStateToProps = (state) => {
   return {
-    tracks: Object.keys(state.entities.tracks).map(trackKey => {
+    tracks: state.ui.splashTrackIds.map(trackKey => {
       return state.entities.tracks[trackKey];
     })
   };
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestTracks: (offset,query) => dispatch(requestTracks(offset,query))
+    requestTracksForSplash: (offset,query) => dispatch(requestTracksForSplash(offset,query))
   };
 };
 

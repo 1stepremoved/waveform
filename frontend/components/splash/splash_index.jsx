@@ -7,7 +7,7 @@ class SplashIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.requestTracks(12);
+    this.props.requestTracksForSplash(12);
   }
 
   render() {
