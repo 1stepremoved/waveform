@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logOut: () => dispatch(logOut()),
     changeForm: (formName) => dispatch(changeForm(formName)),
-    requestTracksForSearch: (num, offset = 0, query) => dispatch(requestTracksForSearch(num, query, offset)),
+    requestTracksForSearch: (num, offset, query) => dispatch(requestTracksForSearch(num, offset, query)),
     clearSearchTracks: () => dispatch(clearSearchTracks())
   };
 };
