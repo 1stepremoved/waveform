@@ -2,6 +2,12 @@
 
 WaveForm is a clone of SoundCloud. It provides a platform for users to upload and share their own music, as well as follow and listen to the music of other users.
 
+Home page:
+<img align="left" width="800" src="https://raw.githubusercontent.com/1stepremoved/waveform/master/wiki-docs/images/home_page.jpg">
+
+User show page:
+<img align="left" width="800" src="https://raw.githubusercontent.com/1stepremoved/waveform/master/wiki-docs/images/user_show_page.jpg">
+
 Features:
   * User authentication via session tokens, and password protection via BCrypt
   * Track creation and deletion, with the option to edit track information after submission
