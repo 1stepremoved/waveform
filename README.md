@@ -2,10 +2,12 @@
 
 WaveForm is a clone of SoundCloud. It provides a platform for users to upload and share their own music, as well as follow and listen to the music of other users.
 
-Home page:
+Listen at https://waveformwave.herokuapp.com/
+
+##Home page:
 ![alt text](https://raw.githubusercontent.com/1stepremoved/waveform/master/wiki-docs/images/home_page.jpg)
 
-User show page:
+##User show page:
 ![alt text](https://raw.githubusercontent.com/1stepremoved/waveform/master/wiki-docs/images/user_show_page.jpg)
 
 
