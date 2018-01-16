@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Transition from 'react-transition-group/Transition'
 
 class Upload extends React.Component {
   constructor(props) {
@@ -29,6 +30,9 @@ class Upload extends React.Component {
       var fileReader = new FileReader();
       fileReader.onloadend = () =>{
         that.setState({[type]: file, [`${type}Url`]: fileReader.result, page2: true});
+        if (type==="track"){
+          that.form2.scrollIntoView(true);
+        }
       };
 
       if (file) {
@@ -62,8 +66,27 @@ class Upload extends React.Component {
   }
 
   page2() {
+    const duration = 300;
+    const defaultStyle = {
+      transition: `scale ${1000}ms ease-in-out`,
+      opacity: 0,
+    };
+
+    const transitionStyles = {
+      entering: { opacity: 0 },
+      entered:  { opacity: 1 },
+      exiting: {opacity: 1},
+      exited: {opacity: 0}
+    };
     return (
-      <form onSubmit={this.handleSubmit} id="upload-page-2-form">
+      <Transition unmountOnExit={true} mountOnEnter={true} in={this.state.page2} timeout={duration}>
+        {(state) => { return (
+
+      <form onSubmit={this.handleSubmit} id="upload-page-2-form"
+        style={{
+          opacity:  `${transitionStyles[state]['opacity']}`,
+          transition: `opacity ${duration}ms ease-in-out`,}}
+          ref={(form2) => {this.form2 = form2;}}>
         <section id="upload-page-2">
           <div id="upload-track-image"
               style={{backgroundImage: `url(${this.state.trackImageUrl})`}}>
@@ -93,6 +116,9 @@ class Upload extends React.Component {
           <button onClick={this.resetState} id="upload-cancel-button">Cancel</button>
         </div>
       </form>
+
+      )}}
+      </Transition>
     );
   }
 
@@ -108,7 +134,9 @@ class Upload extends React.Component {
           </label>
           <input type="file" id="track-upload-input" type="file"
             onChange={this.updateFile("track")}></input>
-          {this.state.page2 ? this.page2() : null}
+
+            {this.page2()}
+
         </section>
       </main>
     );
