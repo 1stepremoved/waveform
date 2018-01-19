@@ -1,7 +1,7 @@
 import { ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
          REMOVE_FROM_QUEUE, CLEAR_QUEUE, NEXT_SONG, LAST_SONG,
          SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK, MOVE_CURRENT_TRACK,
-         MOVE_TO_TRACK} from '../actions/queue_actions';
+         MOVE_TO_TRACK, RESET_RESTART} from '../actions/queue_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -13,7 +13,8 @@ let initialState = {
   position: 0,
   order: [],
   shuffle: false,
-  repeat: false
+  repeat: false,
+  restart: false
 };
 
 const queueReducer = (state=initialState, action) => {
@@ -60,6 +61,8 @@ const queueReducer = (state=initialState, action) => {
         } else {
           newState.paused = true;
           newState.startTrack = false;
+          newState.position = 0;
+          newState.restart = true;
         }
       } else {
         newState.currentTrack += 1;
@@ -76,6 +79,8 @@ const queueReducer = (state=initialState, action) => {
         } else {
           newState.paused = true;
           newState.startTrack = false;
+          newState.position = 0;
+          newState.restart = true;
         }
       } else {
         newState.currentTrack -= 1;
@@ -103,6 +108,9 @@ const queueReducer = (state=initialState, action) => {
         left.push(right.shift());
       }
       newState.order = left.concat(state.currentTrack).concat(right);
+      return newState;
+    case RESET_RESTART:
+      newState.restart = false;
       return newState;
     default:
       return state;
