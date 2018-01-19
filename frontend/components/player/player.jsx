@@ -7,7 +7,6 @@ class Player extends React.Component {
     this.state = { position: 0, newPositon: 0, duration: 1, mousePos: 0,
                   startTrack: this.props.startTrackValue,
                   handleVisible: false,
-                  volumeVisible: false,
                   volume: 1,
                   mouseDown: false};
 
@@ -153,7 +152,11 @@ class Player extends React.Component {
   }
 
   toggleVolumeVisible() {
-    this.setState({volumeVisible: !this.state.volumeVisible});
+    if (this.props.currentMenu !== "volume") {
+      this.props.changeMenu("volume");
+    } else {
+      this.props.changeMenu(null);
+    }
   }
 
   volumeHandler(e) {
@@ -179,7 +182,12 @@ class Player extends React.Component {
   toggleQueue(e) {
     if (e.target.parentElement.parentElement.id === "player-queue-toggle" ||
         e.target.parentElement.id === "player-queue-toggle"){
-      this.props.toggleQueue();
+      if (!this.props.queueVisible) {
+
+        this.props.changeMenu("queue");
+      } else {
+        this.props.changeMenu(null);
+      }
     }
   }
 
@@ -248,7 +256,7 @@ class Player extends React.Component {
 
 
           <section id="player-volume-container">
-            {!this.state.volumeVisible ? null :
+            {this.props.currentMenu !== "volume" ? null :
               <div id="player-volume-track-box">
                 <input type='range' id="player-volume-track" min="0" max="1" step="0.01"
                   value={1 - this.state.volume} onChange={this.volumeHandler}>
@@ -277,7 +285,7 @@ class Player extends React.Component {
           <section id={`player-queue-toggle`} className={this.props.queueVisible ? "blue" : ""}
             onClick={this.toggleQueue}>
             <i className="fas fa-list-ul"></i>
-              {!this.props.queueVisible ? null :
+              {this.props.currentMenu !== "queue" ? null :
                 <QueueContainer />
               }
           </section>

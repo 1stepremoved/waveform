@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Player from './player';
 import {requestTrack} from '../../actions/track_actions';
-import {toggleQueue} from '../../actions/ui_actions';
+import {changeMenu} from '../../actions/ui_actions';
 import {nextSong, lastSong, shuffle, repeat,
         pause, setPosition, startTrack, resetRestart} from '../../actions/queue_actions';
 
@@ -14,8 +14,9 @@ const mapStateToProps = (state) => {
     position: state.queue.position,
     startTrackValue: state.queue.startTrack,
     track: !state.queue.currentId ? null : state.entities.tracks[state.queue.currentId],
-    queueVisible: state.ui.queueVisible,
-    restart: state.queue.restart
+    queueVisible: state.ui.currentMenu === "queue",
+    restart: state.queue.restart,
+    currentMenu: state.ui.currentMenu
   };
 };
 
@@ -29,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
     pause: () => dispatch(pause()),
     setPosition: (pos) => dispatch(setPosition(pos)),
     startTrack: (value) => dispatch(startTrack(value)),
-    toggleQueue: () => dispatch(toggleQueue()),
-    resetRestart: () => dispatch(resetRestart())
+    resetRestart: () => dispatch(resetRestart()),
+    changeMenu: (menuName) => dispatch(changeMenu(menuName))
   };
 };
 

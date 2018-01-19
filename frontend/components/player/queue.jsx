@@ -9,7 +9,7 @@ class Queue extends React.Component {
   }
 
   closeQueue() {
-    this.props.toggleQueue();
+    this.props.changeMenu(null);
   }
 
   clearQueue() {

@@ -1,4 +1,4 @@
-import { CHANGE_NAV, CHANGE_FORM, TOGGLE_QUEUE, CLEAR_SEARCH_TRACKS } from '../actions/ui_actions';
+import { CHANGE_NAV, CHANGE_MENU, CHANGE_FORM, CLEAR_SEARCH_TRACKS } from '../actions/ui_actions';
 import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
 import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH} from '../actions/track_actions';
 import merge from 'lodash/merge';
@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 let initialState = {
   currentNav: "",
   currentForm: null,
-  queueVisible: false,
+  currentMenu: null,
   visibleTrackIds: [],
   searchTrackIds: [],
   splashTrackIds: [],
@@ -21,12 +21,13 @@ const uiReducer = (state = initialState, action) => {
       newState = merge({}, state);
       newState.currentNav = action.navName;
       return newState;
+    case CHANGE_MENU:
+      newState = merge({}, state);
+      newState.currentMenu = action.menuName;
+      return newState;
     case CHANGE_FORM:
       newState = merge({}, state);
       newState.currentForm = action.formName;
-      return newState;
-    case TOGGLE_QUEUE:
-      newState = merge({},state, {queueVisible: !state.queueVisible});
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
       newState = merge({}, state);
