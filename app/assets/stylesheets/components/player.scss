@@ -103,21 +103,15 @@
 #player-volume-track {
   position: relative;
   margin: auto;
+  margin-left: 25px;
   margin-top: 15px;
-  height: 90px;
+  height: 15px;
   background-color: gray;
-  width: 1px;
+  width: 90px;
+  transform: rotate(90deg);
+  transform-origin: top left;
 }
 
-#player-volume-handler {
-  position: absolute;
-  bottom: -5px;
-  left: -4px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background-color: #1177ff;
-}
 
 #player-volume-icon {
   cursor: pointer;

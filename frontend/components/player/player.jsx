@@ -8,7 +8,7 @@ class Player extends React.Component {
                   startTrack: this.props.startTrackValue,
                   handleVisible: false,
                   volumeVisible: false,
-                  volumePos: 0,
+                  volume: 1,
                   mouseDown: false};
 
     document.body.onkeyup = (e) => {
@@ -29,7 +29,7 @@ class Player extends React.Component {
     this.setAudioTime = this.setAudioTime.bind(this);
     this.toggleVolumeVisible = this.toggleVolumeVisible.bind(this);
     this.toggleMouseDown = this.toggleMouseDown.bind(this);
-    this.moveVolumeHandler = this.moveVolumeHandler.bind(this);
+    this.volumeHandler = this.volumeHandler.bind(this);
     this.toggleQueue = this.toggleQueue.bind(this);
     this.trackLoaded = this.trackLoaded.bind(this);
   }
@@ -156,17 +156,11 @@ class Player extends React.Component {
     this.setState({volumeVisible: !this.state.volumeVisible});
   }
 
-  moveVolumeHandler(e) {
-    if (!this.state.mouseDown) {
-      return;
+  volumeHandler(e) {
+    if (this.audio) {
+      this.setState({volume: 1 - e.target.value});
+      this.audio.volume = 1 - e.target.value;
     }
-    let volumePos = e.pageY - this.volumeTrack.offsetBottom;
-    if (volumePos > this.volumeTrack.offsetBottom) {
-      volumePos = this.volumeTrack.offsetBottom;
-    } else if (volumePos < 0) {
-      volumePos = 0;
-    }
-    this.setState({volumePos});
   }
 
   toggleMouseDown(value) {
@@ -255,15 +249,10 @@ class Player extends React.Component {
 
           <section id="player-volume-container">
             {!this.state.volumeVisible ? null :
-              <div onMouseOver={this.moveVolumeHandler}
-                onMouseDown={this.toggleMouseDown(true)} onMouseUp={this.toggleMouseDown(false)}
-                id="player-volume-track-box">
-                <div id="player-volume-track"
-                  ref={(volumeTrack) => {this.volumeTrack = volumeTrack;}}>
-                  <div id="player-volume-handler"
-                    style={{marginBottom: this.state.volumePos}}>
-                  </div>
-                </div>
+              <div id="player-volume-track-box">
+                <input type='range' id="player-volume-track" min="0" max="1" step="0.01"
+                  value={1 - this.state.volume} onChange={this.volumeHandler}>
+                </input>
               </div>
             }
             <div onClick={this.toggleVolumeVisible} id="player-volume-icon">
