@@ -10,9 +10,9 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.session.currentUser,
     comments: Object.keys(state.entities.comments).map(commentId => {
       return state.entities.comments[commentId];
-    }).sort((obj1, obj2) => {return obj1.createdAtInt < obj2.createdAtInt;}),
+    }).sort((obj1, obj2) => {return obj2.created_at.getTime() - obj1.created_at.getTime();}),
     totalComments: state.ui.totalComments,
-    waitingForComments: state.ui.waitingForComments,
+    waitingForComments: state.ui.waitingForComments
   };
 };
 

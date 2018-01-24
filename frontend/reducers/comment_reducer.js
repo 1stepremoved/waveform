@@ -7,11 +7,16 @@ const commentReducer = (state = {}, action) => {
     case CLEAR_COMMENTS:
       return {};
     case RECEIVE_COMMENTS:
-      newState =  merge({}, state, action.comments);
+      newState = merge({}, state, action.comments);
       delete newState["totalComments"];
+      Object.keys(newState).forEach((commentId) => {
+        newState[commentId].created_at = new Date(newState[commentId].created_at);
+      });
       return  newState;
     case RECEIVE_COMMENT:
-      return  merge({}, state, {[action.comment.id]: action.comment});
+      newState = merge({}, state, {[action.comment.id]: action.comment});
+      newState[action.comment.id].created_at = new Date(newState[action.comment.id].created_at);
+      return newState;
     default:
       return state;
   }
