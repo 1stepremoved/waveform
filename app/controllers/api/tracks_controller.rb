@@ -4,9 +4,15 @@ class Api::TracksController < ApplicationController
     offset = params[:offset] ? params[:offset].to_i : 0
     num = params[:num] ? params[:num].to_i : 12
     if (params[:user_id])
-      @tracks = User.find(params[:user_id].to_i).tracks.where("title LIKE ?", "#{params[:query]}%").limit(num).offset(offset)
+      @tracks = User.find(params[:user_id].to_i).tracks.where("title LIKE ?", "#{params[:query]}%").order('created_at DESC')
+      @total_tracks = @tracks.length
+      @user_id = params[:user_id]
+      @tracks = @tracks.limit(num).offset(offset)
     else
-      @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").order('created_at DESC').limit(num).offset(offset)
+      @tracks = Track.where("title LIKE ?", "%#{params[:query]}%").order('created_at DESC')
+      @total_tracks = @tracks.length
+      @user_id = nil
+      @tracks = @tracks.limit(num).offset(offset)
     end
     render "api/tracks/index"
   end

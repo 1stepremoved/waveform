@@ -1,4 +1,5 @@
-import { CHANGE_NAV, CHANGE_MENU, CHANGE_FORM, CLEAR_SEARCH_TRACKS } from '../actions/ui_actions';
+import { CHANGE_NAV, CHANGE_MENU, CHANGE_FORM, CLEAR_SEARCH_TRACKS,
+        CHANGE_WAITING_TRACKS, RESET_VISIBLE_TRACKS } from '../actions/ui_actions';
 import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
 import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH} from '../actions/track_actions';
 import merge from 'lodash/merge';
@@ -10,7 +11,8 @@ let initialState = {
   visibleTrackIds: [],
   searchTrackIds: [],
   splashTrackIds: [],
-  totalComments: 0
+  totalComments: 0,
+  waitingForTracks: false
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -31,15 +33,23 @@ const uiReducer = (state = initialState, action) => {
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
       newState = merge({}, state);
-      newState.visibleTrackIds = Object.keys(action.tracks);
+      newState.waitingForTracks = false;
+      newState.visibleTrackIds = newState.visibleTrackIds.concat(Object.keys(action.tracks));
+      newState.visibleTrackIds = newState.visibleTrackIds.filter(el => el !== "totalTracks" && el !== "userId");
+      return newState;
+    case RESET_VISIBLE_TRACKS:
+      newState =  merge({}, state);
+      newState.visibleTracksIds = [];
       return newState;
     case RECEIVE_TRACKS_FOR_SEARCH:
       newState = merge({}, state);
       newState.searchTrackIds = Object.keys(action.tracks);
+      newState.searchTrackIds = newState.searchTrackIds.filter(el => el !== "totalTracks" && el !== "userId");
       return newState;
     case RECEIVE_TRACKS_FOR_SPLASH:
       newState = merge({}, state);
       newState.splashTrackIds = Object.keys(action.tracks);
+      newState.splashTrackIds = newState.splashTrackIds.filter(el => el !== "totalTracks" && el !== "userId");
       return newState;
     case CLEAR_SEARCH_TRACKS:
       newState = merge({}, state);
@@ -55,6 +65,9 @@ const uiReducer = (state = initialState, action) => {
     case CLEAR_COMMENTS:
       newState = merge({}, state);
       newState.totalComments = 0;
+      return newState;
+    case CHANGE_WAITING_TRACKS:
+      newState = merge({}, state, {waitingForTracks: action.value});
       return newState;
     default:
       return state;

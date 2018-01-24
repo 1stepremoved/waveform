@@ -8,13 +8,25 @@ const trackReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_TRACKS:
-      return merge({},state, action.tracks);
+      newState = merge({},state, action.tracks);
+      delete newState['total_tracks'];
+      delete newState['user_id'];
+      return newState;
     case RECEIVE_TRACKS_AND_SHOW:
-      return merge({},state, action.tracks);
+      newState = merge({},state, action.tracks);
+      delete newState['total_tracks'];
+      delete newState['user_id'];
+      return newState;
     case RECEIVE_TRACKS_FOR_SEARCH:
-      return merge({},state, action.tracks);
+      newState = merge({},state, action.tracks);
+      delete newState['total_tracks'];
+      delete newState['user_id'];
+      return newState;
     case RECEIVE_TRACKS_FOR_SPLASH:
-      return merge({},state, action.tracks);
+      newState = merge({},state, action.tracks);
+      delete newState['total_tracks'];
+      delete newState['user_id'];
+      return newState;
     case RECEIVE_TRACKS_AND_RESET:
       return action.tracks;
     case RECEIVE_TRACK:

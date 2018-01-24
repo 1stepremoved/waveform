@@ -2,6 +2,8 @@ export const CHANGE_NAV = "CHANGE_NAV";
 export const CHANGE_MENU = "CHANGE_MENU";
 export const CHANGE_FORM = "CHANGE_FORM";
 export const CLEAR_SEARCH_TRACKS = "CLEAR_SEARCH_TRACKS";
+export const CHANGE_WAITING_TRACKS = "CHANGE_WAITING_TRACKS";
+export const RESET_VISIBLE_TRACKS = "RESET_VISIBLE_TRACKS";
 
 export const changeNav = (navName) => {
   return {
@@ -28,5 +30,18 @@ export const changeForm = (formName) => {
 export const clearSearchTracks = () => {
   return {
     type: CLEAR_SEARCH_TRACKS
+  };
+};
+
+export const changeWaitingTracks = (value) => {
+  return {
+    type: CHANGE_WAITING_TRACKS,
+    value
+  };
+};
+
+export const resetVisibleTracks = () => {
+  return {
+    type: RESET_VISIBLE_TRACKS
   };
 };

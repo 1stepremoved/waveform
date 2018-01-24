@@ -11,8 +11,10 @@ class UserShow extends React.Component {
     this.state = {profile_image: null,
                   profile_image_url: this.loadedUser("profileImageUrl"),
                   background_image: null,
-                  background_image_url: this.loadedUser("backgroundImageUrl")};
+                  background_image_url: this.loadedUser("backgroundImageUrl"),
+                  trackRequestOffset: 0};
     this.updateFile = this.updateFile.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -23,13 +25,19 @@ class UserShow extends React.Component {
                          background_image_url: this.props.pageUser["backgroundImageUrl"]});
         });
     }
-    this.props.requestUsersTracks(this.props.pageUserId);
+    this.props.requestUsersTracks(this.props.pageUserId, 12);
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillDismount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.pageUserId !== newProps.pageUserId) {
+      this.props.resetVisibleTracks();
       this.props.requestUser(newProps.pageUserId);
-      this.props.requestUsersTracks(newProps.pageUserId);
+      this.props.requestUsersTracks(newProps.pageUserId, 12);
     }
   }
 
@@ -55,17 +63,30 @@ class UserShow extends React.Component {
     return this.props.pageUser ? this.props.pageUser[key] : null;
   }
 
+  handleScroll(e) {
+    if (window.innerHeight + window.pageYOffset > this.user_show_page.scrollHeight) {
+      if (!this.props.waitingForTracks
+        && this.props.visibleTrackIds.length < this.loadedUser("totalTracks")){
+          debugger
+          this.props.requestUsersTracks(this.props.pageUserId, 12, this.state.trackRequestOffset + 12);
+          this.setState({trackRequestOffset: this.state.trackRequestOffset + 12});
+          this.props.changeWaitingTracks(true);
+      }
+    }
+  }
+
   render () {
     //<i className="fas fa-camera"></i>
     return (
-      <main id="user-show-container">
+      <main ref={(user_show) => this.user_show_page = user_show}id="user-show-container" style={{overflowY: "hidden"}}>
         <section id="user-show-background-image"
           style={{backgroundImage: `url(${this.state.background_image_url})`,
                   backgroundPosition: 'center'}}>
           <section id="user-show-profile-image"
             style={{backgroundImage: `url(${this.state.profile_image_url})`,
                     backgroundPosition: 'center'}}>
-            {this.props.isCurrentUserPage ?
+
+            {!this.props.isCurrentUserPage ? null :
               <div id="change-profile-image-box">
                 <label id="change-profile-image-label" htmlFor="change-profile-image">
                   <i className="fas fa-camera"></i> Update image
@@ -73,13 +94,14 @@ class UserShow extends React.Component {
                 <input type="file" onChange={this.updateFile("profile_image")}
                    id="change-profile-image" ></input>
               </div>
-              : null
             }
+
           </section>
           <section id="user-show-username">
             {this.loadedUser("username")}
           </section>
-          {this.props.isCurrentUserPage ?
+
+          {!this.props.isCurrentUserPage ? null :
           <div id="change-background-image-box">
             <label id="change-background-image-label" htmlFor="change-background-image">
               <i className="fas fa-camera"></i> Upload header image
@@ -87,9 +109,10 @@ class UserShow extends React.Component {
             <input type="file" onChange={this.updateFile("background_image")}
                id="change-background-image" ></input>
           </div>
-            : null
           }
+
         </section>
+
         <section id="user-show-panel">
           <div id="user-show-panel-selectors">
             <NavLink exact to={`/users/${this.props.pageUserId}`}
@@ -106,6 +129,9 @@ class UserShow extends React.Component {
               return <TrackIndexItemContainer  key={idx} trackId={trackId} />;
             })}
           </div>
+          {this.loadedUser("totalTracks") && this.props.visibleTrackIds.length < this.loadedUser("totalTracks") ?
+            <div className="user-show-loader"></div> : null
+          }
         </section>
       </main>
     );

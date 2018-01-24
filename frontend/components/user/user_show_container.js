@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import UserShow from './user_show';
 import { updateUser } from '../../actions/session_actions';
 import { requestUser } from '../../actions/user_actions';
-import { requestUsersTracks } from '../../actions/track_actions';
+import { changeWaitingTracks } from '../../actions/ui_actions';
+import { requestUsersTracks, resetVisibleTracks } from '../../actions/track_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -15,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
     // tracks: state.ui.visibleTrackIds.map(trackId => {
     //   return state.entities.tracks[trackId];
     // })
+    waitingForTracks: state.ui.waitingForTracks,
     visibleTrackIds: state.ui.visibleTrackIds
       .sort((trackId1, trackId2) => {return state.entities.tracks[trackId1].createdAtInt < state.entities.tracks[trackId2].createdAtInt;})
   };
@@ -24,7 +26,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (formData, id) => dispatch(updateUser(formData, id)),
     requestUsersTracks: (id, num=10, offset=0, query="") => dispatch(requestUsersTracks(id, num, offset, query)),
-    requestUser: (id) => dispatch(requestUser(id))
+    requestUser: (id) => dispatch(requestUser(id)),
+    changeWaitingTracks: (value) => dispatch(changeWaitingTracks(value)),
+    resetVisibleTracks: () => dispatch(resetVisibleTracks())
   };
 };
 
