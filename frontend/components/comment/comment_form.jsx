@@ -3,7 +3,7 @@ import React from 'react';
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {body: ""};
+    this.state = {body: "", focused: false};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -34,11 +34,14 @@ class CommentForm extends React.Component {
             style={{backgroundImage: `url(${this.props.currentUser.profileImageUrl})`}}>
           </div>
         }
-        <form className="comment-form-container" onSubmit={this.handleSubmit}>
+        <form className="comment-form-container" onSubmit={this.handleSubmit}
+          style={{backgroundColor: `${this.state.focused ? '#ccc' : '#fff'}`}}>
           <input type="text" value={this.state.body} className="comment-form-container-input"
             ref={(input) => {this.input = input;}}
             onChange={(e)=>this.setState({body: e.target.value})}
-            placeholder="Write a comment"></input>
+            placeholder="Write a comment"
+            onFocus={()=>this.setState({focused: true})}
+            onBlur={()=>this.setState({focused: false})}></input>
         </form>
       </main>);
 

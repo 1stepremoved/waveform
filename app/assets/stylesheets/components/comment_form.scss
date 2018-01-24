@@ -16,6 +16,7 @@
 .comment-form-container {
   width: 100%;
   box-sizing: border-box;
+  transition: background-color .33s linear;
 }
 
 .comment-form-container-input {
