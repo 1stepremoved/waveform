@@ -4,6 +4,7 @@ export const CHANGE_FORM = "CHANGE_FORM";
 export const CLEAR_SEARCH_TRACKS = "CLEAR_SEARCH_TRACKS";
 export const CHANGE_WAITING_TRACKS = "CHANGE_WAITING_TRACKS";
 export const RESET_VISIBLE_TRACKS = "RESET_VISIBLE_TRACKS";
+export const CHANGE_WAITING_COMMENTS = "CHANGE_WAITING_COMMENTS";
 
 export const changeNav = (navName) => {
   return {
@@ -36,6 +37,13 @@ export const clearSearchTracks = () => {
 export const changeWaitingTracks = (value) => {
   return {
     type: CHANGE_WAITING_TRACKS,
+    value
+  };
+};
+
+export const changeWaitingComments = (value) => {
+  return {
+    type: CHANGE_WAITING_COMMENTS,
     value
   };
 };

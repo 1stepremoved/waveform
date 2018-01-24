@@ -14,8 +14,10 @@ class TrackShow extends React.Component {
       imageUrl: (this.props.track) ? this.props.track.imageUrl : null,
       userImageUrl: (this.props.track) ? this.props.track.userImageUrl : null,
       description: (this.props.track) ? this.props.track.description : null,
-      userId: (this.props.track) ? this.props.track.userId : null
+      userId: (this.props.track) ? this.props.track.userId : null,
+      commentRequestOffset: 0
     };
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,7 @@ class TrackShow extends React.Component {
         this.props.clearComments();
         this.props.requestComments(this.state.id, 0, 50);
       });
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps(newProps) {
@@ -56,10 +59,26 @@ class TrackShow extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearComments();
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(e) {
+    if (window.innerHeight + window.pageYOffset > this.trackShowPage.scrollHeight) {
+      if (!this.props.waitingForComments
+        && this.props.comments.length < this.props.totalComments){
+          this.props.requestComments(this.state.id, this.state.commentRequestOffset + 50, 50);
+          this.setState({commentRequestOffset: this.state.commentRequestOffset + 50});
+          this.props.changeWaitingComments(true);
+      }
+    }
+  }
+
 
   render() {
     return (
-      <main id="track-show-container">
+      <main ref={(trackShow) => {this.trackShowPage = trackShow;}} id="track-show-container">
         <section id="track-show-header">
           <div id="track-show-header-left">
             <div id="track-show-header-info">
@@ -109,6 +128,9 @@ class TrackShow extends React.Component {
                 {this.props.comments.map(comment => {
                     return <CommentIndexItemContainer comment={comment} />;
                 })}
+                {this.props.comments.length < this.props.totalComments ?
+                  <div className="track-show-loader"></div> : null
+                }
               </section>
             </div>
           </div>

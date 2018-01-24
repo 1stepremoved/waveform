@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import TrackShow from './track_show';
 import { requestTrack } from '../../actions/track_actions';
+import { changeWaitingComments } from '../../actions/ui_actions';
 import { requestComments, clearComments } from '../../actions/comment_actions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,7 +11,8 @@ const mapStateToProps = (state, ownProps) => {
     comments: Object.keys(state.entities.comments).map(commentId => {
       return state.entities.comments[commentId];
     }).sort((obj1, obj2) => {return obj1.createdAtInt < obj2.createdAtInt;}),
-    totalComments: state.ui.totalComments
+    totalComments: state.ui.totalComments,
+    waitingForComments: state.ui.waitingForComments,
   };
 };
 
@@ -18,7 +20,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     requestTrack: (id) => dispatch(requestTrack(id)),
     requestComments: (trackId, offset, limit) => dispatch(requestComments(trackId,offset,limit)),
-    clearComments: () => dispatch(clearComments())
+    clearComments: () => dispatch(clearComments()),
+    changeWaitingComments: (value) => dispatch(changeWaitingComments(value))
   };
 };
 
