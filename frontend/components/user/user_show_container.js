@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import UserShow from './user_show';
 import { updateUser } from '../../actions/session_actions';
 import { requestUser } from '../../actions/user_actions';
-import { changeWaitingTracks } from '../../actions/ui_actions';
-import { requestUsersTracks, resetVisibleTracks } from '../../actions/track_actions';
+import { changeWaitingTracks, resetVisibleTracks } from '../../actions/ui_actions';
+import { requestUsersTracks } from '../../actions/track_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {

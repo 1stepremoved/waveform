@@ -29,7 +29,8 @@ class UserShow extends React.Component {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillDismount() {
+  componentWillUnmount() {
+    this.props.resetVisibleTracks();
     window.removeEventListener('scroll', this.handleScroll);
   }
 
@@ -67,7 +68,6 @@ class UserShow extends React.Component {
     if (window.innerHeight + window.pageYOffset > this.user_show_page.scrollHeight) {
       if (!this.props.waitingForTracks
         && this.props.visibleTrackIds.length < this.loadedUser("totalTracks")){
-          debugger
           this.props.requestUsersTracks(this.props.pageUserId, 12, this.state.trackRequestOffset + 12);
           this.setState({trackRequestOffset: this.state.trackRequestOffset + 12});
           this.props.changeWaitingTracks(true);

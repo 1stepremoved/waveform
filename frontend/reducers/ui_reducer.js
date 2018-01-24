@@ -39,7 +39,7 @@ const uiReducer = (state = initialState, action) => {
       return newState;
     case RESET_VISIBLE_TRACKS:
       newState =  merge({}, state);
-      newState.visibleTracksIds = [];
+      newState.visibleTrackIds = [];
       return newState;
     case RECEIVE_TRACKS_FOR_SEARCH:
       newState = merge({}, state);
