@@ -18,7 +18,8 @@ const mapStateToProps = (state, ownProps) => {
     // })
     waitingForTracks: state.ui.waitingForTracks,
     visibleTrackIds: state.ui.visibleTrackIds
-      .sort((trackId1, trackId2) => {return state.entities.tracks[trackId1].createdAtInt < state.entities.tracks[trackId2].createdAtInt;})
+      .sort((trackId1, trackId2) => {return new Date(state.entities.tracks[trackId2].createdAt).getTime()
+            - new Date(state.entities.tracks[trackId1].createdAt).getTime();})
   };
 };
 
