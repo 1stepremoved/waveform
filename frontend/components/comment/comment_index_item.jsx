@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CommentIndexItem extends React.Component {
   constructor(props) {
@@ -23,12 +24,12 @@ class CommentIndexItem extends React.Component {
   render() {
     return (
       <section className="comment-index-item-container">
-        <div className="comment-index-item-image"
-          style={{backgroundImage: `url(${this.loadedUser("profileImageUrl")})`}}>
-        </div>
+        <Link to={`/users/${this.loadedUser('id')}`} className="comment-index-item-image"
+          style={{backgroundImage: `url(${this.loadedUser("profileImageUrl")})`, display: 'block'}}>
+        </Link>
         <div className="comment-index-item-info">
           <div className="comment-index-item-username">
-            <span>{this.loadedUser("username")}</span> at <span>{this.parseTime(this.props.comment.timestamp)}</span>
+            <Link to={`/users/${this.loadedUser('id')}`}>{this.loadedUser("username")}</Link> at <span>{this.parseTime(this.props.comment.timestamp)}</span>
           </div>
           <div className="comment-index-item-body">
             {this.props.comment.body}

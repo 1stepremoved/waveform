@@ -21,7 +21,10 @@
 .comment-index-item-username {
   font-size: 11px;
   width: 100%;
-  color: #999;
+  a {
+    color: #999;
+    text-decoration: none;
+  }
 }
 
 .comment-index-item-username{
