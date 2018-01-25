@@ -20,6 +20,13 @@ import SearchIndexItemContainer from './search_index_item_container';
      }
    }
 
+   componentWillReceiveProps(newProps) {
+     if (newProps.resetSearchValue) {
+       this.setState({input: ""});
+       this.props.resetSearch(false);
+     }
+   }
+
    render() {
      return (
        <main id="main-nav-container">

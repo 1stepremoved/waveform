@@ -5,6 +5,7 @@ export const CLEAR_SEARCH_TRACKS = "CLEAR_SEARCH_TRACKS";
 export const CHANGE_WAITING_TRACKS = "CHANGE_WAITING_TRACKS";
 export const RESET_VISIBLE_TRACKS = "RESET_VISIBLE_TRACKS";
 export const CHANGE_WAITING_COMMENTS = "CHANGE_WAITING_COMMENTS";
+export const RESET_SEARCH = "RESET_SEARCH";
 
 export const changeNav = (navName) => {
   return {
@@ -51,5 +52,12 @@ export const changeWaitingComments = (value) => {
 export const resetVisibleTracks = () => {
   return {
     type: RESET_VISIBLE_TRACKS
+  };
+};
+
+export const resetSearch = (value) => {
+  return {
+    type: RESET_SEARCH,
+    value
   };
 };

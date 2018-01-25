@@ -13,11 +13,13 @@ import MainNavLoggedOut from './main_nav_logged_out';
      return (this.props.currentUser) ?
       <MainNavLoggedIn isRoot={this.props.isRoot} currentUser={this.props.currentUser}
         requestTracksForSearch={this.props.requestTracksForSearch}
-        searchTrackIds={this.props.searchTrackIds} clearSearchTracks={this.props.clearSearchTracks}/>
+        searchTrackIds={this.props.searchTrackIds} clearSearchTracks={this.props.clearSearchTracks}
+        resetSearch={this.props.resetSearch} resetSearchValue={this.props.resetSearchValue}/>
         :
       <MainNavLoggedOut isRoot={this.props.isRoot} currentUser={this.props.currentUser}
         requestTracksForSearch={this.props.requestTracksForSearch} changeForm={this.props.changeForm}
-        searchTrackIds={this.props.searchTrackIds} clearSearchTracks={this.props.learSearchTracks}/>;
+        searchTrackIds={this.props.searchTrackIds} clearSearchTracks={this.props.learSearchTracks}
+        resetSearch={this.props.resetSearch} resetSearchValue={this.props.resetSearchValue}/>;
    }
 
    render() {

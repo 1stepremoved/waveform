@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SearchIndexItem from './search_index_item';
-import { clearSearchTracks } from '../../actions/ui_actions';
+import { clearSearchTracks, resetSearch } from '../../actions/ui_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearSearchTracks: () => dispatch(clearSearchTracks())
+    clearSearchTracks: () => dispatch(clearSearchTracks()),
+    resetSearch: (value) => dispatch(resetSearch(value))
   };
 };
 

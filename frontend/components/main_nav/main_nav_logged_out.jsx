@@ -8,6 +8,7 @@ import SearchIndexItemContainer from './search_index_item_container';
      this.state = {input: ""};
      this.openForm = this.openForm.bind(this);
      this.getSearchResults = this.getSearchResults.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
    }
 
    openForm(formName) {
@@ -20,6 +21,17 @@ import SearchIndexItemContainer from './search_index_item_container';
        this.props.clearSearchTracks();
      } else {
        this.props.requestTracksForSearch(10, 0, e.target.value);
+     }
+   }
+
+   handleSubmit(e) {
+     e.preventDefault();
+   }
+
+   componentWillReceiveProps(newProps) {
+     if (newProps.resetSearchValue) {
+       this.setState({input: ""});
+       this.props.resetSearch(false);
      }
    }
 
@@ -44,7 +56,7 @@ import SearchIndexItemContainer from './search_index_item_container';
              </div>
 
              <div id="main-nav-search-form-container">
-               <form onSubmit={(e)=>{e.preventDefault();}} id="search-form">
+               <form onSubmit={this.handleSubmit} id="search-form">
                  <input id="main-nav-search-input"
                    type="text" placeholder="Search for artists, tracks, playlists"
                    value={this.state.input} onChange={this.getSearchResults}></input>
