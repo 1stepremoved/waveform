@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import Transition from 'react-transition-group/Transition'
+import Transition from 'react-transition-group/Transition';
 
 class Upload extends React.Component {
   constructor(props) {
@@ -8,7 +8,9 @@ class Upload extends React.Component {
     this.state = {page2: false, title: "", description: "", userId: this.props.currentUser.id,
                   track: null, trackUrl: "",
                   trackImage: null, trackImageUrl: window.staticImages.defaultTrackImage,
-                  titleMissingError: false
+                  titleMissingError: false,
+                  uploading: false,
+                  uploaded: false
                 };
     this.update = this.update.bind(this);
     this.page2 = this.page2.bind(this);
@@ -21,6 +23,15 @@ class Upload extends React.Component {
     return e => {
       this.setState({[type]: e.target.value});
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.lastTrackReceived && !this.state.uploaded
+     && this.props.lastTrackReceived.title === this.state.title
+     && this.props.lastTrackReceived.description === this.state.description
+     && this.props.lastTrackReceived.userId === this.state.userId) {
+       this.setState({uploaded: true});
+     }
   }
 
   updateFile(type) {
@@ -44,12 +55,17 @@ class Upload extends React.Component {
   resetState() {
     this.setState({page2: false, title: "", description: "",
                   track: null, trackUrl: "",
-                  trackImage: null, trackImageUrl: window.staticImages.defaulTrackImage}
+                  trackImage: null, trackImageUrl: window.staticImages.defaulTrackImage,
+                  titleMissingError: false,
+                  uploading: false,
+                  uploaded: false}
                 );
+    this.props.clearTrackErrors();
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.clearTrackErrors();
     if (this.state.title === "") {
       return this.setState({titleMissingError: true});
     }
@@ -62,7 +78,7 @@ class Upload extends React.Component {
     }
     formData.append("track[user_id]", this.state.userId);
     this.props.createTrack(formData);
-    this.props.history.push("/stream");
+    this.setState({uploading: true});
   }
 
   page2() {
@@ -78,6 +94,7 @@ class Upload extends React.Component {
       exiting: {opacity: 1},
       exited: {opacity: 0}
     };
+    debugger
     return (
       <Transition unmountOnExit={true} mountOnEnter={true} in={this.state.page2} timeout={duration}>
         {(state) => { return (
@@ -87,6 +104,23 @@ class Upload extends React.Component {
           opacity:  `${transitionStyles[state]['opacity']}`,
           transition: `opacity ${duration}ms ease-in-out`,}}
           ref={(form2) => {this.form2 = form2;}}>
+
+        <div className={`upload-modal-container ${this.state.uploading && this.props.errors.length === 0 ? 'visible' : 'hidden'}`}>
+          <div className="upload-modal"
+            style={{backgroundColor: `rgba(${this.state.uploaded ? '255,255,255,' : '0,0,0,'} 0.7)`}}>
+            {this.state.uploaded ?
+              <div className="upload-uploaded">Your track has been succesfully uploaded</div>
+              :
+              <div className="upload-loader"></div>
+            }
+          </div>
+        </div>
+
+        {!this.props.errors ?  null :
+          <div className="upload-errors">
+            {this.props.errors[0]}
+          </div>
+        }
         <section id="upload-page-2">
           <div id="upload-track-image"
               style={{backgroundImage: `url(${this.state.trackImageUrl})`}}>
@@ -117,7 +151,7 @@ class Upload extends React.Component {
         </div>
       </form>
 
-      )}}
+      );}}
       </Transition>
     );
   }

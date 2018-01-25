@@ -8,6 +8,7 @@ export const RECEIVE_TRACKS_AND_RESET = "RECEIVE_TRACKS_AND_RESET";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
 export const REMOVE_TRACK = "REMOVE_TRACK";
 export const RECEIVE_TRACK_ERRORS = "RECEIVE_TRACK_ERRORS";
+export const CLEAR_TRACK_ERRORS = "CLEAR_TRACK_ERRORS";
 
 export const receiveTracks = tracks => {
   return {
@@ -62,6 +63,12 @@ export const receiveTrackErrors = (trackErrors) => {
   return {
     type: RECEIVE_TRACK_ERRORS,
     trackErrors
+  };
+};
+
+export const clearTrackErrors = () => {
+  return {
+    type: CLEAR_TRACK_ERRORS
   };
 };
 

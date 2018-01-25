@@ -2,7 +2,8 @@ import { CHANGE_NAV, CHANGE_MENU, CHANGE_FORM, CLEAR_SEARCH_TRACKS,
         CHANGE_WAITING_TRACKS, RESET_VISIBLE_TRACKS,
         CHANGE_WAITING_COMMENTS, RESET_SEARCH } from '../actions/ui_actions';
 import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
-import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH} from '../actions/track_actions';
+import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH,
+         RECEIVE_TRACK} from '../actions/track_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -16,6 +17,7 @@ let initialState = {
   totalComments: 0,
   waitingForTracks: false,
   waitingForComments: false,
+  lastTrackReceived: null
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -33,6 +35,9 @@ const uiReducer = (state = initialState, action) => {
     case CHANGE_FORM:
       newState = merge({}, state);
       newState.currentForm = action.formName;
+      return newState;
+    case RECEIVE_TRACK:
+      newState = merge({}, state, {lastTrackReceived: action.track});
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
       newState = merge({}, state);

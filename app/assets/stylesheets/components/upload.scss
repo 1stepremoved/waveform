@@ -47,6 +47,7 @@
 }
 
 #upload-page-2-form {
+  position: relative;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -157,4 +158,61 @@
 #upload-title-missing-error {
   color: #1177ff;
   font-size: 14px;
+}
+
+.upload-modal-container {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.upload-modal {
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  transition: background-color 0.3s linear;
+}
+
+.upload-loader {
+    margin: auto;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.upload-errors {
+  margin: 10px 20px;
+  color: #1177ff;
+}
+
+.upload-uploaded {
+  margin: auto;
+  padding: 10px 20px;
+  background-color: rgba(180, 180, 200, 0.7);
+  border-radius: 10px;
+  color: #1177ff;
+  opacity: 1.0;
+  font-weight: bold;
+  font-size: 24px;
 }
