@@ -48,7 +48,7 @@ import SearchIndexItemContainer from './search_index_item_container';
 
              <div id="main-nav-search-form-container">
                <form onSubmit={(e)=>{e.preventDefault();}} id="search-form">
-                 <input id="main-nav-search-input" autocomplete="off"
+                 <input id="main-nav-search-input" autoComplete="off"
                    type="text" placeholder="Search for artists, tracks, playlists"
                    value={this.state.input} onChange={this.getSearchResults}></input>
                </form>

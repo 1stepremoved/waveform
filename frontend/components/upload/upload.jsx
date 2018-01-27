@@ -94,7 +94,6 @@ class Upload extends React.Component {
       exiting: {opacity: 1},
       exited: {opacity: 0}
     };
-    debugger
     return (
       <Transition unmountOnExit={true} mountOnEnter={true} in={this.state.page2} timeout={duration}>
         {(state) => { return (

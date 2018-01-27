@@ -125,6 +125,9 @@ $nav-height: 45px;
 .main-nav-button, .main-nav-login-button, .main-nav-signup-button {
   display: block;
   text-decoration: none;
+  &:hover {
+    color: white;
+  }
 }
 
 .main-nav-button {
