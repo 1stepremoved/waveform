@@ -6,16 +6,7 @@ import {changeNav} from './actions/ui_actions';
 import {requestTracks, requestTrack, deleteTrack} from './actions/track_actions';
 
 document.addEventListener("DOMContentLoaded", ()=> {
-  document.addEventListener("click", (e)=> {
-    let target = e.target;
-    while (target !== null) {
-      if (target.className === "user-nav-menu" || target.id === "general-nav-container"){
-        return;
-      }
-      target = target.parentElement;
-    }
-    changeNav("");
-  });
+
   const root = document.getElementById("root");
   let store;
   if (window.currentUser) {
@@ -26,4 +17,14 @@ document.addEventListener("DOMContentLoaded", ()=> {
     store = configureStore();
   }
   ReactDOM.render(<Root store={store} />, root);
+  document.addEventListener("click", (e)=> {
+    let target = e.target;
+    while (target !== null) {
+      if (target.id === "user-nav-container" || target.id === "general-nav-container"){
+        return;
+      }
+      target = target.parentElement;
+    }
+    store.dispatch(changeNav(""));
+  });
 });
