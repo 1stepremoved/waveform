@@ -66,7 +66,7 @@ import SearchIndexItemContainer from './search_index_item_container';
                    <div id="main-nav-search-index-query"> Search results for <span>{this.state.input}</span></div>
                    <div id="main-nav-search-index">
                      {this.props.searchTrackIds.map(trackId =>{
-                       return <SearchIndexItemContainer trackId={trackId} />;
+                       return <SearchIndexItemContainer key={trackId}  trackId={trackId} />;
                      })}
                    </div>
                  </section>

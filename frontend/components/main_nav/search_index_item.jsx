@@ -14,8 +14,7 @@ class SearchIndexItem extends React.Component {
 
   render() {
     return (
-      <Link onClick={this.handleClick} to={`/tracks/${this.props.track.id}`} className="search-index-item-container"
-        autocomplete="off">
+      <Link onClick={this.handleClick} to={`/tracks/${this.props.track.id}`} className="search-index-item-container">
         <div className="search-index-item">
           <i className="fas fa-search"></i> {this.props.track.title}
         </div>
