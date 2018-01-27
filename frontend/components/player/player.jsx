@@ -191,8 +191,8 @@ class Player extends React.Component {
     }
   }
 
-  trackLoaded(key) {
-    return this.props.track ? this.props.track[key] : null;
+  trackLoaded(key, alt=null) {
+    return this.props.track ? this.props.track[key] : alt;
   }
 
   render() {
@@ -270,7 +270,7 @@ class Player extends React.Component {
 
           <section id="player-queue-container">
             <div id="player-queue-image"
-              style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`}}>
+              style={{backgroundImage: `url(${this.trackLoaded("imageUrl", "")})`}}>
             </div>
             <div id="player-queue-by-info">
               <div id="player-queue-track-artist">
