@@ -9,14 +9,11 @@ document.addEventListener("DOMContentLoaded", ()=> {
   document.addEventListener("click", (e)=> {
     let target = e.target;
     while (target !== null) {
-      // debugger
       if (target.className === "user-nav-menu" || target.id === "general-nav-container"){
         return;
       }
-      // debugger
       target = target.parentElement;
     }
-    debugger
     changeNav("");
   });
   const root = document.getElementById("root");
