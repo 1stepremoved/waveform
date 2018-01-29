@@ -82,6 +82,17 @@ class Player extends React.Component {
 
 
   componentWillReceiveProps(newProps) {
+    if (newProps.track) {
+      if (newProps.track !== this.props.track) {
+        if (this.audio) {
+          this.audio.pause();
+          clearInterval(this.currentTimeCheck);
+        }
+        this.audio = newProps.track.audio;
+      }
+    } else {
+      this.audio = null;
+    }
     if (this.audio && this.props.paused !== newProps.paused) {
       if (newProps.paused) {
         this.audio.pause();
@@ -226,11 +237,6 @@ class Player extends React.Component {
               <i className="fas fa-redo-alt"></i>
             </div>
           </section>
-          {!this.props.track ? null :
-            <audio src={this.props.track.audioUrl}
-              ref={(audio) => { this.audio = audio ;} }>
-            </audio>
-          }
 
           <section id="player-timeline-container-box">
             <div id="player-current-time">{this.parseTime(this.state.handleVisible && this.state.mouseDown ?

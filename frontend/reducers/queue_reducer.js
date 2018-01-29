@@ -58,6 +58,7 @@ const queueReducer = (state=initialState, action) => {
         if (state.repeat) {
           newState.currentTrack = 0;
           newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+          newState.restart = true;
         } else {
           newState.paused = true;
           newState.startTrack = false;
@@ -76,6 +77,7 @@ const queueReducer = (state=initialState, action) => {
         if (state.repeat) {
           newState.currentTrack = state.trackIds.length - 1;
           newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+          newState.restart = true;
         } else {
           newState.paused = true;
           newState.startTrack = false;
