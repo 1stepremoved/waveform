@@ -8,7 +8,8 @@ class Player extends React.Component {
                   startTrack: this.props.startTrackValue,
                   handleVisible: false,
                   volume: 1,
-                  mouseDown: false};
+                  mouseDown: false,
+                  cached: false};
 
     document.body.onkeyup = (e) => {
       if(e.keyCode === "32" && this.props.currentId){
@@ -46,6 +47,14 @@ class Player extends React.Component {
         this.props.setPosition(that.audio ? that.audio.currentTime : 0);
       },500);
     } else {
+
+      if (this.props.track.audioDataURL && !this.state.cached) {
+        debugger
+        let currentTime = this.audio.currentTime;
+        this.audio.src = this.props.track.audioDataURL;
+        this.audio.currentTime = currentTime;
+        this.setState({cached: true});
+      }
       this.audio.pause();
       clearInterval(this.currentTimeCheck);
     }
@@ -67,14 +76,14 @@ class Player extends React.Component {
         that.audio.play();
         that.setState({duration: that.audio.duration});
         that.audio.onended = this.props.nextSong;
+        clearInterval(this.currentTimeCheck);
+        this.currentTimeCheck = setInterval(() => {
+          this.setState({position: that.audio ? that.audio.currentTime : 0});
+          this.props.setPosition(that.audio ? that.audio.currentTime : 0);
+        },500);
       }, false);
-      clearInterval(this.currentTimeCheck);
-      this.currentTimeCheck = setInterval(() => {
-        this.setState({position: that.audio ? that.audio.currentTime : 0});
-        this.props.setPosition(that.audio ? that.audio.currentTime : 0);
-      },500);
     }
-    if (this.props.restart) {
+    if (this.props.restart && this.audio) {
       this.audio.currentTime = 0;
       this.props.resetRestart();
     }
@@ -82,20 +91,8 @@ class Player extends React.Component {
 
 
   componentWillReceiveProps(newProps) {
-    if (newProps.track) {
-      if (newProps.track !== this.props.track) {
-        if (this.audio) {
-          this.audio.pause();
-          clearInterval(this.currentTimeCheck);
-        }
-        this.audio = newProps.track.audio;
-        this.audio.currentTime = 0;
-        if (!this.props.paused) {
-          this.audio.play();
-        }
-      }
-    } else {
-      this.audio = null;
+    if (newProps.track && newProps.track.audioDataURL) {
+      this.setState({cached: true});
     }
     if (this.audio && this.props.paused !== newProps.paused) {
       if (newProps.paused) {
@@ -161,6 +158,10 @@ class Player extends React.Component {
 
   setAudioTime() {
     if (this.audio && this.state.handleVisible === true) {
+      if (this.props.track.audioDataURL && !this.state.cached) {
+        this.audio.src = this.props.track.audioDataURL;
+        this.setState({cached: true});
+      }
       this.audio.currentTime = (this.state.mousePos / this.timeline.offsetWidth * this.state.duration);
       this.setState({position: this.audio.currentTime, mouseDown: false});
     }
@@ -225,10 +226,13 @@ class Player extends React.Component {
             <div onClick={this.handleLastSong} id="player-last-song">
               <i className="fas fa-step-backward"></i>
             </div>
-            <div onClick={this.togglePause} id="player-play-button"
-              style={{backgroundImage: `url(${this.props.paused ? window.staticImages.play : window.staticImages.pause})`}}>
-
-            </div>
+            { (!navigator.onLine && (this.props.track && !this.props.track.audioDataURL)) ?
+              <div className="player-loader"></div>
+                :
+              <div onClick={this.togglePause} id="player-play-button"
+                style={{backgroundImage: `url(${this.props.paused ? window.staticImages.play : window.staticImages.pause})`}}>
+              </div>
+            }
             <div onClick={this.handleNextSong} id="player-next-song">
               <i className="fas fa-step-forward"></i>
             </div>
@@ -241,6 +245,12 @@ class Player extends React.Component {
               <i className="fas fa-redo-alt"></i>
             </div>
           </section>
+
+          {!this.props.track || (!navigator.onLine && !this.props.track.audioDataURL) ? null :
+            <audio src={this.props.track.audioDataURL || this.props.track.audioUrl}
+              ref={(audio) => { this.audio = audio ;} }>
+            </audio>
+          }
 
           <section id="player-timeline-container-box">
             <div id="player-current-time">{this.parseTime(this.state.handleVisible && this.state.mouseDown ?
