@@ -8,3 +8,4 @@ json.username   track.user.username
 json.userImageUrl   asset_url(track.user.profile_image.url)
 json.createdAt track.created_at
 json.createdAtInt track.created_at.to_time.to_f * 1000
+json.loadStatus "unloaded"

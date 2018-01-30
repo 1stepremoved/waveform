@@ -89,6 +89,10 @@ class Player extends React.Component {
           clearInterval(this.currentTimeCheck);
         }
         this.audio = newProps.track.audio;
+        this.audio.currentTime = 0;
+        if (!this.props.paused) {
+          this.audio.play();
+        }
       }
     } else {
       this.audio = null;
