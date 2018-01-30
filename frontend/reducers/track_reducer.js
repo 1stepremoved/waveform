@@ -79,7 +79,14 @@ const trackReducer = (state = {}, action) => {
       newState = merge({}, state);
       track = newState[action.trackId];
       if (!track.audioDataURL && navigator.onLine) {
-        fetch(track.audioUrl, {})
+        let url = track.audioUrl;
+        url = url.split("http://");
+        if (url.length === 1) {
+          url = url[0];
+        } else {
+          url = "https://" + url[1];
+        }
+        fetch(url, {})
         .then((res) => {
           let reader = res.body.getReader();
           return new ReadableStream({
