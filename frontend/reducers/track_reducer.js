@@ -41,10 +41,15 @@ const trackReducer = (state = {}, action) => {
     case ADD_TO_QUEUE_END:
       newState = merge({}, state);
       track = newState[action.trackId];
-      if (!track.audio) {
-        track.audio = new Audio();
-        track.audio.src = track.audioUrl;
-        fetch(track.audioUrl, {})
+      if (!track.audioDataURL && navigator.onLine) {
+        let url = track.audioUrl;
+        url = url.split("http://");
+        if (url.length === 1) {
+          url = url[0];
+        } else {
+          url = "https://" + url[1];
+        }
+        fetch(url, {})
         .then((res) => {
           let reader = res.body.getReader();
           return new ReadableStream({
@@ -70,9 +75,8 @@ const trackReducer = (state = {}, action) => {
         .then(blob => URL.createObjectURL(blob))
         .catch(err => console.error(err))
         .then(dataURL => {
-          track.audio.src = dataURL;
+          track.audioDataURL = dataURL;
         });
-        track.audio.load();
       }
       return newState;
     case ADD_TO_QUEUE_NOW:
@@ -119,10 +123,15 @@ const trackReducer = (state = {}, action) => {
     case ADD_TO_QUEUE_NEXT:
       newState = merge({}, state);
       track = newState[action.trackId];
-      if (!track.audio) {
-        track.audio = new Audio();
-        track.audio.src = track.audioUrl;
-        fetch(track.audioUrl, {})
+      if (!track.audioDataURL && navigator.onLine) {
+        let url = track.audioUrl;
+        url = url.split("http://");
+        if (url.length === 1) {
+          url = url[0];
+        } else {
+          url = "https://" + url[1];
+        }
+        fetch(url, {})
         .then((res) => {
           let reader = res.body.getReader();
           return new ReadableStream({
@@ -148,9 +157,8 @@ const trackReducer = (state = {}, action) => {
         .then(blob => URL.createObjectURL(blob))
         .catch(err => console.error(err))
         .then(dataURL => {
-          track.audio.src = dataURL;
+          track.audioDataURL = dataURL;
         });
-        track.audio.load();
       }
       return newState;
     case REMOVE_FROM_QUEUE:

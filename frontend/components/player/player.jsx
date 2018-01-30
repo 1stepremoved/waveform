@@ -157,7 +157,6 @@ class Player extends React.Component {
 
   setAudioTime() {
     if (this.audio && this.state.handleVisible === true) {
-      debugger
       if (this.props.track.audioDataURL && !this.state.cached) {
         this.audio.src = this.props.track.audioDataURL;
         this.setState({cached: true});
