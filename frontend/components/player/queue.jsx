@@ -13,7 +13,7 @@ class Queue extends React.Component {
   }
 
   clearQueue() {
-    this.props.clearQueue();
+    this.props.clearQueue(this.props.currentId);
   }
 
   render () {

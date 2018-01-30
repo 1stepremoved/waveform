@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearQueue: () => dispatch(clearQueue()),
+    clearQueue: (exception) => dispatch(clearQueue(exception)),
     changeMenu: (menuName) => dispatch(changeMenu(menuName))
 
   };

@@ -43,9 +43,10 @@ export const removeFromQueue = (trackId) => {
   };
 };
 
-export const clearQueue = () => {
+export const clearQueue = (exception) => {
   return {
-    type: CLEAR_QUEUE
+    type: CLEAR_QUEUE,
+    exception
   };
 };
 

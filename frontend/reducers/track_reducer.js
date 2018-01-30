@@ -41,6 +41,34 @@ const trackReducer = (state = {}, action) => {
     case ADD_TO_QUEUE_END:
       newState = merge({}, state);
       track = newState[action.trackId];
+      fetch(track.audioUrl, {})
+      .then((res) => {
+        let reader = res.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            return pump();
+            function pump() {
+              return reader.read().then(({ done, value }) => {
+                // When no more data needs to be consumed, close the stream
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                // Enqueue the next data chunk into our target stream
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          }
+        });
+      })
+      .then(stream => new Response(stream))
+      .then(response => response.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .catch(err => console.error(err))
+      .then(dataURL => {
+        track.audio.src = dataURL;
+      });
       if (!track.audio) {
         track.audio = new Audio();
         track.audio.src = track.audioUrl;
@@ -50,35 +78,34 @@ const trackReducer = (state = {}, action) => {
     case ADD_TO_QUEUE_NOW:
       newState = merge({}, state);
       track = newState[action.trackId];
-      // fetch(track.audioUrl, {})
-      // .then((res) => {
-      //    debugger;
-      //    let reader = res.body.getReader();
-      //    return new ReadableStream({
-      //      start(controller) {
-      //        // The following function handles each data chunk
-      //        function push() {
-      //          // "done" is a Boolean and value a "Uint8Array"
-      //          return reader.read().then(({ done, value }) => {
-      //            // Is there no more data to read?
-      //            if (done) {
-      //              // Tell the browser that we have finished sending data
-      //              controller.close();
-      //              return;
-      //            }
-      //
-      //            // Get the data and send it to the browser via the controller
-      //            controller.enqueue(value);
-      //          }).then(push);
-      //        }
-      //
-      //        push();
-      //      }
-      //    });})
-      // .then((res) => {
-      //   let a;
-      //   debugger;
-      // }, () => {debugger;});
+      fetch(track.audioUrl, {})
+      .then((res) => {
+        let reader = res.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            return pump();
+            function pump() {
+              return reader.read().then(({ done, value }) => {
+                // When no more data needs to be consumed, close the stream
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                // Enqueue the next data chunk into our target stream
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          }
+        });
+      })
+      .then(stream => new Response(stream))
+      .then(response => response.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .catch(err => console.error(err))
+      .then(dataURL => {
+        track.audio.src = dataURL;
+      });
       // track.audio.src = URL.createObjectURL(res);
       if (!track.audio) {
         track.audio = new Audio();
@@ -89,6 +116,35 @@ const trackReducer = (state = {}, action) => {
     case ADD_TO_QUEUE_NEXT:
       newState = merge({}, state);
       track = newState[action.trackId];
+      fetch(track.audioUrl, {})
+      .then((res) => {
+        let reader = res.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            return pump();
+            function pump() {
+              return reader.read().then(({ done, value }) => {
+                // When no more data needs to be consumed, close the stream
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                // Enqueue the next data chunk into our target stream
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          }
+        });
+      })
+      .then(stream => new Response(stream))
+      .then(response => response.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .catch(err => console.error(err))
+      .then(dataURL => {
+        // ;
+        track.audio.src = dataURL;
+      });
       if (!track.audio) {
         track.audio = new Audio();
         track.audio.src = track.audioUrl;
@@ -100,12 +156,15 @@ const trackReducer = (state = {}, action) => {
       track = newState[action.trackId];
       track.audio = null;
       return newState;
-    case CLEAR_QUEUE:
-      newState = merge({}, state);
-      Object.keys(newState).forEach(trackId => {
-        newState[trackId].audio = null;
-      });
-      return newState;
+    // case CLEAR_QUEUE:
+    //   newState = merge({}, state);
+    //   // Object.keys(newState).forEach(trackId => {
+    //   //   if (trackId === "totalTracks" || trackId === "userId" || trackId == action.exception) {
+    //   //     return;
+    //   //   }
+    //   //   newState[trackId].audio = null;
+    //   // });
+    //   return newState;
     default:
       return state;
   }
