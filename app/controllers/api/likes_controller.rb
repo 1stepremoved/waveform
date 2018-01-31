@@ -4,7 +4,7 @@ class Api::LikesController < ApplicationController
     if (Like.find_by(user_id: params[:like][:user_id], likeable_id: params[:like][:likeable_id], likeable_type: params[:like][:likeable_type]))
       render json: ["User has already liked this item"],status: 401
       return
-    elsif current_user && params[:like][:user_id] != current_user.id
+    elsif current_user && params[:like][:user_id].to_i != current_user.id
       render json: ["Cannot like items in other users' names"],status: 401
       return
     elsif @like.save

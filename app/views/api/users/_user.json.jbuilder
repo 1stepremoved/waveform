@@ -4,7 +4,7 @@ json.backgroundImageUrl asset_url(user.background_image.url)
 if (current_user.id == user.id)
   json.likes do
     user.likes.each do |like|
-      json.set! like.id do
+      json.set! like.likeable_id do
         json.id like.id
         json.likeable_id like.likeable_id
         json.likeable_type like.likeable_type

@@ -5,8 +5,13 @@ import { Link } from 'react-router-dom';
 class TrackIndexItem extends React.Component {
   constructor(props){
     super(props);
-    this.state = {buttonVisible: false};
+    let liked = false;
+
+    this.state = {
+      buttonVisible: false
+    };
     this.trackLoaded = this.trackLoaded.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
 
@@ -18,6 +23,18 @@ class TrackIndexItem extends React.Component {
 
   trackLoaded(key){
     return this.props.track ? this.props.track[key] : null;
+  }
+
+  toggleLike() {
+    if (this.props.currentUser.likes && this.props.currentUser.likes[this.trackLoaded("id")]) {
+      this.props.deleteLike(this.props.currentUser.likes[this.trackLoaded("id")].id)
+    } else {
+      this.props.createLike({
+        user_id: this.props.currentUser.id,
+        likeable_id: this.props.track.id,
+        likeable_type: "Track"
+      });
+    }
   }
 
   render() {
@@ -42,12 +59,11 @@ class TrackIndexItem extends React.Component {
           </div>
           <div className="track-index-item-panel">
             <div className="track-index-item-panel-left">
-              <div className="track-index-item-panel-button-left">
-                <i className="fas fa-heart"></i>
-              </div>
-              <div className="track-index-item-panel-button-left">
-                <i className="fas fa-retweet"></i>
-              </div>
+              {!this.props.currentUser ? null :
+                <div onClick={this.toggleLike} className={`track-index-item-panel-button-left ${this.props.isLiked ? "background-blue" : ""}`}>
+                  <i className="fas fa-heart"></i>
+                </div>
+              }
               <div className="track-index-item-panel-button-left">
                 <i className="fas fa-ellipsis-h"></i>
               </div>
