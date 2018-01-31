@@ -78,7 +78,7 @@ class UserShow extends React.Component {
   render () {
     //<i className="fas fa-camera"></i>
     return (
-      <main ref={(user_show) => this.user_show_page = user_show}id="user-show-container" style={{overflowY: "hidden"}}>
+      <main ref={(user_show) => {this.user_show_page = user_show;}}id="user-show-container" style={{overflowY: "hidden"}}>
         <section id="user-show-background-image"
           style={{backgroundImage: `url(${this.state.background_image_url})`,
                   backgroundPosition: 'center'}}>
