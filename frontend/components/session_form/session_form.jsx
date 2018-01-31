@@ -25,10 +25,10 @@ class SessionForm extends React.Component{
     e.preventDefault();
     if (this.state.page === 1) {
       const errors = [];
-      if (this.props.currentUser.username !== "guest"){
+      // if (this.props.currentUser.username !== "guest"){
         if (this.state.username === "") {errors.push("Username can't be blank");}
         if (this.state.email === "" && this.props.formType === "signup") {errors.push("Email can't be blank");}
-      }
+      // }
       if (errors.length === 0) {
         this.props.clearErrors();
         return this.setState({page: 2});
@@ -148,6 +148,7 @@ class SessionForm extends React.Component{
             }
             <input type="submit" value={submitText}></input>
           </div>
+
           <form onSubmit={this.guestLogin}>
             <input id="guest-login-input" type="submit" value="Log in as guest"></input>
           </form>
