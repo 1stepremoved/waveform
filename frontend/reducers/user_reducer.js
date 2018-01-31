@@ -10,7 +10,7 @@ const userReducer = (state = {}, action) => {
       newState = merge({},state, {[action.user.id]: action.user});
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
-      if (action.tracks.userId !== null) {
+      if (action.tracks.userId !== null && newState[action.tracks.userId]) {
         newState[action.tracks.userId].totalTracks = action.tracks.totalTracks;
       }
       return newState;
