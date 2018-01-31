@@ -14,7 +14,7 @@ import StreamContainer from './stream/stream_container';
 const App = () => (
   <main>
     <MainNavContainer></MainNavContainer>
-    <AuthRouteExact path="/" component={SplashContainer}></AuthRouteExact>
+    <Route path="/" component={SplashContainer}></Route>
     <Route path="/" component={SessionFormContainer}></Route>
     <Route path="/collection" component={CollectionContainer}></Route>
     <Route path="/stream" component={StreamContainer}></Route>
@@ -24,5 +24,7 @@ const App = () => (
     <PlayerContainer></PlayerContainer>
   </main>
 );
+
+//<AuthRouteExact path="/" component={SplashContainer}></AuthRouteExact>
 
 export default App;

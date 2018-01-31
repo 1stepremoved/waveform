@@ -141,6 +141,15 @@
   }
 }
 
+#user-show-default-message {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 100px;
+  align-items: center;
+  font-size: 20px;
+}
+
 .user-show-loader {
     margin: auto;
     border: 8px solid #f3f3f3; /* Light grey */

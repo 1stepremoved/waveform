@@ -34,7 +34,7 @@ import SearchIndexItemContainer from './search_index_item_container';
 
              <div className="main-nav-left">
                <li className="main-nav-left-link">
-                 <Link to="/stream" className="main-nav-logo-button">
+                 <Link to="/" className="main-nav-logo-button">
                    <img src={window.staticImages.logo} className="main-logo"></img>
                  </Link>
                </li>
@@ -49,7 +49,7 @@ import SearchIndexItemContainer from './search_index_item_container';
              <div id="main-nav-search-form-container">
                <form onSubmit={(e)=>{e.preventDefault();}} id="search-form">
                  <input id="main-nav-search-input" autoComplete="off"
-                   type="text" placeholder="Search for artists, tracks, playlists"
+                   type="text" placeholder="Search for tracks"
                    value={this.state.input} onChange={this.getSearchResults}></input>
                </form>
                {this.state.input === "" ? null :

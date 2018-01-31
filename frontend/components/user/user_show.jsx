@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import TrackIndexItemContainer from '../track/track_index_item_container';
 
 
@@ -124,11 +124,21 @@ class UserShow extends React.Component {
           </div>
         </section>
         <section id="user-tracks-and-info">
-          <div id="user-tracks">
-            {this.props.visibleTrackIds.map((trackId, idx) => {
-              return <TrackIndexItemContainer  key={idx} trackId={trackId} />;
-            })}
-          </div>
+
+          {this.props.visibleTrackIds.length === 0 ?
+            <div id="user-show-default-message">
+              <p>No tracks have been uploaded yet</p>
+              {this.props.isCurrentUserPage ? <Link to="/upload">Start sharing</Link> : null}
+            </div>
+
+             :
+
+             <div id="user-tracks">
+               {this.props.visibleTrackIds.map((trackId, idx) => {
+                 return <TrackIndexItemContainer  key={idx} trackId={trackId} />;
+               })}
+             </div>
+          }
           {this.loadedUser("totalTracks") && this.props.visibleTrackIds.length < this.loadedUser("totalTracks") ?
             <div className="user-show-loader"></div> : null
           }
