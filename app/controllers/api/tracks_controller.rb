@@ -8,6 +8,11 @@ class Api::TracksController < ApplicationController
       @total_tracks = @tracks.length
       @user_id = params[:user_id]
       @tracks = @tracks.limit(num).offset(offset)
+    elsif (params[:liked])
+      @tracks = current_user.liked_tracks.where("LOWER(title) LIKE LOWER(?)", "%#{params[:query]}%").order('created_at DESC')
+      @total_tracks = @tracks.length
+      @user_id = nil
+      @tracks = @tracks.limit(num).offset(offset)
     else
       @tracks = Track.where("LOWER(title) LIKE LOWER(?)", "%#{params[:query]}%").order('created_at DESC')
       @total_tracks = @tracks.length

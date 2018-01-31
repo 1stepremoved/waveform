@@ -1,6 +1,6 @@
 import {RECEIVE_TRACKS, RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_AND_RESET,
         RECEIVE_TRACK, REMOVE_TRACK, RECEIVE_TRACKS_FOR_SEARCH,
-        RECEIVE_TRACKS_FOR_SPLASH} from '../actions/track_actions';
+        RECEIVE_TRACKS_FOR_SPLASH, RECEIVE_LIKED_TRACKS_AND_SHOW} from '../actions/track_actions';
 import {ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
         REMOVE_FROM_QUEUE, CLEAR_QUEUE} from '../actions/queue_actions';
 import merge from 'lodash/merge';
@@ -15,6 +15,11 @@ const trackReducer = (state = {}, action) => {
       delete newState['user_id'];
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
+      newState = merge({},state, action.tracks);
+      delete newState['total_tracks'];
+      delete newState['user_id'];
+      return newState;
+    case RECEIVE_LIKED_TRACKS_AND_SHOW:
       newState = merge({},state, action.tracks);
       delete newState['total_tracks'];
       delete newState['user_id'];

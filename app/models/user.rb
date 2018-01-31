@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :likes
 
+  has_many :liked_tracks, through: :likes, source: :likeable, source_type: :Track
+
   after_initialize :ensure_session_token #, :ensure_image_url
   attr_reader :password
 

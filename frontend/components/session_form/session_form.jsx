@@ -71,7 +71,7 @@ class SessionForm extends React.Component{
     };
 
     this.props.logIn(user).then(() => {
-      this.props.history.push("/stream");
+      this.props.history.push("/collection");
       this.props.changeForm(null);
     });
   }
