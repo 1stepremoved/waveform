@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_many :tracks
 
+  has_many :likes
+
   after_initialize :ensure_session_token #, :ensure_image_url
   attr_reader :password
 
