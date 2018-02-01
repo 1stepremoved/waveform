@@ -69,6 +69,7 @@
 }
 
 .track-index-item-panel-left, .track-index-item-panel-left {
+  position: relative;
   display: flex;
 }
 
@@ -89,4 +90,31 @@
   margin: 5px 3.5px;
   text-decoration: none;
   color: #999;
+}
+
+.track-index-item-options-menu {
+  width: 150px;
+  position: absolute;
+  right: -155px;
+  top: -30px;
+  font-size: 15px;
+  border: 1px solid #999;
+
+  div {
+    padding: 5px;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+
+  div:last-of-type {
+    border-bottom: 0;
+  }
+}
+
+.toggled {
+  background-color: #ccc;
 }

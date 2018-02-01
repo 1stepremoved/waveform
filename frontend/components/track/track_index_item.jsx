@@ -8,10 +8,13 @@ class TrackIndexItem extends React.Component {
     let liked = false;
 
     this.state = {
-      buttonVisible: false
+      buttonVisible: false,
+      optsVisible: false
     };
     this.trackLoaded = this.trackLoaded.bind(this);
     this.toggleLike = this.toggleLike.bind(this);
+    this.toggleOpts = this.toggleOpts.bind(this);
+    this.optsClickout = this.optsClickout.bind(this);
   }
 
 
@@ -27,7 +30,7 @@ class TrackIndexItem extends React.Component {
 
   toggleLike() {
     if (this.props.currentUser.likes && this.props.currentUser.likes[this.trackLoaded("id")]) {
-      this.props.deleteLike(this.props.currentUser.likes[this.trackLoaded("id")].id)
+      this.props.deleteLike(this.props.currentUser.likes[this.trackLoaded("id")].id);
     } else {
       this.props.createLike({
         user_id: this.props.currentUser.id,
@@ -35,6 +38,29 @@ class TrackIndexItem extends React.Component {
         likeable_type: "Track"
       });
     }
+  }
+
+  toggleOpts(e){
+    if (this.state.optsVisible) {
+      this.setState({optsVisible: false});
+      const that = this;
+      document.removeEventListener('click', this.optsClickout);
+    } else {
+      this.setState({optsVisible: true});
+      document.addEventListener("click", this.optsClickout);
+    }
+  }
+
+  optsClickout(e) {
+    let target = e.target;
+    while (target !== null) {
+      if (target.className === "track-index-item-options-menu"){
+        return;
+      }
+      target = target.parentElement;
+    }
+    this.setState({optsVisible: false});
+    document.removeEventListener('click', this.optsClickout);
   }
 
   render() {
@@ -64,9 +90,16 @@ class TrackIndexItem extends React.Component {
                   <i className="fas fa-heart"></i>
                 </div>
               }
-              <div className="track-index-item-panel-button-left">
+              <div onClick={this.toggleOpts}
+                className={`track-index-item-panel-button-left ${this.state.optsVisible ? 'toggled' : ''}`}>
                 <i className="fas fa-ellipsis-h"></i>
               </div>
+              {!this.state.optsVisible ? null :
+                <div className="track-index-item-options-menu">
+                  <div onClick={(e) => this.props.addToQueueEnd(this.trackLoaded("id"))}>Add to queue</div>
+                  <div onClick={(e) => this.props.addToQueueNext(this.trackLoaded("id"))}>Play next</div>
+                </div>
+              }
             </div>
             <div className="track-index-item-panel-right">
               <Link to={`/tracks/${this.trackLoaded("id")}`} className="track-index-item-panel-button-right">
