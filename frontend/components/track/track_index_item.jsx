@@ -53,12 +53,6 @@ class TrackIndexItem extends React.Component {
 
   optsClickout(e) {
     let target = e.target;
-    while (target !== null) {
-      if (target.className === "track-index-item-options-menu"){
-        return;
-      }
-      target = target.parentElement;
-    }
     this.setState({optsVisible: false});
     document.removeEventListener('click', this.optsClickout);
   }

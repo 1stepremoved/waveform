@@ -24,6 +24,10 @@ const queueReducer = (state=initialState, action) => {
     case ADD_TO_QUEUE_END:
       newState.order.push(newState.order.length);
       newState.trackIds.push(action.trackId);
+      if (newState.trackIds.length === 1) {
+        newState.currentTrack += 1;
+        newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+      }
       return newState;
     case ADD_TO_QUEUE_NOW:
       newState.trackIds.push(action.trackId);
@@ -42,6 +46,11 @@ const queueReducer = (state=initialState, action) => {
     case ADD_TO_QUEUE_NEXT:
       newState.trackIds = newState.trackIds.slice(0,state.currentTrack + 1)
         .concat([action.trackId]).concat(newState.trackIds.slice(state.currentTrack + 1));
+      newState.order.push(newState.order.length);
+      if (newState.trackIds.length === 1) {
+        newState.currentTrack += 1;
+        newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+      }
       return newState;
     case CLEAR_QUEUE:
       // newState = merge({}, state, {trackIds: [], currentTrack: 0,order: []});

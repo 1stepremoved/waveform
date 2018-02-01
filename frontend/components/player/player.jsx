@@ -247,7 +247,7 @@ class Player extends React.Component {
 
           {!this.props.track || (!navigator.onLine && !this.props.track.audioDataURL) ? null :
             <audio src={this.props.track.audioDataURL || this.props.track.audioUrl}
-              ref={(audio) => { this.audio = audio ;} }>
+              ref={(audio) => { this.audio = audio ;}} >
             </audio>
           }
 
