@@ -22,7 +22,6 @@ class CommentIndexItem extends React.Component {
   }
 
   timeStamp() {
-    debugger;
     let date = new Date(this.props.comment.createdAtInt);
     let timeSince = Date.now() - date.getTime();
     let result, num;
