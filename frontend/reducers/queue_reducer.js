@@ -61,6 +61,7 @@ const queueReducer = (state=initialState, action) => {
       newState.trackIds = [];
       newState.currentTrack = 0;
       newState.order = [];
+      newState.order.push(newState.order.length);
       newState.currentId = state.currentId;
       newState.trackIds.push(state.currentId);
       return newState;
