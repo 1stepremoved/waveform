@@ -10,27 +10,52 @@ const trackReducer = (state = {}, action) => {
   let newState, track;
   switch (action.type) {
     case RECEIVE_TRACKS:
-      newState = merge({},state, action.tracks);
+      newState = merge({}, state);
+      Object.keys(action.tracks).forEach(key => {
+        if (newState[key] === undefined) {
+          newState[key] = action.tracks[key];
+        }
+      });
       delete newState['total_tracks'];
       delete newState['user_id'];
       return newState;
     case RECEIVE_TRACKS_AND_SHOW:
-      newState = merge({},state, action.tracks);
+      newState = merge({}, state);
+      Object.keys(action.tracks).forEach(key => {
+        if (newState[key] === undefined) {
+          newState[key] = action.tracks[key];
+        }
+      });
       delete newState['total_tracks'];
       delete newState['user_id'];
       return newState;
     case RECEIVE_LIKED_TRACKS_AND_SHOW:
-      newState = merge({},state, action.tracks);
+      newState = merge({}, state);
+      Object.keys(action.tracks).forEach(key => {
+        if (newState[key] === undefined) {
+          newState[key] = action.tracks[key];
+        }
+      });
       delete newState['total_tracks'];
       delete newState['user_id'];
       return newState;
     case RECEIVE_TRACKS_FOR_SEARCH:
-      newState = merge({},state, action.tracks);
+      newState = merge({}, state);
+      Object.keys(action.tracks).forEach(key => {
+        if (newState[key] === undefined) {
+          newState[key] = action.tracks[key];
+        }
+      });
       delete newState['total_tracks'];
       delete newState['user_id'];
       return newState;
     case RECEIVE_TRACKS_FOR_SPLASH:
-      newState = merge({},state, action.tracks);
+      newState = merge({}, state);
+      Object.keys(action.tracks).forEach(key => {
+        if (newState[key] === undefined) {
+          newState[key] = action.tracks[key];
+        }
+      });
       delete newState['total_tracks'];
       delete newState['user_id'];
       return newState;

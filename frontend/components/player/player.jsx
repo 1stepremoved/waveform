@@ -86,12 +86,17 @@ class Player extends React.Component {
       this.audio.currentTime = 0;
       this.props.resetRestart();
     }
+    // if (this.props.track && this.props.track.audioDataURL) {
+    //   this.audio.src = this.props.track.audioDataURL;
+    // }
   }
 
 
   componentWillReceiveProps(newProps) {
     if (newProps.track && newProps.track.audioDataURL) {
       this.setState({cached: true});
+    } else {
+      this.setState({cached: false});
     }
     if (this.audio && this.props.paused !== newProps.paused) {
       if (newProps.paused) {
@@ -211,7 +216,6 @@ class Player extends React.Component {
   }
 
   render() {
-
     const pauseButton = this.props.paused ?
       (<i className="fa fa-play"></i>)
       :
