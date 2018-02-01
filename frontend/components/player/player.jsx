@@ -71,6 +71,9 @@ class Player extends React.Component {
     if (this.audio && this.props.startTrackValue)  {
       this.props.startTrack(false);
       const that = this;
+      if (this.props.track.audioDataURL) {
+        this.audio.src = this.props.track.audioDataURL;
+      }
       this.audio.addEventListener('loadedmetadata', () => {
         that.audio.play();
         that.setState({duration: that.audio.duration});
@@ -250,7 +253,7 @@ class Player extends React.Component {
           </section>
 
           {!this.props.track || (!navigator.onLine && !this.props.track.audioDataURL) ? null :
-            <audio src={this.props.track.audioDataURL || this.props.track.audioUrl}
+            <audio src={this.props.track.audioUrl}
               ref={(audio) => { this.audio = audio ;}} >
             </audio>
           }
