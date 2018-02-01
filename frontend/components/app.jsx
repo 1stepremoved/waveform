@@ -18,7 +18,7 @@ const App = () => (
     <Route path="/" component={SessionFormContainer}></Route>
     <ProtectedRoute path="/collection" component={CollectionContainer}></ProtectedRoute>
     <ProtectedRoute path="/stream" component={StreamContainer}></ProtectedRoute>
-    <Route path="/upload" component={UploadContainer}></Route>
+    <ProtectedRoute path="/upload" component={UploadContainer}></ProtectedRoute>
     <Route path="/tracks/:trackId" component={TrackShowContainer}></Route>
     <Route path="/users/:userId" component={UserShowContainer}></Route>
     <PlayerContainer></PlayerContainer>

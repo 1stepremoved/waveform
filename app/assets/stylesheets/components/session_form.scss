@@ -6,6 +6,10 @@
   font-family: sans-serif;
 }
 
+.session_forms {
+
+}
+
 
 .session-form {
   position: absolute;
@@ -38,9 +42,10 @@
     font-size: 18px;
     border: 1px solid black;
 
-    .bad-input {
-      border: 1px solid black;
-    }
+  }
+
+  .bad-input {
+    border: 1px solid red;
   }
 
   input[type="submit"] {

@@ -148,11 +148,11 @@ class SessionForm extends React.Component{
             }
             <input type="submit" value={submitText}></input>
           </div>
-
-          <form onSubmit={this.guestLogin}>
+          <form id="guest-login-form" onSubmit={this.guestLogin}>
             <input id="guest-login-input" type="submit" value="Log in as guest"></input>
           </form>
         </form>
+
       </main>
     );
   }
