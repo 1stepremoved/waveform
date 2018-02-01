@@ -225,7 +225,8 @@ class Player extends React.Component {
       (<i className="fa fa-pause"></i>);
     return (
 
-      <main id="player-container-box" className={`collapsable ${this.props.currentId ? "uncollapsed" : "collapsed"}`}
+      <main id="player-container-box"
+        className={`collapsable ${this.props.currentId || this.props.queueLength > 0 ? "uncollapsed" : "collapsed"}`}
         style={{transformOrigin: 'bottom'}}>
         <main id="player-container">
           <section id="player-controls">

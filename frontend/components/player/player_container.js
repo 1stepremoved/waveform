@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
     startTrackValue: state.queue.startTrack,
     track: !state.queue.currentId ? null : state.entities.tracks[state.queue.currentId],
     queueVisible: state.ui.currentMenu === "queue",
+    queueLength: state.queue.trackIds.length,
     restart: state.queue.restart,
     currentMenu: state.ui.currentMenu
   };

@@ -27,6 +27,8 @@ const queueReducer = (state=initialState, action) => {
       if (newState.trackIds.length === 1) {
         newState.currentTrack += 1;
         newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+        newState.startTrack = true;
+        newState.paused = false;
       }
       return newState;
     case ADD_TO_QUEUE_NOW:
@@ -50,6 +52,8 @@ const queueReducer = (state=initialState, action) => {
       if (newState.trackIds.length === 1) {
         newState.currentTrack += 1;
         newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
+        newState.startTrack = true;
+        newState.paused = false;
       }
       return newState;
     case CLEAR_QUEUE:
