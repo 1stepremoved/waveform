@@ -5,7 +5,7 @@ import { createLike, deleteLike } from '../../actions/like_actions';
 
 const mapStateToProps = (state, ownProps) => {
   let isLiked = false;
-  if (state.session.currentUser.likes && state.session.currentUser.likes[ownProps.trackId]) {
+  if (state.session.currentUser && state.session.currentUser.likes && state.session.currentUser.likes[ownProps.trackId]) {
     isLiked = true;
   }
   return {
