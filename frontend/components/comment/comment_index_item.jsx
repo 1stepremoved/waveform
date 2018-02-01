@@ -21,6 +21,29 @@ class CommentIndexItem extends React.Component {
     return `${parseInt(time/60)}:${parseInt(time % 60) < 10 ? "0" : "" }${parseInt(time % 60)}`;
   }
 
+  timeStamp() {
+    debugger;
+    let date = new Date(this.props.comment.createdAtInt);
+    let timeSince = Date.now() - date.getTime();
+    let result, num;
+    if (timeSince < 60000) {
+      num = Math.floor(timeSince / 1000);
+      result = `${num} second${num === 1 ? '' : 's'} ago`;
+    } else if (timeSince < 3600000) {
+      num = Math.floor(timeSince / 60000);
+      result = `${num} minute${num === 1 ? '' : 's'} ago`;
+    } else if (timeSince < 86400000) {
+      num = Math.floor(timeSince / 3600000);
+      result = `${num} hour${num === 1 ? '' : 's'} ago`;
+    } else if (timeSince < 604800000) {
+      num = Math.floor(timeSince / 86400000);
+      result = `${num} day${num === 1 ? '' : 's'} ago`;
+    } else {
+      result = `${1 + date.getMonth()}/${date.getDate()}/${1900 + date.getYear()}`
+    }
+    return result;
+  }
+
   render() {
     return (
       <section className="comment-index-item-container">
@@ -36,7 +59,7 @@ class CommentIndexItem extends React.Component {
           </div>
         </div>
         <div className="comment-index-item-date">
-          {this.props.comment.createdAtDate}
+          {this.timeStamp()}
         </div>
       </section>
     );

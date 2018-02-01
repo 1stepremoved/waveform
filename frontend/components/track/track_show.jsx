@@ -125,8 +125,8 @@ class TrackShow extends React.Component {
                 <div>
                   <i className="fas fa-comment"></i> {this.props.totalComments} comments
                 </div>
-                {this.props.comments.map(comment => {
-                    return <CommentIndexItemContainer comment={comment} />;
+                {this.props.comments.map((comment, idx) => {
+                    return <CommentIndexItemContainer key={idx} comment={comment} />;
                 })}
                 {this.props.comments.length < this.props.totalComments ?
                   <div className="track-show-loader"></div> : null
