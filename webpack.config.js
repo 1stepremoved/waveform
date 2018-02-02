@@ -1,4 +1,5 @@
-
+var debug = process.env.NODE_ENV !== "production";
+var webpack = require('webpack');
 var path = require("path");
 
 module.exports = {
@@ -23,5 +24,12 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: [".js", ".jsx", "*"]
-  }
+  },
+  plugins: debug ? [] : [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ],
 };
