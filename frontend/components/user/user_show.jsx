@@ -9,9 +9,9 @@ class UserShow extends React.Component {
 
     this.loadedUser = this.loadedUser.bind(this);
     this.state = {profile_image: null,
-                  profile_image_url: this.loadedUser("profileImageUrl"),
+                  profile_image_url: this.loadedUser("profileImageUrl", ""),
                   background_image: null,
-                  background_image_url: this.loadedUser("backgroundImageUrl"),
+                  background_image_url: this.loadedUser("backgroundImageUrl", ""),
                   trackRequestOffset: 0};
     this.updateFile = this.updateFile.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -60,8 +60,8 @@ class UserShow extends React.Component {
     };
   }
 
-  loadedUser(key) {
-    return this.props.pageUser ? this.props.pageUser[key] : null;
+  loadedUser(key, alt=null) {
+    return this.props.pageUser ? this.props.pageUser[key] : alt;
   }
 
   handleScroll(e) {
