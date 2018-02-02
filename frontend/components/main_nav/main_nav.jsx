@@ -39,7 +39,7 @@ import SearchIndexItemContainer from './search_index_item_container';
 
    render() {
      return (
-       <main id="main-nav-container" className={`collapsable ${this.props.isRoot ? "collapsed" : "uncollapsed"}`}
+       <main id="main-nav-container" className={`collapsable ${this.props.isRoot ? "collapsed-down" : "uncollapsed-down"}`}
          style={{transformOrigin: 'top'}}>
          <section className="main-nav">
 

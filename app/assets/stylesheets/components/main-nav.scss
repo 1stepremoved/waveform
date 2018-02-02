@@ -8,21 +8,28 @@ $nav-height: 45px;
   position: fixed;
   width: 100%;
   z-index: 10;
-  transition: height 500ms;
+  // transition: height 500ms;
 }
 
 .collapsable {
   transition: transform 500ms ease-out;
 }
 
-.collapsed {
-  transform: scaleY(0);
+.collapsed-down{
+  transform: translateY(-50px);
 }
 
-.uncollapsed {
-  transform: scaleY(1);
+.uncollapsed-down {
+  transform: translateY(0);
 }
 
+.collapsed-up{
+  transform: translateY(50px);
+}
+
+.uncollapsed-up {
+  transform: translateY(0);
+}
 
 .main-nav {
   display: flex;
