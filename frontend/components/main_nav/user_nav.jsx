@@ -34,12 +34,6 @@ class UserNav extends React.Component {
       <ul className="user-nav-menu">
         <Link to={`/users/${this.props.currentUser.id}`}
           className="user-nav-menu-item"> <i className="fas fa-user"></i>Profile</Link>
-        <Link to={`/users/${this.props.currentUser.id}/likes`}
-          className="user-nav-menu-item"> <i className="fas fa-heart"></i>Likes</Link>
-        <Link to={`/users/${this.props.currentUser.id}/follows`}
-          className="user-nav-menu-item"> <i className="fas fa-users"></i>Following</Link>
-        <Link to={`/users/${this.props.currentUser.id}/tracks`}
-          className="user-nav-menu-item"> <i className="fas fa-list-ul"></i>Tracks</Link>
       </ul>
     );
   }
