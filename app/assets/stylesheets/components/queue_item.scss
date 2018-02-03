@@ -36,17 +36,20 @@
   font-size: 11px;
 }
 
-.queue-item-track-name {
+.queue-item-track-name a {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: black;
+  text-decoration: none;
 }
 
-.queue-item-track-artist {
+.queue-item-track-artist a {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: gray;
+  text-decoration: none;
 }
 
 .queue-item-nav-toggle {

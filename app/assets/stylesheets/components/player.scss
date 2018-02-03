@@ -63,6 +63,9 @@
 
 #player-timeline-container {
   padding: 20px 0;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #player-timeline{
@@ -137,22 +140,29 @@
   font-size: 10px;
 }
 
-#player-queue-track-name {
+#player-queue-track-name a {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: black;
+  text-decoration: none;
 }
 
-#player-queue-track-artist {
+#player-queue-track-artist a {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: gray;
+  text-decoration: none;
 }
 
 #player-queue-toggle {
   position: relative;
   float: right;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .blue {

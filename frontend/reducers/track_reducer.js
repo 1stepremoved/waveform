@@ -196,15 +196,15 @@ const trackReducer = (state = {}, action) => {
       track = newState[action.trackId];
       track.audio = null;
       return newState;
-    // case CLEAR_QUEUE:
-    //   newState = merge({}, state);
-    //   // Object.keys(newState).forEach(trackId => {
-    //   //   if (trackId === "totalTracks" || trackId === "userId" || trackId == action.exception) {
-    //   //     return;
-    //   //   }
-    //   //   newState[trackId].audio = null;
-    //   // });
-    //   return newState;
+    case CLEAR_QUEUE:
+      newState = merge({}, state);
+      Object.keys(newState).forEach(trackId => {
+        if (trackId === "totalTracks" || trackId === "userId" || trackId == action.exception) {
+          return;
+        }
+        newState[trackId].audio = null;
+      });
+      return newState;
     default:
       return state;
   }

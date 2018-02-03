@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayButtonContainer from '../play_button/play_button_container';
+import { Link } from 'react-router-dom';
 
 class QueueItem extends React.Component {
   constructor(props) {
@@ -69,11 +70,11 @@ class QueueItem extends React.Component {
         </div>
         <div className="queue-item-by-info">
           <div className="queue-item-track-artist" >
-            {this.trackLoaded("username")}
+            <Link to={`/users/${this.trackLoaded("userId")}`}>{this.trackLoaded("username")}</Link>
           </div>
           <div className="queue-item-track-name"
             style={{color: `${this.state.active ? '#000' : '#999'}`}}>
-            {this.trackLoaded("title")}
+            <Link to={`/tracks/${this.trackLoaded("id")}`}>{this.trackLoaded("title")}</Link>
           </div>
         </div>
       </section>

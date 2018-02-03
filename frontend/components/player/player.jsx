@@ -1,5 +1,6 @@
 import React from 'react';
 import QueueContainer from './queue_container';
+import { Link } from 'react-router-dom';
 
 class Player extends React.Component {
   constructor(props) {
@@ -141,9 +142,9 @@ class Player extends React.Component {
     this.setState({duration: audio.duration});
   }
 
-  moveHandle(e) {
+  moveHandle(e, override=false) {
     // let timelineWidth = this.timeline.offsetWidth - this.handle.offsetWidth;
-    if (!this.state.mouseDown){
+    if (!this.state.mouseDown && !override){
       return;
     }
     let mousePos = e.pageX - this.timeline.offsetLeft;
@@ -264,7 +265,7 @@ class Player extends React.Component {
                 this.state.mousePos / this.timeline.offsetWidth * this.state.duration : this.state.position)}</div>
             <div id="player-timeline-container"
               onMouseMove={this.moveHandle} onMouseLeave={this.hideHandle} onMouseEnter={this.showHandle}
-              onMouseDown={()=>this.setState({mouseDown: true})} onMouseUp={this.setAudioTime}>
+              onMouseDown={(e)=>{this.setState({mouseDown: true});this.moveHandle(e,true);}} onMouseUp={this.setAudioTime}>
               <div id="player-timeline"
                 ref={(timeline) => {this.timeline = timeline;}}
                 style={{background: `linear-gradient(90deg, #1177ff,
@@ -301,10 +302,10 @@ class Player extends React.Component {
             </div>
             <div id="player-queue-by-info">
               <div id="player-queue-track-artist">
-                {this.trackLoaded("username")}
+                <Link to={`/users/${this.trackLoaded("userId")}`}>{this.trackLoaded("username")}</Link>
               </div>
               <div id="player-queue-track-name">
-                {this.trackLoaded("title")}
+                <Link to={`/tracks/${this.trackLoaded("id")}`}>{this.trackLoaded("title")}</Link>
               </div>
             </div>
           </section>
