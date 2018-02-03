@@ -14,7 +14,11 @@ import SearchIndexItemContainer from './search_index_item_container';
    }
 
    openForm(formName) {
-     this.props.changeForm(formName);
+     const that = this;
+     this.props.changeForm("opening-session-form");
+     setTimeout(() => {
+       that.props.changeForm(formName);
+     }, 0);
    }
 
    getSearchResults(e) {

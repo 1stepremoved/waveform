@@ -9,7 +9,11 @@ class Splash extends React.Component {
   }
 
   openForm(formName) {
-    this.props.changeForm(formName);
+    const that = this;
+    this.props.changeForm("opening-session-form");
+    setTimeout(() => {
+      that.props.changeForm(formName);
+    }, 0);
   }
 
   render() {

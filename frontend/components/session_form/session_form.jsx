@@ -52,13 +52,13 @@ class SessionForm extends React.Component{
     if (this.props.formType === "signup") {
       this.props.signUp(user)
         .then(() => {
-          this.props.history.push("/stream");
+          this.props.history.push("/collection");
           this.props.changeForm(null);
         });
     } else {
       this.props.logIn(user)
         .then(() => {
-          this.props.history.push("/stream");
+          this.props.history.push("/collection");
           this.props.changeForm(null);
         });
     }
@@ -84,7 +84,9 @@ class SessionForm extends React.Component{
 
   closeForm(e) {
     if (e.target.className === "session-form-screen") {
-      this.props.changeForm(null);
+      this.props.changeForm("closing-session-form");
+      const that = this;
+      setTimeout(() => {that.props.changeForm(null)}, 500);
       this.setState({username: "", email: "", password: "", password2: "", page: 1, in: false});
       this.props.clearErrors();
     }
@@ -126,7 +128,9 @@ class SessionForm extends React.Component{
     }
     return (
       <main key='0'className="session-form-screen" onClick={this.closeForm}>
-        <form key={1} onSubmit={this.handleSubmit} className="session-form">
+        <div className="translate-back-50">
+        <form key={1} onSubmit={this.handleSubmit} className={`session-form`}
+          id={`${this.props.formType}`}>
           <div className="session-form-inputs-container">
             <label className="session-form-input-box">
               <input type="text" placeholder={usernameText}
@@ -152,6 +156,7 @@ class SessionForm extends React.Component{
             <input id="guest-login-input" type="submit" value="Log in as guest"></input>
           </form>
         </form>
+        </div>
 
       </main>
     );
@@ -171,7 +176,9 @@ class SessionForm extends React.Component{
     }
     return (
       <main key='0' className="session-form-screen" onClick={this.closeForm}>
-        <form key={1} onSubmit={this.handleSubmit} className="session-form" >
+        <div className="translate-back-50">
+        <form key={1} onSubmit={this.handleSubmit} className={`session-form ${this.props.formType}`}
+          id={`${this.props.formType}`}>
           <div className="session-form-inputs-container">
 
             <label className="session-form-input-box">
@@ -210,6 +217,7 @@ class SessionForm extends React.Component{
             <input type="submit" value={submitText}></input>
             </div>
           </form>
+          </div>
       </main>
     );
   }
