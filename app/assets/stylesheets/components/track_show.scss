@@ -151,3 +151,51 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+#track-show-panel {
+  position: relative;
+  width: 150px;
+  padding: 20px 25px 0 25px;
+}
+
+
+.track-show-panel-button {
+  font-size: 12px;
+  padding: 3px 6px;
+  margin: 5px 3.5px;
+  text-decoration: none;
+  display: inline-block;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:active {
+    background-color: #999;
+  }
+}
+
+.track-show-options-menu {
+  width: 150px;
+  position: absolute;
+  right: -120px;
+  top: -10px;
+  font-size: 15px;
+  border: 1px solid #999;
+  background-color: white;
+
+  div {
+    padding: 5px;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+
+  div:last-of-type {
+    border-bottom: 0;
+  }
+}

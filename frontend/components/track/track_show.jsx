@@ -15,9 +15,14 @@ class TrackShow extends React.Component {
       userImageUrl: (this.props.track) ? this.props.track.userImageUrl : null,
       description: (this.props.track) ? this.props.track.description : null,
       userId: (this.props.track) ? this.props.track.userId : null,
-      commentRequestOffset: 0
+      commentRequestOffset: 0,
+      optsVisible: false
     };
     this.handleScroll = this.handleScroll.bind(this);
+    this.toggleOpts = this.toggleOpts.bind(this);
+    this.optsClickout = this.optsClickout.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
+    this.trackLoaded = this.trackLoaded.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +80,39 @@ class TrackShow extends React.Component {
     }
   }
 
+  trackLoaded(key){
+    return this.props.track ? this.props.track[key] : null;
+  }
+
+  toggleOpts(e){
+    if (this.state.optsVisible) {
+      this.setState({optsVisible: false});
+      const that = this;
+      document.removeEventListener('click', this.optsClickout);
+    } else {
+      this.setState({optsVisible: true});
+      document.addEventListener("click", this.optsClickout);
+    }
+  }
+
+  optsClickout(e) {
+    let target = e.target;
+    this.setState({optsVisible: false});
+    document.removeEventListener('click', this.optsClickout);
+  }
+
+  toggleLike() {
+    if (this.props.currentUser.likes && this.props.currentUser.likes[this.trackLoaded("id")]) {
+      this.props.deleteLike(this.props.currentUser.likes[this.trackLoaded("id")].id);
+    } else {
+      this.props.createLike({
+        user_id: this.props.currentUser.id,
+        likeable_id: this.props.track.id,
+        likeable_type: "Track"
+      });
+    }
+  }
+
 
   render() {
     return (
@@ -100,7 +138,23 @@ class TrackShow extends React.Component {
           </div>
         </section>
 
-
+        <section id="track-show-panel">
+          {!this.props.currentUser ? null :
+            <div onClick={this.toggleLike} className={`track-show-panel-button ${this.props.isLiked ? "background-blue" : ""}`}>
+              <i className="fas fa-heart"></i> Like
+            </div>
+          }
+          <div onClick={this.toggleOpts}
+            className={`track-show-panel-button ${this.state.optsVisible ? 'toggled' : ''}`}>
+            <i className="fas fa-ellipsis-h"></i> More
+          </div>
+          {!this.state.optsVisible ? null :
+            <div className="track-show-options-menu">
+              <div onClick={(e) => this.props.addToQueueEnd(this.trackLoaded("id"))}>Add to queue</div>
+              <div onClick={(e) => this.props.addToQueueNext(this.trackLoaded("id"))}>Play next</div>
+            </div>
+          }
+        </section>
 
         <section id="track-show-info-container">
           {!this.props.currentUser ? null :
