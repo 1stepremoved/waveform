@@ -138,7 +138,7 @@ class TrackShow extends React.Component {
           </div>
         </section>
 
-        <section id="track-show-panel">
+        <section id="track-show-panel" style={{width: `${this.props.currentUser ? '160px': '85px'}`}}>
           {!this.props.currentUser ? null :
             <div onClick={this.toggleLike} className={`track-show-panel-button ${this.props.isLiked ? "background-blue" : ""}`}>
               <i className="fas fa-heart"></i> Like

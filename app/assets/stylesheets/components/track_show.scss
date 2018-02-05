@@ -153,8 +153,10 @@
 }
 
 #track-show-panel {
+  // display: flex;
   position: relative;
-  width: 150px;
+  // width: 150px;
+  display: inline-block;
   padding: 20px 25px 0 25px;
 }
 
@@ -165,6 +167,7 @@
   margin: 5px 3.5px;
   text-decoration: none;
   display: inline-block;
+  max-height: 20px;
   color: black;
   border: 1px solid #ccc;
   border-radius: 5px;
