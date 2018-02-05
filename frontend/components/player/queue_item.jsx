@@ -23,7 +23,9 @@ class QueueItem extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.currentTrackId !== newProps.trackId){
+    if (newProps.currentTrackId === newProps.trackId && newProps.currentTrack === this.props.place) {
+      this.setState({active: true});
+    } else {
       this.setState({active: false});
     }
   }
@@ -66,7 +68,8 @@ class QueueItem extends React.Component {
                   opacity: `${this.state.active ? '1' : '0.5'}`}}>
           <PlayButtonContainer visible={this.state.active} classname="queue-item-play-button"
             track={this.props.track ? this.props.track : this.fauxTrack }
-            inQueue={true} />
+            inQueue={true}
+            queuePlace={this.props.place} />
         </div>
         <div className="queue-item-by-info">
           <div className="queue-item-track-artist" >

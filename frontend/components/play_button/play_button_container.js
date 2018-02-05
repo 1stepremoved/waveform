@@ -5,8 +5,10 @@ import { addToQueueNow, pause, moveToTrack } from '../../actions/queue_actions';
 const mapStateToProps = (state, ownProps) => {
   return {
     paused: state.queue.paused,
-    currentlyPlaying: ownProps.track ? (state.queue.currentId === ownProps.track.id) : false,
-    currentId: state.queue.currentId
+    currentlyPlaying: ownProps.track ? (state.queue.currentId === ownProps.track.id && state.queue.currentTrack === ownProps.queuePlace) : false,
+    currentId: state.queue.currentId,
+    currentTrack: state.queue.currentTrack,
+    place: ownProps.queuePlace
   };
 };
 
@@ -14,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addToQueueNow: (id) => dispatch(addToQueueNow(id)),
     pause: () => dispatch(pause()),
-    moveToTrack: (id) => dispatch(moveToTrack(id))
+    moveToTrack: (place) => dispatch(moveToTrack(place))
   };
 };
 

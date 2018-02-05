@@ -6,7 +6,9 @@ import QueueItem from './queue_item';
 const mapStateToProps = (state, ownProps) => {
   return {
     track: state.entities.tracks[ownProps.trackId],
-    currentTrackId: state.queue.currentId
+    currentTrackId: state.queue.currentId,
+    currentTrack: state.queue.currentTrack,
+    key: ownProps.key
   };
 };
 

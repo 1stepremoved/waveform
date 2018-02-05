@@ -101,10 +101,10 @@ export const moveCurrentTrack = (dir) => {
   };
 };
 
-export const moveToTrack = (trackId) => {
+export const moveToTrack = (place) => {
   return {
     type: MOVE_TO_TRACK,
-    trackId
+    place
   };
 };
 

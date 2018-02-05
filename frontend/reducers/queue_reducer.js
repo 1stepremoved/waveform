@@ -40,8 +40,8 @@ const queueReducer = (state=initialState, action) => {
       newState.startTrack = true;
       return newState;
     case MOVE_TO_TRACK:
-      newState.currentId = action.trackId;
-      newState.currentTrack = newState.trackIds.indexOf(action.trackId);
+      newState.currentTrack = action.place;
+      newState.currentId = newState.trackIds[newState.order[newState.currentTrack]];
       newState.paused = false;
       newState.startTrack = true;
       return newState;

@@ -86,7 +86,7 @@ class SessionForm extends React.Component{
     if (e.target.className === "session-form-screen") {
       this.props.changeForm("closing-session-form");
       const that = this;
-      setTimeout(() => {that.props.changeForm(null)}, 500);
+      setTimeout(() => {that.props.changeForm(null);}, 500);
       this.setState({username: "", email: "", password: "", password2: "", page: 1, in: false});
       this.props.clearErrors();
     }
