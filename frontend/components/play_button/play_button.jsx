@@ -21,7 +21,14 @@ class PlayButton extends React.Component {
   }
 
   isPauseButton() {
-    return (this.props.currentlyPlaying && !this.props.paused);
+    if (this.props.currentlyPlaying) {
+      if (this.props.inQueue) {
+        return this.props.currentTrack === this.props.place && !this.props.paused;
+      } else {
+        return !this.props.paused;
+      }
+    }
+    return false;
   }
 
   render() {

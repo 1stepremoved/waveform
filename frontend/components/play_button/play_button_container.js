@@ -5,7 +5,7 @@ import { addToQueueNow, pause, moveToTrack } from '../../actions/queue_actions';
 const mapStateToProps = (state, ownProps) => {
   return {
     paused: state.queue.paused,
-    currentlyPlaying: ownProps.track ? (state.queue.currentId === ownProps.track.id && state.queue.currentTrack === ownProps.queuePlace) : false,
+    currentlyPlaying: ownProps.track ? (state.queue.currentId === ownProps.track.id) : false,
     currentId: state.queue.currentId,
     currentTrack: state.queue.currentTrack,
     place: ownProps.queuePlace
