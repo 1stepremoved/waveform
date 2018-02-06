@@ -53,12 +53,14 @@ class SessionForm extends React.Component{
       this.props.signUp(user)
         .then(() => {
           this.props.history.push("/collection");
+          this.setState({username: "", email: "", password: "", password2: "", page: 1, in: false});
           this.props.changeForm(null);
         });
     } else {
       this.props.logIn(user)
         .then(() => {
           this.props.history.push("/collection");
+          this.setState({username: "", email: "", password: "", password2: "", page: 1, in: false});
           this.props.changeForm(null);
         });
     }
@@ -151,10 +153,8 @@ class SessionForm extends React.Component{
               null
             }
             <input type="submit" value={submitText}></input>
+          <div onClick={this.guestLogin} id="guest-login-button">Log in as guest</div>
           </div>
-          <form id="guest-login-form" onSubmit={this.guestLogin}>
-            <input id="guest-login-input" type="submit" value="Log in as guest"></input>
-          </form>
         </form>
         </div>
 
@@ -163,7 +163,7 @@ class SessionForm extends React.Component{
   }
 
   revertPage() {
-    this.setState({page: 1});
+    this.setState({page: 1, password: "", password2: ""});
   }
 
   secondPage() {

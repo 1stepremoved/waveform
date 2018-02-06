@@ -29,6 +29,7 @@
 
 .session-form {
   // position: absolute;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -66,7 +67,30 @@
     border-radius: 5px;
     font-size: 18px;
     color: white;
-    width: 100%
+    width: 100%;
+    cursor: pointer;
+
+    &:active {
+      background-color: #0268df;
+    }
+  }
+}
+
+#guest-login-button {
+  display: block;
+  margin: auto;
+  padding: 10px 0px;
+  background-color: #2288ff;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 40px;
+
+  &:active {
+    background-color: #0268df;
   }
 }
 
