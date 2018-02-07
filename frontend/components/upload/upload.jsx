@@ -43,6 +43,11 @@ class Upload extends React.Component {
         that.setState({[type]: file, [`${type}Url`]: fileReader.result, page2: true});
         if (type==="track"){
           that.form2.scrollIntoView(true);
+          if (this.state.uploaded) {
+            this.setState({title: "", description: "",
+              trackImage: null, trackImageURL: window.staticImages.defaulTrackImage,
+              titleMissingError: false, uploaded: false, uploading: false});
+          }
         }
       };
 
@@ -127,7 +132,7 @@ class Upload extends React.Component {
               <i className="fas fa-camera"></i> Update Image
             </label>
             <input onChange={this.updateFile("trackImage")} type="file"
-              id='change-image-file'></input>
+              id='change-image-file' accept=".jpg,.jpeg,.png"></input>
           </div>
           <div id="upload-track-info">
             <label>Title <span id="upload-title-missing-error">{
@@ -166,7 +171,7 @@ class Upload extends React.Component {
             Choose a file to upload
           </label>
           <input type="file" id="track-upload-input" type="file"
-            onChange={this.updateFile("track")}></input>
+            onChange={this.updateFile("track")} accept=".mp3"></input>
 
             {this.page2()}
 
