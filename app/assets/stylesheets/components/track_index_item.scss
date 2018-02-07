@@ -1,6 +1,10 @@
 .track-index-item-container {
   display: flex;
   margin: 30px 22.5px;
+
+  &:last-of-type {
+    margin-bottom: 50px;
+  }
 }
 
 .track-index-item-image {

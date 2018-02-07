@@ -22,3 +22,11 @@
 .background-blue {
   background-color:  #1177ff;
 }
+
+html, body, #root {
+  height: 100%;
+}
+
+#root > main {
+  height: 100%;
+}
