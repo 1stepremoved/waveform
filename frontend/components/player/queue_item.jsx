@@ -47,7 +47,7 @@ class QueueItem extends React.Component {
   }
 
   setInactive() {
-    if (this.props.currentTrackId !== this.props.trackId){
+    if (this.props.currentTrack !== this.props.place){
       this.setState({active: false});
     }
   }
