@@ -7,7 +7,8 @@ class QueueItem extends React.Component {
     super(props);
     this.state = {active: this.props.currentTrackId === this.props.trackId,
                   navOpen: false,
-                  optsVisible: false};
+                  optsVisible: false,
+                  collapsed: false};
     this.trackLoaded = this.trackLoaded.bind(this);
     this.setActive =  this.setActive.bind(this);
     this.setInactive =  this.setInactive.bind(this);
@@ -19,6 +20,8 @@ class QueueItem extends React.Component {
     this.toggleLike = this.toggleLike.bind(this);
     this.toggleOpts = this.toggleOpts.bind(this);
     this.optsClickout = this.optsClickout.bind(this);
+    this.startMove = this.startMove.bind(this);
+    this.resolveMove = this.resolveMove.bind(this);
   }
 
   componentDidMount() {
@@ -115,32 +118,86 @@ class QueueItem extends React.Component {
     );
   }
 
+  startMove(e) {
+    document.addEventListener("mouseup", this.resolveMove);
+    this.setState({collapsed: true});
+  }
+
+  resolveMove(e) {
+    let target = e.target;
+    while (target !== null) {
+      if (target.id === "queue-container") {
+        this.setState({collapsed: false});
+        document.removeEventListener("mouseup", this.resolveMove);
+        return;
+      }
+      target = target.parentElement;
+    }
+    // debugger
+    this.setState({collapsed: false});
+    if (this.props.currentTrack !== this.props.place){
+      this.props.removeFromQueue(this.props.place);
+    }
+    document.removeEventListener("mouseup", this.resolveMove);
+  }
+
   render () {
     return (
-      <section className="queue-item-container"
-        onMouseEnter={this.setActive}  onMouseLeave={this.setInactive} >
-        <div className="queue-item-image"
-          style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`,
-                  opacity: `${this.state.active ? '1' : '0.5'}`}}>
-          <PlayButtonContainer visible={this.state.active} classname="queue-item-play-button"
-            track={this.props.track ? this.props.track : this.fauxTrack }
-            inQueue={true}
-            queuePlace={this.props.place} />
-        </div>
-        <div className="queue-item-by-info">
-          <div className="queue-item-track-artist" >
-            <Link to={`/users/${this.trackLoaded("userId")}`}>{this.trackLoaded("username")}</Link>
+      <section className={`queue-item-container ${this.state.collapsed ? "shorten" : ""}`}
+        id={`queue-item-${this.props.place}`} onMouseEnter={this.setActive}  onMouseLeave={this.setInactive}>
+        {this.state.collapsed ? null :
+          <div className="queue-item-box">
+            <div onMouseDown={this.startMove} className="queue-item-handle">
+            </div>
+            <div className="queue-item-image"
+              style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`,
+              opacity: `${this.state.active ? '1' : '0.5'}`}}>
+              <PlayButtonContainer visible={this.state.active} classname="queue-item-play-button"
+                track={this.props.track ? this.props.track : this.fauxTrack }
+                inQueue={true}
+                queuePlace={this.props.place} />
+            </div>
+            <div className="queue-item-by-info">
+              <div className="queue-item-track-artist" >
+                <Link to={`/users/${this.trackLoaded("userId")}`}>{this.trackLoaded("username")}</Link>
+              </div>
+              <div className="queue-item-track-name"
+                style={{color: `${this.state.active ? '#000' : '#999'}`}}>
+                <Link to={`/tracks/${this.trackLoaded("id")}`}>{this.trackLoaded("title")}</Link>
+              </div>
+            </div>
+            {!this.state.active ? null : this.renderPanel()}
           </div>
-          <div className="queue-item-track-name"
-            style={{color: `${this.state.active ? '#000' : '#999'}`}}>
-            <Link to={`/tracks/${this.trackLoaded("id")}`}>{this.trackLoaded("title")}</Link>
-          </div>
-        </div>
-        {!this.state.active ? null : this.renderPanel()}
+        }
       </section>
     );
   }
 }
+
+// <section className={`queue-item-container ${this.state.collapsed ? "shorten" : ""}`}
+//   id={`queue-item-${this.props.place}`} onMouseEnter={this.setActive}  onMouseLeave={this.setInactive}>
+//   <div onMouseDown={this.startMove} className={`queue-item-handle ${this.state.collapsed ? "shorten" : ""}`}>
+//   </div>
+//   <div className={`queue-item-image ${this.state.collapsed ? "shorten" : ""}`}
+//     style={{backgroundImage: `url(${this.trackLoaded("imageUrl")})`,
+//             opacity: `${this.state.active ? '1' : '0.5'}`}}>
+//     <PlayButtonContainer visible={!this.state.collapsed && this.state.active} classname="queue-item-play-button"
+//       track={this.props.track ? this.props.track : this.fauxTrack }
+//       inQueue={true}
+//       queuePlace={this.props.place} />
+//   </div>
+//   <div className={`queue-item-by-info ${this.state.collapsed ? "shorten" : ""}`}>
+//     <div className={`queue-item-track-artist ${this.state.collapsed ? "shorten" : ""}`} >
+//       <Link to={`/users/${this.trackLoaded("userId")}`}>{this.trackLoaded("username")}</Link>
+//     </div>
+//     <div className={`queue-item-track-name ${this.state.collapsed ? "shorten" : ""}`}
+//       style={{color: `${this.state.active ? '#000' : '#999'}`}}>
+//       <Link className={`${this.state.collapsed ? "shorten" : ""}`}
+//         to={`/tracks/${this.trackLoaded("id")}`}>{this.trackLoaded("title")}</Link>
+//     </div>
+//   </div>
+//   {!this.state.active || this.state.collapsed ? null : this.renderPanel()}
+// </section>
 
 // {!this.state.navOpen ? null :
 //   <section className="queue-item-nav">

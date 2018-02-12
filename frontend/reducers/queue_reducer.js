@@ -20,6 +20,7 @@ let initialState = {
 const queueReducer = (state=initialState, action) => {
   Object.freeze(state);
   let newState = merge({}, state);
+  let left, right, trackIdPlace;
   switch (action.type) {
     case ADD_TO_QUEUE_END:
       newState.order.push(newState.order.length);
@@ -116,8 +117,8 @@ const queueReducer = (state=initialState, action) => {
       newState.startTrack = action.value;
       return newState;
     case MOVE_CURRENT_TRACK:
-      let left = state.order.slice(0,state.currentTrack);
-      let right = state.order.slice(state.currentTrack + 1);
+      left = state.order.slice(0,state.currentTrack);
+      right = state.order.slice(state.currentTrack + 1);
       if (action.dir === "back") {
         right.unshift(left.pop());
       } else {
@@ -127,6 +128,25 @@ const queueReducer = (state=initialState, action) => {
       return newState;
     case RESET_RESTART:
       newState.restart = false;
+      return newState;
+    case REMOVE_FROM_QUEUE:
+      trackIdPlace = state.order[action.place];
+      left = state.trackIds.slice(0, trackIdPlace);
+      right = state.trackIds.slice(trackIdPlace + 1);
+      newState.trackIds = left.concat(right);
+      left = state.order.slice(0,action.place);
+      right = state.order.slice(action.place + 1);
+      newState.order = left.concat(right);
+      newState.order = newState.order.map(el => {
+        if (el >= trackIdPlace) {
+          return el - 1;
+        } else {
+          return el;
+        }
+      });
+      if (newState.currentTrack >= action.place) {
+        newState.currentTrack -= 1;
+      }
       return newState;
     default:
       return state;

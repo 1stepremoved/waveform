@@ -191,11 +191,11 @@ const trackReducer = (state = {}, action) => {
         });
       }
       return newState;
-    case REMOVE_FROM_QUEUE:
-      newState = merge({}, state);
-      track = newState[action.trackId];
-      track.audio = null;
-      return newState;
+    // case REMOVE_FROM_QUEUE:
+    //   newState = merge({}, state);
+    // track = newState[action.trackId];
+    // track.audio = null;
+    //   return newState;
     case CLEAR_QUEUE:
       newState = merge({}, state);
       Object.keys(newState).forEach(trackId => {

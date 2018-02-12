@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     moveCurrentTrack: (dir) => dispatch(moveCurrentTrack(dir)),
-    removeFromQueue: (id) => dispatch(removeFromQueue(id)),
+    removeFromQueue: (place) => dispatch(removeFromQueue(place)),
     addToQueueEnd: (id) => dispatch(addToQueueEnd(id)),
     addToQueueNext: (id) => dispatch(addToQueueNext(id)),
     requestTrack: (id) => dispatch(requestTrack(id)),

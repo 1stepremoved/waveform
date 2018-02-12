@@ -10,12 +10,31 @@
   }
 }
 
+
 .queue-item-container {
+  display: flex;
+  position: relative;
+  transition: height 300ms;
+}
+
+.queue-item-box {
   display: flex;
   position: relative;
   align-items: center;
   margin: 10px 15px;
-  padding-left: 15px;
+  margin-left: 0;
+  padding-left: 0px;
+}
+
+.queue-item-handle {
+  width: 30px;
+  height: 35px;
+  cursor: move;
+}
+
+.shorten {
+  height: 3px;
+  background-color: #2577f9;
 }
 
 .queue-item-image {

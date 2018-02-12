@@ -36,10 +36,10 @@ export const addToQueueNext = (trackId) => {
   };
 };
 
-export const removeFromQueue = (trackId) => {
+export const removeFromQueue = (place) => {
   return {
     type: REMOVE_FROM_QUEUE,
-    trackId
+    place
   };
 };
 
