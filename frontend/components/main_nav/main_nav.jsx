@@ -51,7 +51,7 @@ import SearchIndexItemContainer from './search_index_item_container';
 
              <div className="main-nav-left">
                <li className="main-nav-left-link">
-                 <Link to="/" className="main-nav-logo-button">
+                 <Link to="/stream" className="main-nav-logo-button">
                    <img src={window.staticImages.logo} className="main-logo"></img>
                  </Link>
                </li>
