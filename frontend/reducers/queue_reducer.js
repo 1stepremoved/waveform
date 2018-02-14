@@ -2,7 +2,7 @@ import { ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
          REMOVE_FROM_QUEUE, CLEAR_QUEUE, NEXT_SONG, LAST_SONG,
          SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK, MOVE_CURRENT_TRACK,
          MOVE_TRACK, MOVE_TO_TRACK, RESET_RESTART,
-         COLLAPSE_QUEUE_ITEM, COLLAPSE_QUEUE_ITEM_POSITON} from '../actions/queue_actions';
+         COLLAPSE_QUEUE_ITEM, COLLAPSE_QUEUE_ITEM_POSITION} from '../actions/queue_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -171,7 +171,7 @@ const queueReducer = (state=initialState, action) => {
     case COLLAPSE_QUEUE_ITEM:
       newState.collapsedQueueItem = action.place;
       return newState;
-    case COLLAPSE_QUEUE_ITEM_POSITON:
+    case COLLAPSE_QUEUE_ITEM_POSITION:
       newState.collapsedQueueItemPosition = action.position;
       return newState;
     default:

@@ -16,7 +16,7 @@ export const MOVE_TRACK = "MOVE_TRACK";
 export const MOVE_TO_TRACK = "MOVE_TO_TRACK";
 export const RESET_RESTART = "RESET_RESTART";
 export const COLLAPSE_QUEUE_ITEM = "COLLAPSE_QUEUE_ITEM";
-export const COLLAPSE_QUEUE_ITEM_POSITON = "COLLAPSE_QUEUE_ITEM_POSITON";
+export const COLLAPSE_QUEUE_ITEM_POSITION = "COLLAPSE_QUEUE_ITEM_POSITION";
 
 export const addToQueueEnd = (trackId) => {
   return {
@@ -120,7 +120,7 @@ export const collapseQueueItem = (place) => {
 
 export const collapseQueueItemPosition = (position) => {
   return {
-    type: COLLAPSE_QUEUE_ITEM,
+    type: COLLAPSE_QUEUE_ITEM_POSITION,
     position
   };
 };

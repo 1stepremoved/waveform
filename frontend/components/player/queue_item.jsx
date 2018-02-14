@@ -29,6 +29,7 @@ class QueueItem extends React.Component {
   componentDidMount() {
     if (!this.props.track) {
       this.props.requestTrack(this.props.trackId);
+      // this.queueItem.scollIntoViewIfNeeded();
     }
   }
 
@@ -38,8 +39,11 @@ class QueueItem extends React.Component {
     } else {
       this.setState({active: false});
     }
-    if (newProps.placeInQueue === this.props.collapsedQueueItem) {
-      this.queueItem.scollIntoView();
+  }
+
+  componentDidUpdate() {
+    if (this.props.placeInQueue === this.props.collapsedQueueItem) {
+      this.queueItem.scrollIntoViewIfNeeded();
     }
   }
 
@@ -127,7 +131,7 @@ class QueueItem extends React.Component {
     document.addEventListener("mouseup", this.resolveMove);
     document.addEventListener("mousemove", this.moveQueueItem);
     this.props.collapseQueueItem(this.props.placeInQueue);
-    // this.props.collapseQueueItemPosition(this.queueItem.getBoundingClientRect()['y']);
+    this.props.collapseQueueItemPosition(this.queueItem.getBoundingClientRect()['y']);
     this.setState({
       collapsed: true,
       startY: this.queueItem.getBoundingClientRect()['y'],
@@ -139,19 +143,22 @@ class QueueItem extends React.Component {
     e.preventDefault();
     // debugger
     e.stopPropagation();
-    if (Date.now() - 300 < this.state.lastMove) {
-      return;
-    }
-    if (e.clientY + 50 - this.state.startY < 0 ) {
+    // if (Date.now() - 300 < this.state.lastMove) {
+    //   return;
+    // }
+    let queueItem;
+    if (e.clientY + 50 - this.props.collapsedQueueItemPosition < 0 ) {
       this.props.moveTrack(true);
-      // this.props.collapseQueueItemPosition(this.queueItem.getBoundingClientRect()['y']);
+      queueItem = document.getElementById(`queue-item-${this.props.collapsedQueueItem}`);
+      this.props.collapseQueueItemPosition(queueItem.getBoundingClientRect()['y']);
       this.setState({
         startY: this.queueItem.getBoundingClientRect()['y'],
         lastMove: Date.now()
       });
-    } else if (e.clientY - 50 - this.state.startY > 0 ) {
+    } else if (e.clientY - 50 - this.props.collapsedQueueItemPosition > 0 ) {
       this.props.moveTrack(false);
-      // this.props.collapseQueueItemPosition(this.queueItem.getBoundingClientRect()['y']);
+      queueItem = document.getElementById(`queue-item-${this.props.collapsedQueueItem}`);
+      this.props.collapseQueueItemPosition(queueItem.getBoundingClientRect()['y']);
       this.setState({
         startY: this.queueItem.getBoundingClientRect()['y'],
         lastMove: Date.now()
@@ -184,7 +191,7 @@ class QueueItem extends React.Component {
   render () {
     return (
       <section className={`queue-item-container ${this.props.collapsed ? "shorten" : ""}`}
-        id={`queue-item-${this.props.place}`} onMouseEnter={this.setActive}  onMouseLeave={this.setInactive}
+        id={`queue-item-${this.props.placeInQueue}`} onMouseEnter={this.setActive}  onMouseLeave={this.setInactive}
         ref={(queueItem) => {this.queueItem = queueItem;}}>
         {this.props.collapsed ? null :
           <div className="queue-item-box">

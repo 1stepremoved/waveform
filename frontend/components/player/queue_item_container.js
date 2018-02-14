@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
     deleteLike: (id) => dispatch(deleteLike(id)),
     moveTrack: (backwards) => dispatch(moveTrack(backwards)),
     collapseQueueItem: (place) => dispatch(collapseQueueItem(place)),
-    collapseQueueItemPosition: (position) => dispatch(collapseQueueItem(position))
+    collapseQueueItemPosition: (position) => dispatch(collapseQueueItemPosition(position))
   };
 };
 
