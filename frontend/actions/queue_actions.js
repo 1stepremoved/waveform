@@ -12,8 +12,11 @@ export const PAUSE = "PAUSE";
 export const SET_POSITION = "SET_POSITION";
 export const START_TRACK = "START_TRACK";
 export const MOVE_CURRENT_TRACK = "MOVE_CURRENT_TRACK";
+export const MOVE_TRACK = "MOVE_TRACK";
 export const MOVE_TO_TRACK = "MOVE_TO_TRACK";
 export const RESET_RESTART = "RESET_RESTART";
+export const COLLAPSE_QUEUE_ITEM = "COLLAPSE_QUEUE_ITEM";
+export const COLLAPSE_QUEUE_ITEM_POSITON = "COLLAPSE_QUEUE_ITEM_POSITON";
 
 export const addToQueueEnd = (trackId) => {
   return {
@@ -100,6 +103,28 @@ export const moveCurrentTrack = (dir) => {
     dir
   };
 };
+
+export const moveTrack = (backwards) => {
+  return {
+    type: MOVE_TRACK,
+    backwards
+  };
+};
+
+export const collapseQueueItem = (place) => {
+  return {
+    type: COLLAPSE_QUEUE_ITEM,
+    place
+  };
+};
+
+export const collapseQueueItemPosition = (position) => {
+  return {
+    type: COLLAPSE_QUEUE_ITEM,
+    position
+  };
+};
+
 
 export const moveToTrack = (place) => {
   return {

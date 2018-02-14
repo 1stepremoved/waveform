@@ -1,7 +1,8 @@
 import { ADD_TO_QUEUE_END, ADD_TO_QUEUE_NOW, ADD_TO_QUEUE_NEXT,
          REMOVE_FROM_QUEUE, CLEAR_QUEUE, NEXT_SONG, LAST_SONG,
          SHUFFLE, REPEAT, PAUSE, SET_POSITION, START_TRACK, MOVE_CURRENT_TRACK,
-         MOVE_TO_TRACK, RESET_RESTART} from '../actions/queue_actions';
+         MOVE_TRACK, MOVE_TO_TRACK, RESET_RESTART,
+         COLLAPSE_QUEUE_ITEM, COLLAPSE_QUEUE_ITEM_POSITON} from '../actions/queue_actions';
 import merge from 'lodash/merge';
 
 let initialState = {
@@ -14,13 +15,15 @@ let initialState = {
   order: [],
   shuffle: false,
   repeat: false,
-  restart: false
+  restart: false,
+  collapsedQueueItem: -1,
+  collapsedQueueItemPosition: null
 };
 
 const queueReducer = (state=initialState, action) => {
   Object.freeze(state);
   let newState = merge({}, state);
-  let left, right, trackIdPlace;
+  let left, right, trackIdPlace, temp;
   switch (action.type) {
     case ADD_TO_QUEUE_END:
       newState.order.push(newState.order.length);
@@ -126,6 +129,23 @@ const queueReducer = (state=initialState, action) => {
       }
       newState.order = left.concat(state.currentTrack).concat(right);
       return newState;
+    case MOVE_TRACK:
+      if (action.backwards) {
+        if (newState.collapsedQueueItem > 0) {
+          temp = newState.order[newState.collapsedQueueItem - 1];
+          newState.order[newState.collapsedQueueItem - 1] = newState.order[newState.collapsedQueueItem];
+          newState.order[newState.collapsedQueueItem] = temp;
+          newState.collapsedQueueItem -= 1;
+        }
+      } else {
+        if (newState.collapsedQueueItem < newState.order.length - 1) {
+          temp = newState.order[newState.collapsedQueueItem + 1];
+          newState.order[newState.collapsedQueueItem + 1] = newState.order[newState.collapsedQueueItem];
+          newState.order[newState.collapsedQueueItem] = temp;
+          newState.collapsedQueueItem += 1;
+        }
+      }
+      return newState;
     case RESET_RESTART:
       newState.restart = false;
       return newState;
@@ -147,6 +167,12 @@ const queueReducer = (state=initialState, action) => {
       if (newState.currentTrack >= action.place) {
         newState.currentTrack -= 1;
       }
+      return newState;
+    case COLLAPSE_QUEUE_ITEM:
+      newState.collapsedQueueItem = action.place;
+      return newState;
+    case COLLAPSE_QUEUE_ITEM_POSITON:
+      newState.collapsedQueueItemPosition = action.position;
       return newState;
     default:
       return state;

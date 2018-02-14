@@ -17,6 +17,7 @@ class Queue extends React.Component {
   }
 
   render () {
+    let trackId;
     return (
       <main id="queue-container">
         <section id="queue-controls">
@@ -28,8 +29,9 @@ class Queue extends React.Component {
           </div>
         </section>
         <section id="queue-index-container">
-          {this.props.trackIds.map((trackId, id)=> {
-            return <QueueItemContainer key={id} place={id} trackId={trackId} />;
+          {this.props.order.map((place, id)=> {
+            trackId = this.props.trackIds[place];
+            return <QueueItemContainer key={id} placeInQueue={id} place={place} trackId={trackId} />;
           })}
         </section>
       </main>

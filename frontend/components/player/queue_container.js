@@ -7,6 +7,7 @@ import { clearQueue } from '../../actions/queue_actions';
 const mapStateToProps = (state) => {
   return {
     trackIds: state.queue.trackIds,
+    order: state.queue.order,
     currentId: state.queue.currentId,
     queueVisible: state.ui.queueVisible,
     currentMenu: state.ui.currentMenu

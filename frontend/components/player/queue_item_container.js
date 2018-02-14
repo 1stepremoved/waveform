@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import {moveCurrentTrack, removeFromQueue, addToQueueEnd, addToQueueNext} from '../../actions/queue_actions';
+import {moveCurrentTrack, removeFromQueue, addToQueueEnd,
+        addToQueueNext, moveTrack, collapseQueueItem, collapseQueueItemPosition} from '../../actions/queue_actions';
 import {requestTrack} from '../../actions/track_actions';
 import QueueItem from './queue_item';
 import { createLike, deleteLike } from '../../actions/like_actions';
@@ -14,7 +15,11 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.session.currentUser,
     currentTrackId: state.queue.currentId,
     currentTrack: state.queue.currentTrack,
-    key: ownProps.key,
+    placeInQueue: ownProps.placeInQueue,
+    collapsedQueueItem: state.queue.collapsedQueueItem,
+    collapsedQueueItemPosition: state.queue.collapsedQueueItemPosition,
+    collapsed: state.queue.collapsedQueueItem === ownProps.placeInQueue,
+    place: ownProps.place,
     isLiked
   };
 };
@@ -28,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     requestTrack: (id) => dispatch(requestTrack(id)),
     createLike: (like) => dispatch(createLike(like)),
     deleteLike: (id) => dispatch(deleteLike(id)),
+    moveTrack: (backwards) => dispatch(moveTrack(backwards)),
+    collapseQueueItem: (place) => dispatch(collapseQueueItem(place)),
+    collapseQueueItemPosition: (position) => dispatch(collapseQueueItem(position))
   };
 };
 
