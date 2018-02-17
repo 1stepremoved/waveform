@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => {
     currentlyPlaying: ownProps.track ? (state.queue.currentId === ownProps.track.id) : false,
     currentId: state.queue.currentId,
     currentTrack: state.queue.currentTrack,
-    place: ownProps.queuePlace
+    place: ownProps.place,
+    placeInQueue: ownProps.placeInQueue
   };
 };
 

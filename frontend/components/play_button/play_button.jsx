@@ -9,9 +9,9 @@ class PlayButton extends React.Component {
   }
 
   togglePause() {
-    if (this.props.currentId !== this.props.track.id || (this.props.inQueue && this.props.place !== this.props.currentTrack)){
+    if (this.props.currentId !== this.props.track.id || (this.props.inQueue && this.props.placeInQueue !== this.props.currentTrack)){
       if (this.props.inQueue) {
-        this.props.moveToTrack(this.props.place);
+        this.props.moveToTrack(this.props.placeInQueue);
       } else {
         this.props.addToQueueNow(this.props.track.id);
       }
@@ -23,7 +23,7 @@ class PlayButton extends React.Component {
   isPauseButton() {
     if (this.props.currentlyPlaying) {
       if (this.props.inQueue) {
-        return this.props.currentTrack === this.props.place && !this.props.paused;
+        return this.props.currentTrack === this.props.placeInQueue && !this.props.paused;
       } else {
         return !this.props.paused;
       }

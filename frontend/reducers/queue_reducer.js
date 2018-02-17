@@ -135,6 +135,11 @@ const queueReducer = (state=initialState, action) => {
           temp = newState.order[newState.collapsedQueueItem - 1];
           newState.order[newState.collapsedQueueItem - 1] = newState.order[newState.collapsedQueueItem];
           newState.order[newState.collapsedQueueItem] = temp;
+          if (newState.currentTrack === newState.collapsedQueueItem) {
+            newState.currentTrack -= 1;
+          } else if (newState.collapsedQueueItem - 1  === newState.currentTrack) {
+            newState.currentTrack += 1;
+          }
           newState.collapsedQueueItem -= 1;
         }
       } else {
@@ -142,6 +147,11 @@ const queueReducer = (state=initialState, action) => {
           temp = newState.order[newState.collapsedQueueItem + 1];
           newState.order[newState.collapsedQueueItem + 1] = newState.order[newState.collapsedQueueItem];
           newState.order[newState.collapsedQueueItem] = temp;
+          if (newState.currentTrack === newState.collapsedQueueItem) {
+            newState.currentTrack += 1;
+          } else if (newState.collapsedQueueItem + 1 === newState.currentTrack) {
+            newState.currentTrack -= 1;
+          }
           newState.collapsedQueueItem += 1;
         }
       }
