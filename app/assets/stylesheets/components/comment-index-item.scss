@@ -18,10 +18,9 @@
   flex-direction: column;
 }
 
-.comment-index-item-info-upper {
+.comment-index-item-info-upper, .comment-index-item-info-lower  {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
 }
 
 .comment-index-item-username {
@@ -41,4 +40,49 @@
 
 .comment-index-item-date {
   min-width: 100px;
+  font-size: 11px;
+}
+
+.comment-index-item-trash {
+  margin-right: 50px;
+  cursor: pointer;
+  position: relative;
+}
+
+.comment-index-item-trash-confirmation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  font-size: 12px;
+  width: 300px;
+
+  p {
+    margin: 5px;
+  }
+
+  section {
+    margin: 5px;
+    display: flex;
+    float: right;
+
+    div {
+      padding: 2px 5px;
+      border-radius: 2px;
+      border: 1px solid gray;
+      margin: 0 5px;
+
+      &:hover{
+        background-color:  #1177ff;
+      }
+
+      &:active {
+        background-color:  #0047cf;
+      }
+    }
+  }
 }

@@ -4,7 +4,8 @@ import { requestUser } from '../../actions/user_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.entities.users[ownProps.comment.userId]
+    user: state.entities.users[ownProps.comment.userId],
+    belongsToCU: state.session.currentUser.id === ownProps.comment.userId
   };
 };
 
