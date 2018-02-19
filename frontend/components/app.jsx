@@ -14,8 +14,8 @@ import StreamContainer from './stream/stream_container';
 const App = () => (
   <main>
     <MainNavContainer></MainNavContainer>
-    <AuthRoute path="/" component={SplashContainer}></AuthRoute>
-    <AuthRoute path="/" component={SessionFormContainer}></AuthRoute>
+    <AuthRouteExact path="/" component={SplashContainer}></AuthRouteExact>
+    <AuthRouteExact path="/" component={SessionFormContainer}></AuthRouteExact>
     <ProtectedRoute path="/collection" component={CollectionContainer}></ProtectedRoute>
     <ProtectedRoute path="/stream" component={StreamContainer}></ProtectedRoute>
     <ProtectedRoute path="/upload" component={UploadContainer}></ProtectedRoute>

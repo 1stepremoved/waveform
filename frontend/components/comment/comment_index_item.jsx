@@ -50,15 +50,17 @@ class CommentIndexItem extends React.Component {
           style={{backgroundImage: `url(${this.loadedUser("profileImageUrl")})`, display: 'block'}}>
         </Link>
         <div className="comment-index-item-info">
-          <div className="comment-index-item-username">
-            <Link to={`/users/${this.loadedUser('id')}`}>{this.loadedUser("username")}</Link> at <span>{this.parseTime(this.props.comment.timestamp)}</span>
+          <div className="comment-index-item-info-upper">
+            <div className="comment-index-item-username">
+              <Link to={`/users/${this.loadedUser('id')}`}>{this.loadedUser("username")}</Link> at <span>{this.parseTime(this.props.comment.timestamp)}</span>
+            </div>
+            <div className="comment-index-item-date">
+              {this.timeStamp()}
+            </div>
           </div>
           <div className="comment-index-item-body">
             {this.props.comment.body}
           </div>
-        </div>
-        <div className="comment-index-item-date">
-          {this.timeStamp()}
         </div>
       </section>
     );

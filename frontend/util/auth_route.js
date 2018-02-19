@@ -27,7 +27,7 @@ const AuthExact = ({ component: Component, path, loggedIn }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/stream" />
+      <Redirect to="/collect" />
     )
   )} />
 );

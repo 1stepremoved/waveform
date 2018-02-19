@@ -18,6 +18,12 @@
   flex-direction: column;
 }
 
+.comment-index-item-info-upper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
 .comment-index-item-username {
   font-size: 11px;
   width: 100%;
