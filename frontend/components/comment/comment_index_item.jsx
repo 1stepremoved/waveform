@@ -8,6 +8,7 @@ class CommentIndexItem extends React.Component {
     this.loadedUser = this.loadedUser.bind(this);
     this.setActiveValue = this.setActiveValue.bind(this);
     this.setConfirmationValue = this.setConfirmationValue.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,10 @@ class CommentIndexItem extends React.Component {
     if (this.props.belongsToCU) {
       this.setState({confirmation: bool});
     }
+  }
+
+  deleteComment() {
+    this.props.deleteComment(); //default values in container
   }
 
   parseTime(time) {
@@ -91,7 +96,7 @@ class CommentIndexItem extends React.Component {
                         <div onClick={() => this.setConfirmationValue(false)}>
                           Cancel
                         </div>
-                        <div>
+                        <div onClick={this.deleteComment}>
                           Yes
                         </div>
                       </section>

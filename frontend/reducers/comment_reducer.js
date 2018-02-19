@@ -1,4 +1,5 @@
-import {RECEIVE_COMMENTS, RECEIVE_COMMENT, RECEIVE_COMMENT_ERRORS, CLEAR_COMMENTS} from '../actions/comment_actions';
+import {RECEIVE_COMMENTS, RECEIVE_COMMENT, RECEIVE_COMMENT_ERRORS,
+        REMOVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
 import merge from 'lodash/merge';
 
 const commentReducer = (state = {}, action) => {
@@ -16,6 +17,10 @@ const commentReducer = (state = {}, action) => {
     case RECEIVE_COMMENT:
       newState = merge({}, state, {[action.comment.id]: action.comment});
       newState[action.comment.id].created_at = new Date(newState[action.comment.id].created_at);
+      return newState;
+    case REMOVE_COMMENT:
+      newState = merge({}, state);
+      delete newState[action.comment.id];
       return newState;
     default:
       return state;

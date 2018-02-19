@@ -15,7 +15,7 @@ const App = () => (
   <main>
     <MainNavContainer></MainNavContainer>
     <AuthRouteExact path="/" component={SplashContainer}></AuthRouteExact>
-    <AuthRouteExact path="/" component={SessionFormContainer}></AuthRouteExact>
+    <Route path="/" component={SessionFormContainer}></Route>
     <ProtectedRoute path="/collection" component={CollectionContainer}></ProtectedRoute>
     <ProtectedRoute path="/stream" component={StreamContainer}></ProtectedRoute>
     <ProtectedRoute path="/upload" component={UploadContainer}></ProtectedRoute>

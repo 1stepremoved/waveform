@@ -14,3 +14,10 @@ export const createComment = (comment, trackId) => {
     data: {comment}
   });
 };
+
+export const deleteComment = (trackId, commentId) => {
+  return $.ajax({
+    method: "delete",
+    url: `/api/tracks/${trackId}/comments/${commentId}`
+  });
+};

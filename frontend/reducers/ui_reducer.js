@@ -1,7 +1,7 @@
 import { CHANGE_NAV, CHANGE_MENU, CHANGE_FORM, CLEAR_SEARCH_TRACKS,
         CHANGE_WAITING_TRACKS, RESET_VISIBLE_TRACKS,
         CHANGE_WAITING_COMMENTS, RESET_SEARCH } from '../actions/ui_actions';
-import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS} from '../actions/comment_actions';
+import {RECEIVE_COMMENTS, RECEIVE_COMMENT, CLEAR_COMMENTS, REMOVE_COMMENT} from '../actions/comment_actions';
 import { RECEIVE_TRACKS_AND_SHOW, RECEIVE_TRACKS_FOR_SEARCH, RECEIVE_TRACKS_FOR_SPLASH,
          RECEIVE_TRACK, RECEIVE_LIKED_TRACKS_AND_SHOW} from '../actions/track_actions';
 import merge from 'lodash/merge';
@@ -79,6 +79,10 @@ const uiReducer = (state = initialState, action) => {
     case RECEIVE_COMMENT:
       newState = merge({}, state);
       newState.totalComments += 1;
+      return newState;
+    case REMOVE_COMMENT:
+      newState = merge({}, state);
+      newState.totalComments -= 1;
       return newState;
     case CLEAR_COMMENTS:
       newState = merge({}, state);

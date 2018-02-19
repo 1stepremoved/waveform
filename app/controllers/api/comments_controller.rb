@@ -9,10 +9,6 @@ class Api::CommentsController < ApplicationController
     end
   end
 
-  def show
-
-  end
-
   def index
     offset = params[:offset] ? params[:offset] : 0
     limit = params[:limit] ? params[:limit] : 10
@@ -22,6 +18,19 @@ class Api::CommentsController < ApplicationController
       @comments = @comments.order('created_at DESC').offset(offset).limit(limit)
     end
     render "api/comments/index"
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    if current_user && current_user.id == @comment.user_id
+      if @comment.destroy
+        render "api/comments/show"
+      else
+        render json: @comment.errors.ful_messages, status: 422
+      end
+    else
+      render json: ["Users can only delete their own comments"], status: 401
+    end
   end
 
   private
