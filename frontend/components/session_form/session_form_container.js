@@ -7,7 +7,11 @@ const mapStateToProps = (state) => {
   return {
     errors: state.errors.session,
     loggedIn: state.session.currentUser,
-    formType: state.ui.currentForm
+    formType: state.ui.currentForm,
+    isVisible: state.ui.currentForm === "opening-session-form"
+            || state.ui.currentForm === "closing-session-form"
+            || state.ui.currentForm === "login"
+            || state.ui.currentForm === "signup"
   };
 };
 

@@ -231,7 +231,7 @@ class SessionForm extends React.Component{
   render () {
 
     return (
-      this.props.formType ? this.pages() : null
+      this.props.isVisible ? this.pages() : null
     );
   }
 }
