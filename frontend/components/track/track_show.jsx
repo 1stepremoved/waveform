@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayButtonContainer from '../play_button/play_button_container';
+import Vibrant from 'node-vibrant';
 import { Link } from 'react-router-dom';
 import CommentFormContainer from '../comment/comment_form_container';
 import CommentIndexItemContainer from '../comment/comment_index_item_container';
@@ -16,6 +17,8 @@ class TrackShow extends React.Component {
       description: (this.props.track) ? this.props.track.description : null,
       userId: (this.props.track) ? this.props.track.userId : null,
       commentRequestOffset: 0,
+      color1: "#002f84",
+      color2: "#3b9efe",
       optsVisible: false
     };
     this.handleScroll = this.handleScroll.bind(this);
@@ -38,6 +41,29 @@ class TrackShow extends React.Component {
           description: this.props.track.description,
           userId: this.props.track.userId
         });
+        // debugger
+        let url = that.props.track.imageUrl.replace(/^http:\/\//i, 'https://');
+        //Fetching didn't work for browser specific reasons; chrome and safari cache previous request without proper request headers for CORS... maybe
+        //If we don't change the URL to https from http and set img.crossOrigin to anonymous, Vibrant fails due to tainting from CORS.
+        //The latter makes sense, the former is confusing...
+        let img = document.createElement('img');
+        img.src = this.props.track.imageUrl;
+        img.crossOrigin = "anonymous";
+        img.onload = (res) => {
+          let vibrant = new Vibrant(img);
+          vibrant.getPalette().then(palette => {
+            let count = 1;
+            Object.keys(palette).forEach((key) => {
+              if (count > 2) {return;}
+              if (palette[key]) {
+                that.setState({[`color${count}`]: palette[key].getHex(), [`color${count + 1}`]: palette[key].getHex()});
+                count ++;
+              }
+            });
+          }).catch(err => console.log(err));
+        };
+        img.src = url;
+
         this.props.clearComments();
         this.props.requestComments(this.state.id, 0, 50);
       });
@@ -117,7 +143,7 @@ class TrackShow extends React.Component {
   render() {
     return (
       <main ref={(trackShow) => {this.trackShowPage = trackShow;}} id="track-show-container">
-        <section id="track-show-header">
+        <section id="track-show-header" style={{background: `linear-gradient(90deg, ${this.state.color1}, ${this.state.color2}`}}>
           <div id="track-show-header-left">
             <div id="track-show-header-info">
               {!this.props.track ? null :
